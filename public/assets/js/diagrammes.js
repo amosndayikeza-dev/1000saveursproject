@@ -14,7 +14,7 @@ new Chart(baton,{
             borderColor : 'rgb(0, 106, 98)',
             borderWidth : 1
         },{
-            label : '💸 Depenses',
+            label : '💸 Dépenses',
             data : [8000,17000,12000,10000,21000,27000,30000,32000,38000,40000,40000,42000],
             backgroundColor : 'rgb(253, 140, 92)',
             borderColor : 'rgb(253, 140, 92)',

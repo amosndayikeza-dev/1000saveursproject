@@ -392,5 +392,18 @@ input[type="checkbox"] {
 }
 .tft-icon-round-perso:hover{
     background-color: var(--clr-orange2);
-    transition: background 0.8s;
+    transition: background 0.7s;
+}
+
+/*les icones dont leurs background-color disparaissent quand on fait un hover sur elles*/
+.tft-icone_rmbg_orange:hover{
+    background-color: transparent !important;
+    border: 1.5px solid var(--clr-orange2);
+    transition: background 0.7s;
+}
+
+.tft-icone_rmbg_green:hover{
+    background-color: transparent !important;
+    border: 1.5px solid var(--clr-green1);
+    transition: background 0.7s;
 }
