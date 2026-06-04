@@ -188,8 +188,8 @@
                         <i class="fas fa-file-csv"></i> Export CSV
                     </button>
 
-                    <button class="tft-btn tft-bdr-gris-1 tft-clr-white3 tft-hover-greensav" onclick="window.print()">
-                        <i class="fas fa-print"></i> Imprimer
+                    <button class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav" onclick="exportSalesExcel()">
+                        <i class="fas fa-file-excel"></i> Export Excel
                     </button>
                     <!-- Fin Ajouts: filtres + export du rapport des ventes -->
                 </div>
@@ -944,5 +944,18 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDepartementsForSalesFilter();
     loadSalesReports();
 });
+
+
+function exportSalesExcel() {
+    const { startDate, endDate } = getStartEndForSales();
+    const params = new URLSearchParams({
+        action: 'sales',
+        format: 'excel',
+        startDate,
+        endDate
+    });
+    if (salesDepartementFilter !== null) params.set('departmentId', salesDepartementFilter);
+    window.location.href = `${SALES_EXPORT_BASE}?${params}`;
+}
 </script>
 </html>

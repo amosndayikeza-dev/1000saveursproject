@@ -6,7 +6,7 @@
     gap: 8px;
     margin-bottom: 20px;
     padding-bottom: 12px;
-    border-bottom: 1px solid var(--tft-gris2, rgba(255, 255, 255, 0.08));
+    border-bottom: 1px solid var(--tft-gris2, rgba(200, 240, 240, 0.05));
 }
 
 .mgr-tab {
@@ -14,13 +14,15 @@
     border-radius: 8px;
     border: 1px solid transparent;
     background: transparent;
-    color: var(--tft-white3, #9ca3af);
+    
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    /*transition: background 0.1s, color 0.2s, border-color 0.2s;*/
     display: inline-flex;
     align-items: center;
+    background: rgba(255, 255, 255, 0.05);  /* léger éclaircissement */
+    color: #e2e8f0;  /* texte plus lumineux */
     gap: 8px;
 }
 
@@ -30,7 +32,7 @@
 }
 
 .mgr-tab.mgr-tab-active {
-    background: rgba(34, 197, 94, 0.12);
+    background: rgba(169, 231, 192, 0.12);
     border-color: var(--tft-greensav, #22c55e);
     color: var(--tft-greensav, #22c55e);
 }
@@ -56,7 +58,7 @@
 }
 
 .mgr-card {
-    background: var(--tft-black2, #1a1d24);
+    background: var(--tft-black2, #545961);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 12px;
     padding: 20px;
@@ -81,7 +83,7 @@
 .mgr-kpi {
     padding: 18px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(92, 89, 89, 0.06);
 }
 
 .mgr-kpi-label {
@@ -437,3 +439,134 @@ color: #48505c;
     overflow-x: auto;
 }
 
+/* STYLE POUR UN TABLEAU DES VENTES*/
+.tft-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.tft-table th, .tft-table td {
+    padding: 10px;
+    text-align: left;
+}
+.tft-b-bottom-gris {
+    border-bottom: 1px solid #2d3748;
+}
+.tft-title3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4d5263;
+}
+.tft-title4 {
+    font-size: 13px;
+    color: #e2e8f0;
+}
+.tft-clr-white3 {
+    color: #e2e8f0;
+}
+.tft-clr-orangesav {
+    color: #f97316;
+}
+.mgr-empty-hint {
+    text-align: center;
+    padding: 30px;
+    color: #9ca3af;
+}
+.tft-clr-red {
+    color: #f87171;
+}
+
+/*gestion des dettes*/
+
+.mgr-badge-paid {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.mgr-badge-unpaid {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+/* Uniformisation du conteneur des dettes (comme stock) */
+.debts-container,
+.stock-container {
+    background: transparent;
+    padding: 0;
+}
+
+/* Carte contenant le tableau – sans bordure extérieure noire */
+.debts-container .mgr-card,
+.stock-container .mgr-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+/* Tableau – sans bordure extérieure */
+.debts-container .tft-table,
+.stock-container .tft-table {
+    border: none !important;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* En-tête – identique au stock */
+.debts-container .tft-table thead tr,
+.stock-container .tft-table thead tr {
+    background-color: var(--tft-black2, #1f2937);
+}
+
+.debts-container .tft-table th,
+.stock-container .tft-table th {
+    padding: 12px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #cbd5e1;
+    border-bottom: 2px solid #22c55e;
+}
+
+/* Lignes du tableau – identiques */
+.debts-container .tft-table td,
+.stock-container .tft-table td {
+    padding: 10px;
+    color: #e2e8f0;
+    border-bottom: 1px solid #2d3748;
+}
+
+/* Survol des lignes */
+.debts-container .tft-table tbody tr:hover,
+.stock-container .tft-table tbody tr:hover {
+    background-color: rgba(34, 197, 94, 0.08);
+}
+
+/* Messages vides */
+.mgr-empty-hint {
+    text-align: center;
+    padding: 30px;
+    color: #9ca3af;
+}
+
+/* Badges (déjà présents) */
+.mgr-badge-paid {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.mgr-badge-unpaid {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}

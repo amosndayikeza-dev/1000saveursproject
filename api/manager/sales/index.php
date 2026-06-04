@@ -20,7 +20,13 @@ try {
             break;
 
         case 'POST':
-            $sale = $service->createSale($departementId, $ctx['userId'], mgrReadJson());
+            $raw = file_get_contents('php://input');
+            $data = json_decode($raw, true);
+            if (!is_array($data)) {
+                mgrRespond(400, ['success' => false, 'message' => 'Données JSON invalides']);
+            }
+            $paidAmount = isset($data['paidAmount']) ? floatval($data['paidAmount']) : 0;
+            $sale = $service->createSale($departementId, $ctx['userId'], $data, $paidAmount);
             mgrRespond(201, ['success' => true, 'message' => 'Vente enregistrée', 'data' => $sale]);
             break;
 

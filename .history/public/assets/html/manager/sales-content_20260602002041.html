@@ -1,0 +1,27 @@
+<div class="sales-container">
+    <div class="mgr-toolbar">
+        <div class="tft-form-group">
+            <input type="text" id="sales-search" placeholder="Rechercher une vente..." class="tft-form-control">
+        </div>
+        <button class="tft-btn tft-bg-greensav" id="add-sale-btn" onclick="showAddSaleModal()">+ Nouvelle vente</button>
+    </div>
+    <table class="tft-table">
+        <thead>
+            <tr class="tft-b-bottom-gris">
+                <th class="tft-title3">ID</th>
+                <th class="tft-title3">Produit</th>
+                <th class="tft-title3">Quantité</th>
+                <th class="tft-title3">Prix unitaire</th>
+                <th class="tft-title3">Total</th>
+                <th class="tft-title3">Date</th>
+                <th class="tft-title3">Statut</th>
+            </tr>
+        </thead>
+        <tbody id="sales-table-body">
+            <tr><td colspan="7" class="mgr-empty-hint">Chargement des ventes…</div></td>
+        </tbody>
+    </table>
+    <div class="tft-pagination" id="sales-pagination"></div>
+</div>
+
+<script src="../assets/js/sales-page.js"></script>

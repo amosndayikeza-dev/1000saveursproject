@@ -184,8 +184,8 @@
                         <i class="fas fa-search"></i> Appliquer
                     </button>
 
-                    <button class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav" onclick="exportSalaryCSV()">
-                        <i class="fas fa-file-csv"></i> Export CSV
+                    <button class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav" onclick="exportSalesExcel()">
+                        <i class="fas fa-file-excel"></i> Export Excel
                     </button>
 
                     <button class="tft-btn tft-bdr-gris-1 tft-clr-white3 tft-hover-greensav" onclick="window.print()">
@@ -878,5 +878,18 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDepartementsForSalaryFilter();
     loadSalaryReports();
 });
+
+
+function exportSalaryExcel() {
+    const { startDate, endDate } = getStartEndForSalary();
+    const params = new URLSearchParams({
+        action: 'salary',
+        format: 'excel'
+    });
+    if (salaryDepartementFilter !== null) params.set('departmentId', salaryDepartementFilter);
+    if (startDate) params.set('startDate', startDate);
+    if (endDate) params.set('endDate', endDate);
+    window.location.href = `${SALARY_EXPORT_BASE}?${params}`;
+}
 </script>
 </html>
