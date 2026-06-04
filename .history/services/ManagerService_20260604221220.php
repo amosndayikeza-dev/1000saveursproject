@@ -206,57 +206,51 @@ class ManagerService {
         $debt = $this->debtsDao->findById($debtId);
         if (!$debt) throw new InvalidArgumentException('Dette introuvable');
 
+        // Récupérer le sale_item et la sale associée
         $saleItem = $this->saleItemsDao->findById($debt['sale_item_id']);
         if (!$saleItem) throw new InvalidArgumentException('Ligne de vente introuvable');
         $saleId = $saleItem['sale_id'];
         $sale = $this->salesDao->findById($saleId);
         if (!$sale) throw new InvalidArgumentException('Vente introuvable');
 
-        if ($departementId !== null && (int)$sale['departement_id'] !== (int)$departementId) {
+        // Vérifier le département
+        if ($departementId !== null && $sale['departement_id'] != $departementId) {
             throw new InvalidArgumentException('Dette hors de votre département');
         }
 
         $currentPaid = (float)($debt['paid_amount'] ?? 0);
         $totalDebt = (float)$debt['amount'];
-        $remaining = round($totalDebt - $currentPaid, 2);
+        $remaining = $totalDebt - $currentPaid;
 
-        if ($paidAmount <= 0) throw new InvalidArgumentException('Le montant payé doit être positif');
-        $paidAmount = min(round($paidAmount, 2), $remaining);
-        if ($paidAmount <= 0) throw new InvalidArgumentException('Montant invalide (dette déjà soldée)');
+        if ($paidAmount <= 0) throw new InvalidArgumentException('Montant invalide');
+        $paidAmount = min($paidAmount, $remaining);
+        if ($paidAmount <= 0) throw new InvalidArgumentException('Montant invalide (déjà soldée)');
 
-        $newPaid = round($currentPaid + $paidAmount, 2);
-        $newRemaining = round($totalDebt - $newPaid, 2);
+        $newPaid = $currentPaid + $paidAmount;
+        $newRemaining = $totalDebt - $newPaid;
         $debtStatus = ($newRemaining <= 0) ? 'paid' : 'pending';
 
-        $this->db->beginTransaction();
-        try {
-            // Mettre à jour la dette
-            $this->debtsDao->update($debtId, [
-                'paid_amount' => $newPaid,
-                'remaining_amount' => $newRemaining,
-                'status' => $debtStatus,
-                'paid_at' => ($debtStatus === 'paid') ? date('Y-m-d') : null,
-            ]);
+        // Mettre à jour la dette
+        $this->debtsDao->update($debtId, [
+            'paid_amount' => $newPaid,
+            'remaining_amount' => $newRemaining,
+            'status' => $debtStatus,
+            'paid_at' => ($debtStatus === 'paid') ? date('Y-m-d') : null,
+        ]);
 
-            // Enregistrer le paiement
-            $this->db->insert('payments', [
-                'sale_id' => $saleId,
-                'amount' => $paidAmount,
-                'payment_date' => date('Y-m-d H:i:s'),
-                'payment_method' => 'cash'
-            ]);
+        // Enregistrer le paiement dans payments
+        $this->db->insert('payments', [
+            'sale_id' => $saleId,
+            'amount' => $paidAmount,
+            'payment_date' => date('Y-m-d H:i:s'),
+            'payment_method' => 'cash'
+        ]);
 
-            // Recalculer le statut de la vente
-            $totalPaid = (float)$this->db->fetchOne("SELECT COALESCE(SUM(amount),0) FROM payments WHERE sale_id = ?", [$saleId])['COALESCE(SUM(amount),0)'];
-            $saleTotal = (float)$sale['total_amount'];
-            $saleStatus = ($totalPaid >= $saleTotal) ? 'paid' : (($totalPaid > 0) ? 'partial' : 'unpaid');
-            $this->salesDao->update($saleId, ['payment_status' => $saleStatus]);
-
-            $this->db->commit();
-        } catch (Throwable $e) {
-            $this->db->rollback();
-            throw $e;
-        }
+        // Recalculer le total payé pour cette vente
+        $totalPaid = $this->db->fetchOne("SELECT COALESCE(SUM(amount),0) FROM payments WHERE sale_id = ?", [$saleId])['COALESCE(SUM(amount),0)'];
+        $saleTotal = $sale['total_amount'];
+        $saleStatus = ($totalPaid >= $saleTotal) ? 'paid' : (($totalPaid > 0) ? 'partial' : 'unpaid');
+        $this->salesDao->update($saleId, ['payment_status' => $saleStatus]);
 
         return $this->debtsDao->findById($debtId);
     }
@@ -346,9 +340,9 @@ class ManagerService {
         throw new InvalidArgumentException('Stock insuffisant pour ce produit');
     }
 
-    $totalAmount = round($quantity * $unitPrice, 2);
-    $paidAmount = min(round($paidAmount, 2), $totalAmount);
-    $remaining = round($totalAmount - $paidAmount, 2);
+    $totalAmount = $quantity * $unitPrice;
+    $paidAmount = min($paidAmount, $totalAmount);
+    $remaining = $totalAmount - $paidAmount;
 
     if (strpos($soldAt, ' ') === false) {
         $soldAt .= ' ' . date('H:i:s');
@@ -362,7 +356,7 @@ class ManagerService {
             'total_amount' => $totalAmount,
             'sold_at' => $soldAt,
             'created_by' => $userId,
-            'payment_status' => ($remaining <= 0) ? 'paid' : (($paidAmount > 0) ? 'partial' : 'unpaid')
+            'payment_status' => ($remaining == 0) ? 'paid' : (($paidAmount > 0) ? 'partial' : 'unpaid')
         ]);
 
         // 2. Créer la ligne de vente (sale_item)
@@ -371,7 +365,7 @@ class ManagerService {
             'product_id' => $productId,
             'quantity' => $quantity,
             'unit_price' => $unitPrice,
-            'is_paid' => ($remaining <= 0) ? 1 : 0
+            'is_paid' => ($remaining == 0) ? 1 : 0
         ]);
 
         // 3. Enregistrer le paiement immédiat (s'il y en a un)
@@ -385,19 +379,20 @@ class ManagerService {
             ]);
         }
 
-        // 4. Créer une dette UNIQUEMENT si remaining > 0 (c'est-à-dire si tout n'est pas payé)
-        if ($remaining > 0) {
+        // 4. Créer une dette UNIQUEMENT si remaining > 0
+       if ($paidAmount < $totalAmount && ($totalAmount - $paidAmount) > 0.01) {
+        // créer la dette
             $dueDate = isset($data['due_date']) ? $data['due_date'] : date('Y-m-d', strtotime('+30 days'));
             $this->debtsDao->create([
-                'debtor_type'     => $data['debtor_type'] ?? 'client',
-                'debtor_name'     => $data['debtor_name'] ?? ($data['client_name'] ?? 'Client'),
-                'employee_id'     => $data['employee_id'] ?? null,
-                'amount'          => $totalAmount,          // ← montant total de la vente
-                'sale_item_id'    => $saleItemId,
-                'due_date'        => $dueDate,
-                'status'          => 'pending',
-                'paid_amount'     => $paidAmount,          // ← acompte versé
-                'remaining_amount'=> $remaining             // ← reste à payer
+                'debtor_type' => $data['debtor_type'] ?? 'client',
+                'debtor_name' => $data['debtor_name'] ?? ($data['client_name'] ?? 'Client'),
+                'employee_id' => $data['employee_id'] ?? null,
+                'amount' => $remaining,
+                'sale_item_id' => $saleItemId,
+                'due_date' => $dueDate,
+                'status' => 'pending',
+                'paid_amount' => 0,
+                'remaining_amount' => $remaining
             ]);
         }
 
@@ -419,7 +414,7 @@ class ManagerService {
         throw $e;
     }
 }
-
+   
 
     public function getStockMovementsByDepartement($departementId, $type = null, $startDate = null, $endDate = null) {
         $sql = "SELECT sm.*, p.name AS product_name

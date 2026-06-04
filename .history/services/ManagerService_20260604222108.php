@@ -258,8 +258,8 @@ class ManagerService {
             throw $e;
         }
 
-        return $this->debtsDao->findById($debtId);
-    }
+    return $this->debtsDao->findById($debtId);
+}
     public function getRecentEmployee($departementId = null) {
         $sql = "SELECT e.*, u.first_name, u.last_name
                 FROM employees e
@@ -385,19 +385,19 @@ class ManagerService {
             ]);
         }
 
-        // 4. Créer une dette UNIQUEMENT si remaining > 0 (c'est-à-dire si tout n'est pas payé)
+        // 4. Créer une dette UNIQUEMENT si remaining > 0
         if ($remaining > 0) {
             $dueDate = isset($data['due_date']) ? $data['due_date'] : date('Y-m-d', strtotime('+30 days'));
             $this->debtsDao->create([
-                'debtor_type'     => $data['debtor_type'] ?? 'client',
-                'debtor_name'     => $data['debtor_name'] ?? ($data['client_name'] ?? 'Client'),
-                'employee_id'     => $data['employee_id'] ?? null,
-                'amount'          => $totalAmount,          // ← montant total de la vente
-                'sale_item_id'    => $saleItemId,
-                'due_date'        => $dueDate,
-                'status'          => 'pending',
-                'paid_amount'     => $paidAmount,          // ← acompte versé
-                'remaining_amount'=> $remaining             // ← reste à payer
+                'debtor_type' => $data['debtor_type'] ?? 'client',
+                'debtor_name' => $data['debtor_name'] ?? ($data['client_name'] ?? 'Client'),
+                'employee_id' => $data['employee_id'] ?? null,
+                'amount' => $remaining,
+                'sale_item_id' => $saleItemId,
+                'due_date' => $dueDate,
+                'status' => 'pending',
+                'paid_amount' => 0,
+                'remaining_amount' => $remaining
             ]);
         }
 
