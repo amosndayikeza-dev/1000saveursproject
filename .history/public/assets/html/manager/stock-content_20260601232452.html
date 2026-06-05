@@ -1,0 +1,35 @@
+<div class="products-container">  <!-- même classe que pour les produits -->
+    <div class="mgr-toolbar">
+        <div class="tft-form-group">
+            <input type="text" id="stock-search" placeholder="Rechercher un produit..." class="tft-form-control">
+        </div>
+        <button class="tft-btn tft-bg-greensav" id="adjust-stock-btn">+ Ajuster le stock</button>
+    </div>
+
+    <table class="tft-table">
+        <thead>
+            <tr class="tft-b-bottom-gris">
+                <th class="tft-title3">ID</th>                <!-- optionnel, si vous voulez afficher l'ID -->
+                <th class="tft-title3">NOM</th>
+                <th class="tft-title3">DESCRIPTION</th>
+                <th class="tft-title3">PRIX UNITAIRE</th>
+                <th class="tft-title3">STOCK</th>
+                <th class="tft-title3">STATUS</th>
+                <th class="tft-title3">ACTION</th>
+            </tr>
+        </thead>
+        <tbody id="stock-state-body">
+            <tr><td colspan="7" class="mgr-empty-hint">Chargement…</div></td>
+        </tbody>
+    </table>
+
+    <div class="tft-pagination" id="stock-pagination">
+        <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav" id="stock-prev-page">
+            <i class="fas fa-arrow-left tft-color-white"></i>
+        </div>
+        <ul class="tft-page-numbers" id="stock-page-numbers"></ul>
+        <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav" id="stock-next-page">
+            <i class="fas fa-arrow-right tft-color-white"></i>
+        </div>
+    </div>
+</div>

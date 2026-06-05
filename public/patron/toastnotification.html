@@ -74,11 +74,12 @@
         background-color: var(--blue-txt-icons);
         /* background-color: var(--remain-white-utile-3); */
         border-radius: 0px 0px var(--br-btn) var(--br-btn);
-        animation: timeLineCount 0.3s ease;
+        animation: timeLineCount 0.3s ease forwards;
     }
     @keyframes timeLineCount{
         from{
             width: 0%;
+            transform: translateX(10px);
         }
         to{
             width: 100%;

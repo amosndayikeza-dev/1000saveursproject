@@ -1,0 +1,29 @@
+<div class="stock-container">   <!-- même classe container que stock -->
+    <div class="mgr-toolbar">
+        <div class="tft-form-group">
+            <select id="debt-status-filter" class="tft-form-control">
+                <option value="all">Toutes les dettes</option>
+                <option value="pending">Impayées</option>
+                <option value="paid">Soldées</option>
+            </select>
+        </div>
+    </div>
+    <div class="mgr-card">
+        <table class="tft-table">
+            <thead>
+                <tr class="tft-b-bottom-gris">
+                    <th class="tft-title3">Client</th>
+                    <th class="tft-title3">Produit</th>
+                    <th class="tft-title3">Montant total</th>
+                    <th class="tft-title3">Payé</th>
+                    <th class="tft-title3">Reste</th>
+                    <th class="tft-title3">Statut</th>
+                    <th class="tft-title3">Action</th>
+                </tr>
+            </thead>
+            <tbody id="debts-table-body">
+                <tr><td colspan="7" class="mgr-empty-hint">Chargement...</div></tr>
+            </tbody>
+        </table>
+    </div>
+</div>

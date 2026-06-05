@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Admin | 1000 Saveurs</title>
+    <link rel="icon" href="../assets/images/icons/abonnes.png">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/tft-configStyles.css">
+    <link rel="stylesheet" href="../assets/css/responsiveStyles.css">
+    <link rel="stylesheet" href="../assets/fonts/feather/feather.css">
+    <link rel="stylesheet" href="../assets/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/manager.css">
+</head>
+<body>
+    <div class="containerAll">
+        <!-- SIDEBAR – identique au manager mais avec des liens admin -->
+        <div class="containerLeft" id="container-left">
+            <div class="tft-icon-round-petit tft-p-absolute tft-top-5 tft-right-10 tft-bg-black3" onclick="hideSidebar()" id="icon-sidebar">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="c-left-header">
+                <a href="./dashboard.html">
+                    <div class="tft-logo-avatar tft-bdr-greensav-1">
+                        <img src="../assets/images/icons/abonnes.png" alt="">
+                    </div>
+                </a>
+                <div class="app-title">
+                    <h1 class="app-name">1000<span>Saveurs</span></h1>
+                    <p class="tft-title3">Administration</p>
+                </div>
+            </div>
+            <div class="menu">
+                <div class="c-left-menu">
+                    <!-- Dashboard -->
+                    <a href="./dashboard.html">
+                        <div class="c-left-option">
+                            <div class="tft-icon-round">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <p class="option-name">Dashboard</p>
+                        </div>
+                    </a>
+                    <!-- Utilisateurs -->
+                    <a href="./users.html">
+                        <div class="c-left-option">
+                            <div class="tft-icon-round">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <p class="option-name">Utilisateurs</p>
+                        </div>
+                    </a>
+                    <!-- Logs -->
+                    <a href="./logs.html">
+                        <div class="c-left-option">
+                            <div class="tft-icon-round">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <p class="option-name">Logs</p>
+                        </div>
+                    </a>
+                    <!-- Configuration -->
+                    <a href="./settings.html">
+                        <div class="c-left-option">
+                            <div class="tft-icon-round">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <p class="option-name">Configuration</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- partie user (déconnexion) -->
+                <div class="user-option">
+                    <div class="tft-avatar-profil-petit tft-bdr-orangesav-2 tft-cursor-pointer" onclick="showContainerRight()">
+                        <img src="../assets/images/icons/femme.jpg" alt="">
+                    </div>
+                    <div class="user-infos">
+                        <div class="user-name">
+                            <h2 id="userName" class="tft-title4 tft-fw-600"> Chargement</h2>
+                            <p id="userRole" class="tft-sm-title1">Admin</p>
+                        </div>
+                        <div class="tft-icon-carre-moyen tft-bg-black3 tft-transition" onclick="deconnectionModal()">
+                            <i class="fe fe-log-out tft-clr-red"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTIE CENTRALE -->
+        <div class="containerCenter">
+            <div class="c-center-header">
+                <h2 class="tft-title1 tft-fw-600 tft-center tft-gap-10px">
+                    <div class="tft-icon-carre tft-bdr-gris-1" onclick="showSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    Dashboard</h2>
+                <div class="header-aside">
+                    <div class="tft-search-withIcon">
+                        <input type="search" placeholder="Rechercher" class="tft-clr-white3">
+                        <div class="tft-search-withIcon-icon tft-bg-greensav">
+                            <i class="fas fa-search tft-clr-remain-white tft-fw-600"></i>
+                        </div>
+                    </div>
+                    <div class="tft-icon-carre-moyen tft-bdr-greensav-1 tft-bg-black3" onclick="showContainerRightNotification()">
+                        <i class="fas fa-bell tft-clr-greensav"></i>
+                    </div>
+                    <div class="tft-icon-carre-moyen tft-bdr-greensav-1 tft-bg-black3"  onclick="showContainerRightParametre()">
+                        <i class="fas fa-cog tft-clr-greensav"></i>
+                    </div>
+                    <div class="tft-icon-carre-moyen tft-bg-orangesav2" id="btn-light-mode" onclick="changeMode()">
+                        <i class="fas fa-moon tft-clr-white"></i>
+                    </div>
+                    <div class="tft-icon-carre-moyen tft-bg-orangesav2 tft-hidden" id="btn-dark-mode" onclick="changeMode()">
+                        <i class="fas fa-moon tft-clr-white"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="c-center-body" id="admin-dashboard-root">
+                <!-- Indicateurs et raccourcis -->
+                <div class="dashboard-stats" id="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="stat-info">
+                            <h3>Chiffre d'affaires (auj.)</h3>
+                            <div class="value" id="today-revenue">0 FBU</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-boxes"></i></div>
+                        <div class="stat-info">
+                            <h3>Total produits</h3>
+                            <div class="value" id="total-products">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3>Total employés</h3>
+                            <div class="value" id="total-employees">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                        <div class="stat-info">
+                            <h3>Dettes impayées</h3>
+                            <div class="value" id="pending-debts">0 FBU</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <a href="./users.html" class="action-btn">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Gérer les utilisateurs</span>
+                    </a>
+                    <a href="./logs.html" class="action-btn">
+                        <i class="fas fa-history"></i>
+                        <span>Consulter les logs</span>
+                    </a>
+                    <a href="./settings.html" class="action-btn">
+                        <i class="fas fa-sliders-h"></i>
+                        <span>Configuration</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTIE DROITE (notifications, profil) – identique au manager -->
+        <div class="containerRight tft-p-relative" id="container-right">
+            <div class="tft-close-icon tft-p-absolute tft-top-15 tft-right-15 tft-hover-red" onclick="closeModalInfos()">
+                <i class="fas fa-times tft-clr-white3"></i>
+            </div>
+            <div class="admin-profil">
+                <div class="tft-avatar-profil-moyen2 tft-bdr-greensav-2">
+                    <img src="../assets/images/user/femme.png">
+                </div>
+                <h4 class="tft-title4 tft-fw-600" id="profile-name">Chargement</h4>
+                <p class="tft-sm-title1" id="profile-role">Admin</p>
+            </div>
+            <div class="admin-infos-container" id="profil-admin">
+                <div class="tft-w-100 tft-centre-tout tft-gap-20px tft-mt-10 infos-options">
+                    <div class="tft-icon-carre tft-bg-gris tft-bg-greensav" onclick="showProfil()" id="btn-show-profil">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="tft-icon-carre tft-bg-gris" onclick="showNotification()" id="btn-show-notification">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="tft-icon-carre tft-bg-gris" onclick="showParametre()" id="btn-show-parametre">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                </div>
+                <div class="container-infos-user tft-show tft-mt-10" id="profil-modal">
+                    <!-- contenu chargé dynamiquement ou statique -->
+                </div>
+            </div>
+        </div>
+
+        <div id="admin-modals-root"></div>
+
+        <!-- popup de déconnexion -->
+        <div class="tft-popup-modal tft-a-center" id="deconnection-modal">
+            <div class="tft-popup-container-small tft-bg-black3 tft-p-relative">
+                <div class="deconnection-actions">
+                    <h3 class="tft-title1">Voulez-vous déconnecter ?</h3>
+                    <div class="deconnection-options">
+                        <a class="tft-btn tft-bg-red tft-clr-white" href="#" id="logoutyes">Oui</a>
+                        <button class="tft-btn tft-bg-greensav tft-clr-white" onclick="closeModal()">Non</button>
+                    </div>
+                </div>
+                <div class="tft-close-icon tft-p-absolute tft-top-5 tft-right-10 tft-hover-red" onclick="closeModal()">
+                    <i class="fas fa-times tft-clr-white3"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/admin-api.js"></script>
+    <script src="../assets/js/admin-common.js"></script>
+    <script src="../assets/js/scripts.js"></script>
+    <script>
+        // Fonctions minimales pour la sidebar et les modales (reprises du manager)
+        function hideSidebar() { document.getElementById('container-left').classList.add('tft-hidden'); }
+        function showSidebar() { document.getElementById('container-left').classList.remove('tft-hidden'); }
+        function showContainerRight() { document.getElementById('container-right').classList.add('active'); }
+        function closeModalInfos() { document.getElementById('container-right').classList.remove('active'); }
+        function showContainerRightNotification() { /* à implémenter si besoin */ }
+        function showContainerRightParametre() { /* idem */ }
+        function showProfil() { /* idem */ }
+        function showNotification() { /* idem */ }
+        function showParametre() { /* idem */ }
+        function closeModal() { document.getElementById('deconnection-modal').style.display = 'none'; }
+        function deconnectionModal() { document.getElementById('deconnection-modal').style.display = 'flex'; }
+
+        // Charger les infos de l'utilisateur connecté
+        async function loadUserInfo() {
+            try {
+                const res = await fetch('/1000saveursproject/api/auth.php?action=me');
+                const data = await res.json();
+                if (data.status === 'success' && data.user) {
+                    const name = (data.user.firstName || '') + ' ' + (data.user.lastName || '');
+                    document.getElementById('userName').innerText = name.trim() || data.user.email;
+                    document.getElementById('userRole').innerText = 'Admin';
+                    document.getElementById('profile-name').innerText = name.trim() || data.user.email;
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        // Charger les indicateurs du dashboard
+        async function loadAdminStats() {
+            try {
+                const today = new Date().toISOString().slice(0,10);
+                const salesRes = await fetch(`/1000saveursproject/api/reports.php?type=sales&startDate=${today}&endDate=${today}`);
+                const salesData = await salesRes.json();
+                if (salesData.status === 'success') {
+                    document.getElementById('today-revenue').innerText = (salesData.summary?.totalRevenue || 0).toLocaleString('fr-FR') + ' FBU';
+                }
+            } catch(e) { console.error(e); }
+            try {
+                const prodRes = await fetch('/1000saveursproject/api/manager/products.php');
+                const prodData = await prodRes.json();
+                if (prodData.success) document.getElementById('total-products').innerText = prodData.data?.length || 0;
+            } catch(e) { console.error(e); }
+            try {
+                const empRes = await fetch('/1000saveursproject/api/manager/employees.php');
+                const empData = await empRes.json();
+                if (empData.success) document.getElementById('total-employees').innerText = empData.data?.length || 0;
+            } catch(e) { console.error(e); }
+            try {
+                const debtRes = await fetch('/1000saveursproject/api/manager/debts.php?status=pending');
+                const debtData = await debtRes.json();
+                if (debtData.success) {
+                    const total = debtData.summary?.totalOutstanding || 0;
+                    document.getElementById('pending-debts').innerText = total.toLocaleString('fr-FR') + ' FBU';
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUserInfo();
+            loadAdminStats();
+            // Gestion déconnexion
+            document.getElementById('logoutyes')?.addEventListener('click', async (e) => {
+                e.preventDefault();
+                await fetch('/1000saveursproject/api/auth.php?action=logout', { method: 'POST' });
+                window.location.href = '/1000saveursproject/public/login.php';
+            });
+        });
+    </script>
+    <style>
+        /* Styles supplémentaires pour le dashboard admin (rien ne change le manager) */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: var(--tft-black2, #1a1d24);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(34, 197, 94, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .stat-icon i {
+            font-size: 28px;
+            color: #22c55e;
+        }
+        .stat-info h3 {
+            font-size: 14px;
+            color: #9ca3af;
+            margin: 0 0 5px 0;
+        }
+        .stat-info .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+        }
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .action-btn {
+            background: var(--tft-black2, #1a1d24);
+            border: 1px solid #2d3748;
+            border-radius: 10px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .action-btn:hover {
+            border-color: #22c55e;
+            transform: translateY(-3px);
+        }
+        .action-btn i {
+            font-size: 24px;
+            color: #22c55e;
+        }
+        .action-btn span {
+            font-weight: 500;
+            color: white;
+        }
+    </style>
+</body>
+</html>

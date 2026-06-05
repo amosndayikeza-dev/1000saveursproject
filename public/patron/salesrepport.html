@@ -61,6 +61,9 @@
 
                      </div>
                     
+                    <button class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav" onclick="exportSalesExcel()">
+                        <i class="fas fa-file-excel"></i> Export Excel
+                    </button>
                     <!-- Fin Ajouts: filtres + export du rapport des ventes -->
                 </div>
                 <div class="products-container">
@@ -814,5 +817,18 @@ document.addEventListener('DOMContentLoaded', () => {
     loadDepartementsForSalesFilter();
     loadSalesReports();
 });
+
+
+function exportSalesExcel() {
+    const { startDate, endDate } = getStartEndForSales();
+    const params = new URLSearchParams({
+        action: 'sales',
+        format: 'excel',
+        startDate,
+        endDate
+    });
+    if (salesDepartementFilter !== null) params.set('departmentId', salesDepartementFilter);
+    window.location.href = `${SALES_EXPORT_BASE}?${params}`;
+}
 </script>
 </html>

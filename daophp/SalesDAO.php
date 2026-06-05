@@ -29,7 +29,7 @@ class SalesDAO extends DAO{
      * @param int|null $departementId
      * @return array
      */
-    public function findByDateRange($startDate, $endDate, $departementId = null) {
+    /*public function findByDateRange($startDate, $endDate, $departementId = null) {
         $sql = "SELECT * FROM {$this->table} WHERE sold_at BETWEEN ? AND ?";
         $params = [$startDate, $endDate];
 
@@ -39,7 +39,33 @@ class SalesDAO extends DAO{
         }
 
         return $this->db->fetchAll($sql, $params);
+    }*/
+        //
+    public function findByDateRange($startDate = null, $endDate = null, $departmentId = null) {
+        $sql = "SELECT s.*, 
+                    d.name AS departement_name,
+                    CONCAT(u.first_name, ' ', u.last_name) AS created_by_name
+                FROM sales s
+                LEFT JOIN departements d ON s.departement_id = d.id
+                LEFT JOIN users u ON s.created_by = u.id
+                WHERE 1=1";
+        $params = [];
+        if ($startDate) {
+            $sql .= " AND s.sold_at >= ?";
+            $params[] = $startDate . ' 00:00:00';
+        }
+        if ($endDate) {
+            $sql .= " AND s.sold_at <= ?";
+            $params[] = $endDate . ' 23:59:59';
+        }
+        if ($departmentId !== null) {
+            $sql .= " AND s.departement_id = ?";
+            $params[] = $departmentId;
+        }
+        $sql .= " ORDER BY s.sold_at DESC";
+        return $this->db->fetchAll($sql, $params);
     }
+
 
     /**
      * Récupère les ventes créées par un utilisateur.
@@ -182,6 +208,8 @@ class SalesDAO extends DAO{
         $sql .= " GROUP BY s.id";
         return $this->db->fetchAll($sql, $params);
     }
+
+  
 
 }
 
