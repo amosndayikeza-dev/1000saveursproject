@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 01 juin 2026 à 18:33
+-- Généré le : ven. 05 juin 2026 à 13:49
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -24,6 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `activity_logs`
+--
+
+CREATE TABLE `activity_logs` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `action` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `debts`
 --
 
@@ -39,15 +54,29 @@ CREATE TABLE `debts` (
   `paid_at` date DEFAULT NULL,
   `paid_amount` decimal(10,2) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `remaining_amount` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `debts`
 --
 
-INSERT INTO `debts` (`id`, `debtor_type`, `debtor_name`, `employee_id`, `amount`, `sale_item_id`, `due_date`, `status`, `paid_at`, `paid_amount`, `created_at`, `updated_at`) VALUES
-(5, 'client', 'Jean Dupont', NULL, 150.00, 3, '2026-05-23', 'pending', NULL, NULL, '2026-04-23 14:11:26', '2026-04-23 14:11:26');
+INSERT INTO `debts` (`id`, `debtor_type`, `debtor_name`, `employee_id`, `amount`, `sale_item_id`, `due_date`, `status`, `paid_at`, `paid_amount`, `created_at`, `updated_at`, `remaining_amount`) VALUES
+(7, 'client', 'Client', NULL, 400000.00, 13, '2026-07-02', 'paid', '2026-06-04', 400000.00, '2026-06-02 21:28:36', '2026-06-04 20:51:09', 0.00),
+(8, 'client', 'Client', NULL, 230.00, 14, '2026-07-02', 'paid', '2026-06-04', 230.00, '2026-06-02 21:39:27', '2026-06-04 20:51:03', 0.00),
+(9, 'client', 'Client', NULL, 1500000.00, 15, '2026-07-03', 'paid', '2026-06-04', 1500000.00, '2026-06-02 22:03:30', '2026-06-04 20:50:57', 0.00),
+(15, 'client', 'Client', NULL, 200000.00, 21, '2026-07-04', 'paid', '2026-06-04', 200000.00, '2026-06-04 18:01:25', '2026-06-04 20:50:50', 0.00),
+(16, 'client', 'Client', NULL, 230.00, 22, '2026-07-04', 'paid', '2026-06-04', 230.00, '2026-06-04 18:07:38', '2026-06-04 20:50:46', 0.00),
+(17, 'client', 'Client', NULL, 200000.00, 23, '2026-07-04', 'paid', '2026-06-04', 200000.00, '2026-06-04 18:28:56', '2026-06-04 20:50:41', 0.00),
+(18, 'client', 'Client', NULL, 100000.00, 32, '2026-07-04', 'paid', '2026-06-04', 100000.00, '2026-06-04 20:04:02', '2026-06-04 20:04:33', 0.00),
+(19, 'client', 'Client', NULL, 200000.00, 35, '2026-07-04', 'paid', '2026-06-04', 200000.00, '2026-06-04 20:39:20', '2026-06-04 20:50:38', 0.00),
+(20, 'client', 'Client', NULL, 100000.00, 36, '2026-07-04', 'paid', '2026-06-04', 100000.00, '2026-06-04 20:40:22', '2026-06-04 20:50:36', 0.00),
+(21, 'client', 'Client', NULL, 50000.00, 37, '2026-07-04', 'paid', '2026-06-04', 50000.00, '2026-06-04 20:42:02', '2026-06-04 20:50:32', 0.00),
+(22, 'client', 'Client', NULL, 10000.00, 38, '2026-07-04', 'paid', '2026-06-04', 10000.00, '2026-06-04 20:43:44', '2026-06-04 20:50:25', 0.00),
+(23, 'client', 'Client', NULL, 50000.00, 39, '2026-07-04', 'paid', '2026-06-04', 50000.00, '2026-06-04 21:05:32', '2026-06-04 21:21:24', 0.00),
+(24, 'client', 'Client', NULL, 100000.00, 41, '2026-07-04', 'paid', '2026-06-04', 100000.00, '2026-06-04 21:21:38', '2026-06-04 21:26:24', 0.00),
+(25, 'client', 'Client', NULL, 200000.00, 42, '2026-07-04', 'paid', '2026-06-04', 200000.00, '2026-06-04 21:26:37', '2026-06-04 21:28:09', 0.00);
 
 -- --------------------------------------------------------
 
@@ -82,7 +111,7 @@ INSERT INTO `departements` (`id`, `name`, `address`, `description`, `manager_id`
 (22, 'soso', 'Ngagara', 'soso veut devenir developpeur Frontend', 5, '2026-05-18 12:04:47', '2026-05-18 12:04:47'),
 (23, 'Lourde', 'UE', 'Portugal', 10, '2026-05-27 17:57:35', '2026-05-27 17:57:35'),
 (24, 'Général', NULL, 'Département principal', NULL, '2026-05-30 02:21:36', '2026-05-30 02:21:36'),
-(25, 'Direction', NULL, 'Département principal', NULL, '2026-05-30 20:42:59', '2026-05-30 20:42:59'),
+(25, 'Direction', '', 'Département principal', 4, '2026-05-30 20:42:59', '2026-06-03 10:41:58'),
 (26, 'Direction', NULL, 'Département principal', NULL, '2026-05-30 20:53:41', '2026-05-30 20:53:41');
 
 -- --------------------------------------------------------
@@ -124,7 +153,8 @@ INSERT INTO `employees` (`id`, `user_id`, `departement_id`, `position`, `salary`
 (27, 38, 1, 'Manager', 0.00, '2026-05-30', '2026-05-30 03:10:27', '2026-05-30 03:10:27'),
 (28, 38, 1, 'Manager', 0.00, '2026-05-30', '2026-05-30 20:42:30', '2026-05-30 20:42:30'),
 (29, 38, 1, 'Manager', 0.00, '2026-05-30', '2026-05-30 20:53:41', '2026-05-30 20:53:41'),
-(30, 39, 1, 'gerant', 0.00, '2026-06-01', '2026-06-01 13:12:16', '2026-06-01 13:12:16');
+(30, 39, 1, 'gerant', 0.00, '2026-06-01', '2026-06-01 13:12:16', '2026-06-01 13:12:16'),
+(31, 47, 26, 'manager', 500000.00, '2026-06-03', '2026-06-03 10:45:14', '2026-06-03 10:48:42');
 
 -- --------------------------------------------------------
 
@@ -142,6 +172,62 @@ CREATE TABLE `notifications` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` int(11) NOT NULL,
+  `sale_id` int(11) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `payment_date` datetime NOT NULL,
+  `payment_method` varchar(50) DEFAULT 'cash',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `payments`
+--
+
+INSERT INTO `payments` (`id`, `sale_id`, `amount`, `payment_date`, `payment_method`, `created_at`, `created_by`) VALUES
+(1, 3, 150.00, '2026-06-02 23:41:14', 'cash', '2026-06-02 21:41:14', NULL),
+(2, 3, 150.00, '2026-06-02 23:41:15', 'cash', '2026-06-02 21:41:15', NULL),
+(3, 14, 10.00, '2026-06-02 23:41:54', 'cash', '2026-06-02 21:41:54', NULL),
+(7, 16, 500000.00, '2026-06-03 00:29:34', 'cash', '2026-06-02 22:29:34', NULL),
+(8, 27, 200000.00, '2026-06-03 00:37:36', 'cash', '2026-06-02 22:37:36', NULL),
+(9, 28, 80000.00, '2026-06-03 00:38:18', 'cash', '2026-06-02 22:38:18', NULL),
+(10, 29, 320000.00, '2026-06-04 12:44:26', 'cash', '2026-06-04 10:44:26', NULL),
+(11, 30, 50000.00, '2026-06-04 13:07:50', 'cash', '2026-06-04 11:07:50', NULL),
+(12, 40, 100000.00, '2026-06-04 22:00:31', 'cash', '2026-06-04 20:00:31', 38),
+(13, 41, 200000.00, '2026-06-04 22:03:23', 'cash', '2026-06-04 20:03:23', 38),
+(14, 42, 100000.00, '2026-06-04 22:04:02', 'cash', '2026-06-04 20:04:02', 38),
+(15, 42, 100000.00, '2026-06-04 22:04:33', 'cash', '2026-06-04 20:04:33', NULL),
+(16, 43, 300000.00, '2026-06-04 22:25:26', 'cash', '2026-06-04 20:25:26', 38),
+(17, 44, 100000.00, '2026-06-04 22:38:38', 'cash', '2026-06-04 20:38:38', 38),
+(18, 46, 100000.00, '2026-06-04 22:40:22', 'cash', '2026-06-04 20:40:22', 38),
+(19, 47, 50000.00, '2026-06-04 22:42:02', 'cash', '2026-06-04 20:42:02', 38),
+(20, 48, 90000.00, '2026-06-04 22:43:44', 'cash', '2026-06-04 20:43:44', 38),
+(21, 48, 10000.00, '2026-06-04 22:50:25', 'cash', '2026-06-04 20:50:25', NULL),
+(22, 47, 50000.00, '2026-06-04 22:50:36', 'cash', '2026-06-04 20:50:36', NULL),
+(23, 46, 100000.00, '2026-06-04 22:50:36', 'cash', '2026-06-04 20:50:36', NULL),
+(24, 45, 200000.00, '2026-06-04 22:50:39', 'cash', '2026-06-04 20:50:39', NULL),
+(25, 33, 200000.00, '2026-06-04 22:50:43', 'cash', '2026-06-04 20:50:43', NULL),
+(26, 32, 230.00, '2026-06-04 22:50:49', 'cash', '2026-06-04 20:50:49', NULL),
+(27, 31, 200000.00, '2026-06-04 22:50:53', 'cash', '2026-06-04 20:50:53', NULL),
+(28, 25, 1500000.00, '2026-06-04 22:51:02', 'cash', '2026-06-04 20:51:02', NULL),
+(29, 24, 220.00, '2026-06-04 22:51:05', 'cash', '2026-06-04 20:51:05', NULL),
+(30, 23, 400000.00, '2026-06-04 22:51:12', 'cash', '2026-06-04 20:51:12', NULL),
+(31, 49, 50000.00, '2026-06-04 23:05:32', 'cash', '2026-06-04 21:05:32', 38),
+(32, 50, 100000.00, '2026-06-04 23:13:05', 'cash', '2026-06-04 21:13:05', 38),
+(33, 49, 50000.00, '2026-06-04 23:21:24', 'cash', '2026-06-04 21:21:24', NULL),
+(34, 51, 100000.00, '2026-06-04 23:21:38', 'cash', '2026-06-04 21:21:38', 38),
+(35, 51, 100000.00, '2026-06-04 23:26:24', 'cash', '2026-06-04 21:26:24', NULL),
+(36, 52, 100000.00, '2026-06-04 23:26:37', 'cash', '2026-06-04 21:26:37', 38),
+(37, 52, 100000.00, '2026-06-04 23:28:09', 'cash', '2026-06-04 21:28:09', NULL);
 
 -- --------------------------------------------------------
 
@@ -166,14 +252,14 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `departement_id`, `name`, `description`, `unit_price`, `current_stock`, `low_stock_threshold`, `created_at`, `updated_at`) VALUES
-(3, 1, 'Steak hach', '250g', 500000.00, 1, 5, '2026-04-22 20:51:28', '2026-05-28 16:10:01'),
-(4, 1, 'Vin ', '250bouteilles', 8.99, 97, 20, '2026-04-22 20:52:29', '2026-05-31 00:09:51'),
+(3, 1, 'Steak hach', '250g', 500000.00, 34, 5, '2026-04-22 20:51:28', '2026-06-04 10:48:31'),
+(4, 1, 'Vin mousson', '250 bouteilles', 80000.00, 83, 20, '2026-04-22 20:52:29', '2026-06-04 10:43:38'),
 (5, 1, 'Amstel ', '250bouteilles', 8.99, 95, 20, '2026-04-22 20:52:44', '2026-05-31 00:22:21'),
-(7, 1, 'Steak', 'En vente', 10000.00, 120, 5, '2026-04-22 23:52:36', '2026-05-07 00:08:06'),
+(7, 1, 'Steak', 'En vente', 10000.00, 115, 5, '2026-04-22 23:52:36', '2026-06-04 11:07:23'),
 (8, 1, 'Steak', 'Skeak for all', 104.00, 0, 5, '2026-04-23 11:09:46', '2026-05-10 17:19:48'),
-(9, 1, 'Produit test', 'En vente', 115.00, 100, 5, '2026-04-23 14:04:01', '2026-05-07 00:05:38'),
+(9, 1, 'Produit test', 'En vente', 115.00, 96, 5, '2026-04-23 14:04:01', '2026-06-04 18:07:38'),
 (10, 1, 'Produit test', 'gtgtg', 1000.00, 96, 5, '2026-04-23 14:05:39', '2026-05-31 00:07:12'),
-(11, 1, 'Produit test', NULL, 10.00, 100, 5, '2026-04-23 14:05:50', '2026-04-23 14:05:50'),
+(11, 1, 'Produit test', NULL, 10.00, 1, 5, '2026-04-23 14:05:50', '2026-06-01 22:57:28'),
 (12, 6, 'Boisson', 'Boisson non alcoliser', 5000.00, 500, 5, '2026-05-05 18:54:45', '2026-05-05 18:54:45'),
 (13, 10, 'lkjhgbbb', 'kuhjjj', 106.00, 0, 5, '2026-05-06 21:27:27', '2026-05-10 17:18:20'),
 (14, 10, 'Bovin', 'Bovin for B', 500.00, 20, 5, '2026-05-06 21:28:57', '2026-05-06 21:28:57'),
@@ -185,8 +271,10 @@ INSERT INTO `products` (`id`, `departement_id`, `name`, `description`, `unit_pri
 (20, 10, 'Nouveau', 'hjihihhih', 2000.00, 20, 5, '2026-05-19 17:06:43', '2026-05-21 12:00:04'),
 (21, 5, 'Telephone', 'Samsung', 100000.00, 20, 5, '2026-05-30 01:56:23', '2026-05-30 01:56:23'),
 (22, 5, 'Telephone', 'Samsung', 100000.00, 20, 5, '2026-05-30 01:56:33', '2026-05-30 01:56:33'),
-(23, 1, 'Test Product', NULL, 1000.00, 10, 2, '2026-05-30 20:44:16', '2026-05-30 20:44:16'),
-(24, 10, 'Pain grille', 'pain grille', 5000.00, 20, 5, '2026-06-01 12:13:16', '2026-06-01 12:13:16');
+(24, 10, 'Pain grille', 'pain grille', 5000.00, 20, 5, '2026-06-01 12:13:16', '2026-06-01 12:13:16'),
+(26, 1, 'Telephone', 'REDMI10', 100000.00, 990, 5, '2026-06-01 22:28:10', '2026-06-04 21:26:37'),
+(27, 26, 'TV', 'TELEVISION', 1000000.00, 10, 5, '2026-06-03 10:46:39', '2026-06-03 10:46:39'),
+(28, 1, 'frghj', 'ghjkl', 20000.00, 0, 5, '2026-06-04 10:48:00', '2026-06-04 10:48:00');
 
 -- --------------------------------------------------------
 
@@ -229,28 +317,55 @@ CREATE TABLE `sales` (
   `created_by` int(11) NOT NULL,
   `notes` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `payment_status` enum('unpaid','partial','paid') DEFAULT 'unpaid'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `sales`
 --
 
-INSERT INTO `sales` (`id`, `departement_id`, `sold_at`, `total_amount`, `created_by`, `notes`, `created_at`, `updated_at`) VALUES
-(1, 1, '2026-04-20', 150000.00, 12, 'Nouveau', '2026-04-22 21:58:19', '2026-05-21 12:02:22'),
-(2, 1, '2026-04-21', 250000.00, 12, 'Vente 2', '2026-04-22 21:58:19', '2026-04-22 21:58:19'),
-(3, 1, '2026-04-22', 120000.00, 12, 'Vente 3', '2026-04-22 21:58:19', '2026-04-22 21:58:19'),
-(4, 1, '2026-04-22', 0.00, 12, 'Vente test', '2026-04-22 23:45:26', '2026-04-22 23:45:26'),
-(5, 1, '2026-04-23', 0.00, 12, 'Test vente', '2026-04-22 23:53:34', '2026-04-22 23:53:34'),
-(6, 1, '2026-04-23', 0.00, 12, 'Test vente', '2026-04-22 23:53:46', '2026-04-22 23:53:46'),
-(7, 1, '2026-04-23', 0.00, 12, 'Test vente', '2026-04-22 23:58:19', '2026-04-22 23:58:19'),
-(8, 1, '2026-04-23', 0.00, 12, 'Test vente', '2026-04-23 00:14:35', '2026-04-23 00:14:35'),
-(14, 1, '2026-05-31', 8.99, 38, NULL, '2026-05-31 00:06:41', '2026-05-31 00:06:41'),
-(15, 1, '2026-05-31', 4000.00, 38, NULL, '2026-05-31 00:07:12', '2026-05-31 00:07:12'),
-(16, 1, '2026-05-31', 17.98, 38, NULL, '2026-05-31 00:09:51', '2026-05-31 00:09:51'),
-(17, 1, '2026-05-31', 17.98, 38, NULL, '2026-05-31 00:10:47', '2026-05-31 00:10:47'),
-(18, 1, '2026-05-26', 8.99, 38, NULL, '2026-05-31 00:13:27', '2026-05-31 00:13:27'),
-(19, 1, '2026-05-31', 17.98, 38, NULL, '2026-05-31 00:22:21', '2026-05-31 00:22:21');
+INSERT INTO `sales` (`id`, `departement_id`, `sold_at`, `total_amount`, `created_by`, `notes`, `created_at`, `updated_at`, `payment_status`) VALUES
+(1, 1, '2026-04-20', 150000.00, 12, 'Nouveau', '2026-04-22 21:58:19', '2026-05-21 12:02:22', 'unpaid'),
+(2, 1, '2026-04-21', 250000.00, 12, 'Vente 2', '2026-04-22 21:58:19', '2026-04-22 21:58:19', 'unpaid'),
+(3, 1, '2026-04-22', 120000.00, 12, 'Vente 3', '2026-04-22 21:58:19', '2026-06-02 22:36:28', 'partial'),
+(4, 1, '2026-04-22', 0.00, 12, 'Vente test', '2026-04-22 23:45:26', '2026-06-02 22:36:28', 'paid'),
+(5, 1, '2026-04-23', 0.00, 12, 'Test vente', '2026-04-22 23:53:34', '2026-06-02 22:36:28', 'paid'),
+(6, 1, '2026-04-23', 0.00, 12, 'Test vente', '2026-04-22 23:53:46', '2026-06-02 22:36:28', 'paid'),
+(7, 1, '2026-04-23', 0.00, 12, 'Test vente', '2026-04-22 23:58:19', '2026-06-02 22:36:28', 'paid'),
+(8, 1, '2026-04-23', 0.00, 12, 'Test vente', '2026-04-23 00:14:35', '2026-06-02 22:36:28', 'paid'),
+(14, 1, '2026-05-31', 8.99, 38, NULL, '2026-05-31 00:06:41', '2026-06-02 22:36:28', 'paid'),
+(15, 1, '2026-05-31', 4000.00, 38, NULL, '2026-05-31 00:07:12', '2026-05-31 00:07:12', 'unpaid'),
+(16, 1, '2026-05-31', 17.98, 38, NULL, '2026-05-31 00:09:51', '2026-06-02 22:36:28', 'paid'),
+(17, 1, '2026-05-31', 17.98, 38, NULL, '2026-05-31 00:10:47', '2026-05-31 00:10:47', 'unpaid'),
+(18, 1, '2026-05-26', 8.99, 38, NULL, '2026-05-31 00:13:27', '2026-05-31 00:13:27', 'unpaid'),
+(19, 1, '2026-05-31', 17.98, 38, NULL, '2026-05-31 00:22:21', '2026-05-31 00:22:21', 'unpaid'),
+(20, 1, '2026-06-01', 1000000.00, 38, NULL, '2026-06-01 23:49:58', '2026-06-01 23:49:58', 'unpaid'),
+(22, 1, '2026-06-02', 320000.00, 38, NULL, '2026-06-02 21:19:11', '2026-06-02 21:19:11', 'unpaid'),
+(23, 1, '2026-06-02', 400000.00, 38, NULL, '2026-06-02 21:28:36', '2026-06-04 20:51:12', 'paid'),
+(24, 1, '2026-06-02', 230.00, 38, NULL, '2026-06-02 21:39:27', '2026-06-04 20:51:05', 'partial'),
+(25, 1, '2026-06-02', 1500000.00, 38, NULL, '2026-06-02 22:03:30', '2026-06-04 20:51:02', 'paid'),
+(26, 1, '2026-06-02', 500000.00, 38, NULL, '2026-06-02 22:28:59', '2026-06-02 22:28:59', 'unpaid'),
+(27, 1, '2026-06-02', 200000.00, 38, NULL, '2026-06-02 22:37:20', '2026-06-02 22:37:36', 'paid'),
+(28, 1, '2026-06-02', 80000.00, 38, NULL, '2026-06-02 22:38:02', '2026-06-02 22:38:18', 'paid'),
+(29, 1, '2026-06-04', 320000.00, 38, NULL, '2026-06-04 10:43:38', '2026-06-04 10:44:47', 'paid'),
+(30, 1, '2026-06-04', 50000.00, 38, NULL, '2026-06-04 11:07:23', '2026-06-04 11:07:50', 'paid'),
+(31, 1, '2026-06-04', 200000.00, 38, NULL, '2026-06-04 18:01:25', '2026-06-04 20:50:53', 'paid'),
+(32, 1, '2026-06-04', 230.00, 38, NULL, '2026-06-04 18:07:38', '2026-06-04 20:50:49', 'paid'),
+(33, 1, '2026-06-04', 200000.00, 38, NULL, '2026-06-04 18:28:56', '2026-06-04 20:50:43', 'paid'),
+(40, 1, '2026-06-04', 100000.00, 38, NULL, '2026-06-04 20:00:31', '2026-06-04 20:00:31', 'paid'),
+(41, 1, '2026-06-04', 200000.00, 38, NULL, '2026-06-04 20:03:23', '2026-06-04 20:03:23', 'paid'),
+(42, 1, '2026-06-04', 200000.00, 38, NULL, '2026-06-04 20:04:01', '2026-06-04 20:04:33', 'paid'),
+(43, 1, '2026-06-04', 300000.00, 38, NULL, '2026-06-04 20:25:25', '2026-06-04 20:25:25', 'paid'),
+(44, 1, '2026-06-04', 100000.00, 38, NULL, '2026-06-04 20:38:37', '2026-06-04 20:38:37', 'paid'),
+(45, 1, '2026-06-04', 200000.00, 38, NULL, '2026-06-04 20:39:20', '2026-06-04 20:50:39', 'paid'),
+(46, 1, '2026-06-04', 200000.00, 38, NULL, '2026-06-04 20:40:21', '2026-06-04 20:50:36', 'paid'),
+(47, 1, '2026-06-04', 100000.00, 38, NULL, '2026-06-04 20:42:02', '2026-06-04 20:50:36', 'paid'),
+(48, 1, '2026-06-04', 100000.00, 38, NULL, '2026-06-04 20:43:44', '2026-06-04 20:50:25', 'paid'),
+(49, 1, '2026-06-04', 100000.00, 38, NULL, '2026-06-04 21:05:31', '2026-06-04 21:21:24', 'paid'),
+(50, 1, '2026-06-04', 100000.00, 38, NULL, '2026-06-04 21:13:04', '2026-06-04 21:13:04', 'paid'),
+(51, 1, '2026-06-04', 200000.00, 38, NULL, '2026-06-04 21:21:38', '2026-06-04 21:26:24', 'paid'),
+(52, 1, '2026-06-04', 200000.00, 38, NULL, '2026-06-04 21:26:37', '2026-06-04 21:28:09', 'paid');
 
 -- --------------------------------------------------------
 
@@ -281,7 +396,46 @@ INSERT INTO `sale_items` (`id`, `sale_id`, `product_id`, `quantity`, `unit_price
 (6, 16, 4, 2, 8.99, 1, NULL, '2026-05-31 00:09:51', '2026-05-31 00:09:51'),
 (7, 17, 5, 2, 8.99, 1, NULL, '2026-05-31 00:10:50', '2026-05-31 00:10:50'),
 (8, 18, 5, 1, 8.99, 1, NULL, '2026-05-31 00:13:27', '2026-05-31 00:13:27'),
-(9, 19, 5, 2, 8.99, 1, NULL, '2026-05-31 00:22:21', '2026-05-31 00:22:21');
+(9, 19, 5, 2, 8.99, 1, NULL, '2026-05-31 00:22:21', '2026-05-31 00:22:21'),
+(10, 20, 26, 10, 100000.00, 1, NULL, '2026-06-01 23:49:59', '2026-06-01 23:49:59'),
+(12, 22, 4, 4, 80000.00, 0, NULL, '2026-06-02 21:19:11', '2026-06-02 21:19:11'),
+(13, 23, 4, 5, 80000.00, 0, NULL, '2026-06-02 21:28:36', '2026-06-02 21:28:36'),
+(14, 24, 9, 2, 115.00, 0, NULL, '2026-06-02 21:39:27', '2026-06-02 21:39:27'),
+(15, 25, 3, 3, 500000.00, 0, NULL, '2026-06-02 22:03:30', '2026-06-02 22:03:30'),
+(16, 26, 3, 1, 500000.00, 0, NULL, '2026-06-02 22:28:59', '2026-06-02 22:28:59'),
+(17, 27, 26, 2, 100000.00, 0, NULL, '2026-06-02 22:37:20', '2026-06-02 22:37:20'),
+(18, 28, 4, 1, 80000.00, 0, NULL, '2026-06-02 22:38:02', '2026-06-02 22:38:02'),
+(19, 29, 4, 4, 80000.00, 0, NULL, '2026-06-04 10:43:38', '2026-06-04 10:43:38'),
+(20, 30, 7, 5, 10000.00, 0, NULL, '2026-06-04 11:07:23', '2026-06-04 11:07:23'),
+(21, 31, 26, 2, 100000.00, 0, NULL, '2026-06-04 18:01:25', '2026-06-04 18:01:25'),
+(22, 32, 9, 2, 115.00, 0, NULL, '2026-06-04 18:07:38', '2026-06-04 18:07:38'),
+(23, 33, 26, 2, 100000.00, 0, NULL, '2026-06-04 18:28:56', '2026-06-04 18:28:56'),
+(30, 40, 26, 1, 100000.00, 1, NULL, '2026-06-04 20:00:31', '2026-06-04 20:00:31'),
+(31, 41, 26, 2, 100000.00, 1, NULL, '2026-06-04 20:03:23', '2026-06-04 20:03:23'),
+(32, 42, 26, 2, 100000.00, 0, NULL, '2026-06-04 20:04:02', '2026-06-04 20:04:02'),
+(33, 43, 26, 3, 100000.00, 1, NULL, '2026-06-04 20:25:26', '2026-06-04 20:25:26'),
+(34, 44, 26, 1, 100000.00, 1, NULL, '2026-06-04 20:38:38', '2026-06-04 20:38:38'),
+(35, 45, 26, 2, 100000.00, 0, NULL, '2026-06-04 20:39:20', '2026-06-04 20:39:20'),
+(36, 46, 26, 2, 100000.00, 0, NULL, '2026-06-04 20:40:22', '2026-06-04 20:40:22'),
+(37, 47, 26, 1, 100000.00, 0, NULL, '2026-06-04 20:42:02', '2026-06-04 20:42:02'),
+(38, 48, 26, 1, 100000.00, 0, NULL, '2026-06-04 20:43:44', '2026-06-04 20:43:44'),
+(39, 49, 26, 1, 100000.00, 0, NULL, '2026-06-04 21:05:32', '2026-06-04 21:05:32'),
+(40, 50, 26, 1, 100000.00, 1, NULL, '2026-06-04 21:13:05', '2026-06-04 21:13:05'),
+(41, 51, 26, 2, 100000.00, 0, NULL, '2026-06-04 21:21:38', '2026-06-04 21:21:38'),
+(42, 52, 26, 2, 100000.00, 0, NULL, '2026-06-04 21:26:37', '2026-06-04 21:26:37');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` int(11) NOT NULL,
+  `key_name` varchar(100) NOT NULL,
+  `value` text DEFAULT NULL,
+  `description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -311,7 +465,40 @@ INSERT INTO `stock_movements` (`id`, `product_id`, `quantity`, `type`, `reason`,
 (3, 4, 2, 'out', 'Vente #16', 16, 38, '2026-05-31 00:09:51', '2026-05-31 00:09:51'),
 (4, 5, 2, 'out', 'Vente #17', 17, 38, '2026-05-31 00:10:50', '2026-05-31 00:10:50'),
 (5, 5, 1, 'out', 'Vente #18', 18, 38, '2026-05-31 00:13:27', '2026-05-31 00:13:27'),
-(6, 5, 2, 'out', 'Vente #19', 19, 38, '2026-05-31 00:22:21', '2026-05-31 00:22:21');
+(6, 5, 2, 'out', 'Vente #19', 19, 38, '2026-05-31 00:22:21', '2026-05-31 00:22:21'),
+(8, 26, 50, 'in', 'Stock initial', NULL, 38, '2026-06-01 22:28:10', '2026-06-01 22:28:10'),
+(9, 3, 5, 'in', 'Entrée manuelle', NULL, 38, '2026-06-01 22:55:43', '2026-06-01 22:55:43'),
+(10, 11, 100, 'out', 'Sortie manuelle', NULL, 38, '2026-06-01 22:57:15', '2026-06-01 22:57:15'),
+(11, 11, 1, 'in', 'Entrée manuelle', NULL, 38, '2026-06-01 22:57:28', '2026-06-01 22:57:28'),
+(12, 26, 10, 'out', 'Vente #20', 20, 38, '2026-06-01 23:49:59', '2026-06-01 23:49:59'),
+(13, 3, 2, 'out', 'Sortie manuelle', NULL, 38, '2026-06-02 10:09:02', '2026-06-02 10:09:02'),
+(14, 4, 4, 'out', 'Vente #22', 22, 38, '2026-06-02 21:19:12', '2026-06-02 21:19:12'),
+(15, 4, 5, 'out', 'Vente #23', 23, 38, '2026-06-02 21:28:36', '2026-06-02 21:28:36'),
+(16, 9, 2, 'out', 'Vente #24', 24, 38, '2026-06-02 21:39:27', '2026-06-02 21:39:27'),
+(17, 3, 3, 'out', 'Vente #25', 25, 38, '2026-06-02 22:03:30', '2026-06-02 22:03:30'),
+(18, 3, 1, 'out', 'Vente #26', 26, 38, '2026-06-02 22:28:59', '2026-06-02 22:28:59'),
+(19, 26, 2, 'out', 'Vente #27', 27, 38, '2026-06-02 22:37:20', '2026-06-02 22:37:20'),
+(20, 4, 1, 'out', 'Vente #28', 28, 38, '2026-06-02 22:38:02', '2026-06-02 22:38:02'),
+(21, 4, 4, 'out', 'Vente #29', 29, 38, '2026-06-04 10:43:38', '2026-06-04 10:43:38'),
+(22, 3, 5, 'out', 'Sortie manuelle', NULL, 38, '2026-06-04 10:48:31', '2026-06-04 10:48:31'),
+(23, 7, 5, 'out', 'Vente #30', 30, 38, '2026-06-04 11:07:23', '2026-06-04 11:07:23'),
+(24, 26, 2, 'out', 'Vente #31', 31, 38, '2026-06-04 18:01:25', '2026-06-04 18:01:25'),
+(25, 9, 2, 'out', 'Vente #32', 32, 38, '2026-06-04 18:07:38', '2026-06-04 18:07:38'),
+(26, 26, 2, 'out', 'Vente #33', 33, 38, '2026-06-04 18:28:56', '2026-06-04 18:28:56'),
+(27, 26, 1, 'out', 'Vente #40', 40, 38, '2026-06-04 20:00:32', '2026-06-04 20:00:32'),
+(28, 26, 977, 'in', 'Entrée manuelle', NULL, 38, '2026-06-04 20:02:55', '2026-06-04 20:02:55'),
+(29, 26, 2, 'out', 'Vente #41', 41, 38, '2026-06-04 20:03:23', '2026-06-04 20:03:23'),
+(30, 26, 2, 'out', 'Vente #42', 42, 38, '2026-06-04 20:04:02', '2026-06-04 20:04:02'),
+(31, 26, 3, 'out', 'Vente #43', 43, 38, '2026-06-04 20:25:26', '2026-06-04 20:25:26'),
+(32, 26, 1, 'out', 'Vente #44', 44, 38, '2026-06-04 20:38:38', '2026-06-04 20:38:38'),
+(33, 26, 2, 'out', 'Vente #45', 45, 38, '2026-06-04 20:39:20', '2026-06-04 20:39:20'),
+(34, 26, 2, 'out', 'Vente #46', 46, 38, '2026-06-04 20:40:22', '2026-06-04 20:40:22'),
+(35, 26, 1, 'out', 'Vente #47', 47, 38, '2026-06-04 20:42:02', '2026-06-04 20:42:02'),
+(36, 26, 1, 'out', 'Vente #48', 48, 38, '2026-06-04 20:43:44', '2026-06-04 20:43:44'),
+(37, 26, 1, 'out', 'Vente #49', 49, 38, '2026-06-04 21:05:32', '2026-06-04 21:05:32'),
+(38, 26, 1, 'out', 'Vente #50', 50, 38, '2026-06-04 21:13:05', '2026-06-04 21:13:05'),
+(39, 26, 2, 'out', 'Vente #51', 51, 38, '2026-06-04 21:21:38', '2026-06-04 21:21:38'),
+(40, 26, 2, 'out', 'Vente #52', 52, 38, '2026-06-04 21:26:37', '2026-06-04 21:26:37');
 
 -- --------------------------------------------------------
 
@@ -342,7 +529,7 @@ INSERT INTO `users` (`id`, `name`, `first_name`, `last_name`, `email`, `password
 (5, 'Jean Dupont', 'Jean', 'SOSO', 'jon@example.com', 'secret', '0612345678', 1, 'manager', '2026-04-19 18:39:24', '2026-05-18 12:06:30'),
 (7, 'Laurent', 'Test', 'Jean Baptiste', 'emp@test.com', 'pass', NULL, 1, 'patron', '2026-04-19 18:55:15', '2026-05-17 11:48:43'),
 (8, 'Test User', 'Test', 'User', 'test@example.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', '0123456789', 1, 'patron', '2026-04-21 16:36:48', '2026-04-21 16:36:48'),
-(10, '', 'Super', 'Admin', 'admin@1000saveurs.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', NULL, 1, 'admin', '2026-04-22 18:59:21', '2026-04-22 18:59:21'),
+(10, '', 'Super', 'Admin', 'admin@1000saveurs.com', '$2y$10$4haDazvowk2J7Q0uOJCwouqkMzGxMs.ztaOmZH9mcPR99Xs0TWo/C\r\n', NULL, 1, 'admin', '2026-04-22 18:59:21', '2026-06-03 09:02:24'),
 (12, '', 'Marie', 'Manager', 'manager@1000saveurs.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', NULL, 1, 'manager', '2026-04-22 21:17:13', '2026-04-22 21:17:13'),
 (13, '', 'Jean', 'Patron', 'patron@1000saveurs.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', NULL, 1, 'patron', '2026-04-23 13:57:28', '2026-04-23 13:57:28'),
 (14, 'KALENGA', 'MBATCHIKA', 'Marc', 'marc@gmail.com', 'toutvasbin', '66642122', 1, 'admin', '2026-05-17 11:18:09', '2026-05-17 11:18:09'),
@@ -351,11 +538,22 @@ INSERT INTO `users` (`id`, `name`, `first_name`, `last_name`, `email`, `password
 (33, 'SALO', 'SALO', 'SALO', 'salo@gmail.com', '$2y$10$JQAf7885tnh9qjSIgkoHMulUGOh8S0RtOBcJqGcnflMxoHxgVg51S', '66645122', 1, 'patron', '2026-05-22 14:20:04', '2026-05-22 15:04:49'),
 (35, '', 'tjgjngj', 'bjhj', 'vvvvvvv@gmail.com', '$2y$10$0IjVQZ.5c3LXOMnq6w7bM.jgteHeAw1BvJ9DcOBFqNy5GIcWsnBRu', NULL, 1, '', '2026-05-27 18:28:26', '2026-05-27 18:28:26'),
 (38, '', 'Jean', 'Dupont', 'manager@1000saveur.com', '$2y$10$0BYnAHsB4n3LRseLT08QjObPYQpCFUnpuzZbvfGpCig.fo1sIEJJ2', NULL, 1, 'manager', '2026-05-29 22:50:00', '2026-05-29 22:50:00'),
-(39, '', 'nhbjnnj', 'n jjkm', 'mkkmm@gmail.com', '$2y$10$KEGVAhJWs6f6a4okBTYke.iPtMARUeg/PdjSyXZXSotIjzRcXaW9K', NULL, 1, '', '2026-06-01 13:12:16', '2026-06-01 13:12:16');
+(39, '', 'nhbjnnj', 'n jjkm', 'mkkmm@gmail.com', '$2y$10$KEGVAhJWs6f6a4okBTYke.iPtMARUeg/PdjSyXZXSotIjzRcXaW9K', NULL, 1, '', '2026-06-01 13:12:16', '2026-06-01 13:12:16'),
+(44, '', 'Admin', 'Deux', 'admin2@1000saveurs.com', '$2y$10$0UD9/hr3UGCc7GAneGB6KeqC5mbUomauqVwvGmrLe0PrxyJ4Xjm0G', NULL, 1, 'admin', '2026-06-03 09:26:41', '2026-06-03 09:26:41'),
+(45, '', 'NDAIKEZA', 'Amos', 'arakaza@gmail.com', '$2y$10$I/vXyrwfvpTgJ8eTrGUyZeVCamp66oUaOa2wKFR6hE7QIUPeZ3pY6', NULL, 1, 'patron', '2026-06-03 10:17:12', '2026-06-03 10:17:12'),
+(46, '', 'GUSENGA', 'obede', 'gusenga@gmail.com', '$2y$10$9zOb9UXf1LO8oEzNdPRBl.NLOT9tYKGQClyD9g6b/OiuCbmQkFLuO', NULL, 1, 'manager', '2026-06-03 10:20:23', '2026-06-03 10:20:42'),
+(47, '', 'gusenga', 'Obede', 'gusengaobede@gmail.com', '$2y$10$kHX48Vy9wb7xqerDHk4Syeo1H.2sw2dys6ECgP6JpjaSbmpl/s.cy', NULL, 1, 'manager', '2026-06-03 10:45:14', '2026-06-03 10:48:42');
 
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `activity_logs`
+--
+ALTER TABLE `activity_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Index pour la table `debts`
@@ -386,6 +584,13 @@ ALTER TABLE `employees`
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Index pour la table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sale_id` (`sale_id`);
 
 --
 -- Index pour la table `products`
@@ -419,6 +624,13 @@ ALTER TABLE `sale_items`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Index pour la table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `key_name` (`key_name`);
+
+--
 -- Index pour la table `stock_movements`
 --
 ALTER TABLE `stock_movements`
@@ -438,10 +650,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT pour la table `activity_logs`
+--
+ALTER TABLE `activity_logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `debts`
 --
 ALTER TABLE `debts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT pour la table `departements`
@@ -453,7 +671,7 @@ ALTER TABLE `departements`
 -- AUTO_INCREMENT pour la table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT pour la table `notifications`
@@ -462,10 +680,16 @@ ALTER TABLE `notifications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
 -- AUTO_INCREMENT pour la table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT pour la table `salary_reports`
@@ -477,29 +701,41 @@ ALTER TABLE `salary_reports`
 -- AUTO_INCREMENT pour la table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT pour la table `sale_items`
 --
 ALTER TABLE `sale_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT pour la table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `stock_movements`
 --
 ALTER TABLE `stock_movements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `activity_logs`
+--
+ALTER TABLE `activity_logs`
+  ADD CONSTRAINT `activity_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `debts`
@@ -526,6 +762,12 @@ ALTER TABLE `employees`
 --
 ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `payments`
+--
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `sales` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `products`
