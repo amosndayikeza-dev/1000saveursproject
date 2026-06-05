@@ -9,10 +9,10 @@
     const nomEmployeDepartement=document.getElementById("nom-employe-departement");
     const posteEmployeDepartement=document.getElementById("poste-employe-departement");
     const formAjoutDepartement=document.getElementById("ajout-departement");
-    const containerDepartements=document.getElementById("container-departements");
     const addDepartement=document.getElementById("add-departement");
     const addProduct=document.getElementById("add-product");
-    const btnAjouterDepartement=document.getElementById("btn-ajouter-departement");
+    const addEmployee=document.getElementById("add-employee");
+    const UserInfos=document.getElementById("add-user-infos");
     const body=document.body;
     let mode=localStorage.getItem("mode");
     const btnDarkMode=document.getElementById("btn-dark-mode");
@@ -202,9 +202,19 @@
         containerLeft.classList.add("tft-show");
     }
 
+     // affiche le popup d'ajout dinfos d'utilisateur
+    function ajouterUserInfos(){
+        UserInfos.classList.add("tft-show");
+    }
+
     // affiche le popup d'ajout de departement
     function ajouterDepartement(){
         addDepartement.classList.add("tft-show");
+    }
+
+    // affiche le popup d'ajout de produit
+    function ajouterEmployee(){
+        addEmployee.classList.add("tft-show");
     }
 
     // affiche le popup d'ajout de produit
@@ -212,6 +222,13 @@
         addProduct.classList.add("tft-show");
     }
 
+    // ferme tout modal ouvert
+    function closeModal(){
+        popupModals.forEach(popupModal =>{
+            popupModal.classList.remove("tft-show");
+        })
+    }
+    
     // changer le theme
     if(mode=="dark"){
         body.setAttribute("data-mode","dark");
@@ -234,56 +251,55 @@
     }
 
 
-    if (formAjoutDepartement) {
-        formAjoutDepartement.addEventListener("submit" ,(a)=>{
-            a.preventDefault();
-            console.log("le nom du departement est : " + nomDepartement.value);
-            console.log("la description du departement est : " + descriptionDepartement.value);
-            console.log("la date de creation du departement est :" + dateCreationDepartement.value);
-            const departementContainer=document.createElement("div");
-            departementContainer.setAttribute("class","departement");
-            departementContainer.innerHTML=`
-            <p class="tft-sm-title2 tft-bg-black2" id="creation-date">Crée le ${dateCreationDepartement.value}</p>
-                <div class="departement-details">
-                    <h3 class="tft-title2 tft-clr-orangesav tft-a-self-center">${nomDepartement.value}</h3>
-                    <p class="tft-sm-title1 tft-text-justify tft-w-100 tft-break-word tft-fs-15px tft-line-h-1-4">${descriptionDepartement.value}</p>
-                </div>
-                <div class="departement-workers">
-                    <div class="simple-workers">
-                        <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
-                            <img src="../../assets/images/user/1.png.jpg" alt="">
-                        </div>
-                        <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
-                            <img src="../../assets/images/user/user7.jpg" alt="">
-                        </div>
-                        <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
-                            <img src="../../assets/images/user/mlane.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="departement-manager">
-                        <div class="tft-avatar-profil-moyen tft-bdr-white2-2 tft-cursorpointer">
-                            <img src="../../assets/images/user/mlane.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="simple-workers">
-                        <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
-                            <img src="../../assets/images/user/arashmil.jpg" alt="">
-                        </div>
-                        <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
-                            <img src="../../assets/images/user/sauro.jpg" alt="">
-                        </div>
-                        <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
-                            <img src="../../assets/images/user/jm_denis.jpg" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="departement-btns">
-                    <a class="tft-btn" href="#">
-                    Editer
-                </a>
-                <button class="tft-btn">Supprimer</button>
-            </div> `;
-        containerDepartements.insertBefore(departementContainer,btnAjouterDepartement);
+    // formAjoutDepartement.addEventListener("submit" ,(a)=>{
+    //     a.preventDefault();
+    //     console.log("le nom du departement est : " + nomDepartement.value);
+    //     console.log("la description du departement est : " + descriptionDepartement.value);
+    //     console.log("la date de creation du departement est :" + dateCreationDepartement.value);
+    //     const departementContainer=document.createElement("div");
+    //     departementContainer.setAttribute("class","departement");
+    //     departementContainer.innerHTML=`
+    //     <p class="tft-sm-title2 tft-bg-black2" id="creation-date">Crée le ${dateCreationDepartement.value}</p>
+    //         <div class="departement-details">
+    //             <h3 class="tft-title2 tft-clr-orangesav tft-a-self-center">${nomDepartement.value}</h3>
+    //             <p class="tft-sm-title1 tft-text-justify tft-w-100 tft-break-word tft-fs-15px tft-line-h-1-4">${descriptionDepartement.value}</p>
+    //         </div>
+    //         <div class="departement-workers">
+    //             <div class="simple-workers">
+    //                 <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
+    //                     <img src="../../assets/images/user/1.png.jpg" alt="">
+    //                 </div>
+    //                 <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
+    //                     <img src="../../assets/images/user/user7.jpg" alt="">
+    //                 </div>
+    //                 <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
+    //                     <img src="../../assets/images/user/mlane.jpg" alt="">
+    //                 </div>
+    //             </div>
+    //             <div class="departement-manager">
+    //                 <div class="tft-avatar-profil-moyen tft-bdr-white2-2 tft-cursorpointer">
+    //                     <img src="../../assets/images/user/mlane.jpg" alt="">
+    //                 </div>
+    //             </div>
+    //             <div class="simple-workers">
+    //                 <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
+    //                     <img src="../../assets/images/user/arashmil.jpg" alt="">
+    //                 </div>
+    //                 <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
+    //                     <img src="../../assets/images/user/sauro.jpg" alt="">
+    //                 </div>
+    //                 <div class="tft-avatar-profil-petit tft-bdr-white2-2 tft-cursorpointer">
+    //                     <img src="../../assets/images/user/jm_denis.jpg" alt="">
+    //                 </div>
+    //             </div>
+    //         </div>
+    //         <div class="departement-btns">
+    //             <a class="tft-btn" href="#">
+    //                 Editer
+    //             </a>
+    //             <button class="tft-btn">Supprimer</button>
+    //         </div> `;
+    //     containerDepartements.insertBefore(departementContainer,btnAjouterDepartement);
         // console.log("la date de creation du departement est : " + dateCreationDepartement.value);
         // console.log("le nom de l'employe du departement est : " + nomEmployeDepartement.value);
         // console.log("le poste de l'employe du departement est : " + posteEmployeDepartement.value);
@@ -406,7 +422,7 @@
         //     <p class="tft-sm-title1">${posteEmployeDepartement.value}</p>
         // </div>`;
 
-    })
+    // })
     // photoEmployeDepartement.addEventListener("change" ,()=>{
     //     if(this.files[0]){
     //         const reader=new FileReader();
@@ -421,4 +437,3 @@
 
 
 
-    }

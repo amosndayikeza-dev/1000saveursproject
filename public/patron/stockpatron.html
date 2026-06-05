@@ -1,117 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1000saveurs</title>
-    <link rel="icon" href="../assets/images/icons/abonnes.png">
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/notification.css">
-    <link rel="stylesheet" href="../assets/css/tft-configStyles.css">
-    <link rel="stylesheet" href="../assets/css/responsiveStyles.css">
-    <link rel="stylesheet" href="../assets/fonts/feather/feather.css">
-    <link rel="stylesheet" href="../assets/font-awesome/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
+<!-- head debut-->
+    <?php
+        include("./components/headpatron.php"); 
+    ?>
+<!-- head fin-->
 <body>
     <div class="containerAll">
-        <!-- partie gauche -->
-        <div class="containerLeft" id="container-left">
-            <div class="tft-icon-round-petit tft-p-absolute tft-top-5 tft-right-10 tft-bg-black3" onclick="hideSidebar()" id="icon-sidebar">
-                <i class="fas fa-arrow-right"></i>
-            </div>
-            <div class="c-left-header">
-                <a href="./dashboardpatron.php">
-                    <div class="tft-logo-avatar tft-bdr-greensav-1">
-                        <img src="../assets/images/icons/abonnes.png" alt="">
-                    </div>
-                </a>
-                <div class="app-title">
-                    <h1 class="app-name">1000<span>Saveurs</span></h1>
-                </div>
-            </div>
-            <div class="menu">
-                <div class="c-left-menu">
-                    <a href="./dashboardpatron.php">
-                        <div class="c-left-option">
-                            <div class="tft-icon-round" onclick="showSidebar()">
-                                <i class="fas fa-home"></i>
-                            </div>
-                            <p class="option-name">Dashboard</p>
-                        </div>
-                    </a>
-                    <a href="./departementspatron.php">
-                        <div class="c-left-option">
-                            <div class="tft-icon-round">
-                                <i class="fas fa-sitemap"></i>
-                            </div>
-                            <p class="option-name">Départements</p>
-                        </div>
-                    </a>
-                    <div class="repport">
-                        <div class="c-left-option tft-br-5-5-0-0 tft-p-relative">
-                            <div class="tft-icon-round">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
-                            <p class="option-name">Rapports</p>
-                            <div class="tft-chevron-icon tft-p-absolute tft-top-15 tft-right-5" onclick="showRepportOptions()">
-                                <i class="fas fa-chevron-down tft-clr-gris1"></i>
-                            </div>
-                        </div>
-                        <div class="repport-options" id="repport-options">
-                            <a href="./salespatron.html" class="repport-title">
-                                <div class="tft-icon-round-petit tft-bdr-greensav-1">
-                                    <i class="fas fa-chart-bar tft-clr-greensav"></i>
-                                </div>
-                                <p class="tft-title4">Ventes</p>
-                            </a>
-                            <a href="./repportdebtspatron.html" class="repport-title">
-                                <div class="tft-icon-round-petit tft-bdr-greensav-1">
-                                    <i class="fas fa-chart-bar tft-clr-greensav"></i>
-                                </div>
-                                <p class="tft-title4">Dettes</p>
-                            </a>
-                            <a href="./repportsalarypatron.html" class="repport-title">
-                                <div class="tft-icon-round-petit tft-bdr-greensav-1">
-                                    <i class="fas fa-chart-bar tft-clr-greensav"></i>
-                                </div>
-                                <p class="tft-title4">Salaires</p>
-                            </a>
-                        </div>
-                    </div>
-                    <a href="./employespatron.html">
-                        <div class="c-left-option">
-                            <div class="tft-icon-round">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <p class="option-name">Employés</p>
-                        </div>
-                    </a>
-                    <a href="./stockpatron.html">
-                        <div class="c-left-option">
-                            <div class="tft-icon-round">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <p class="option-name">Stock</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="user-option">
-                    <div class="tft-avatar-profil-petit tft-bdr-orangesav-2 tft-cursor-pointer" onclick="showContainerRight()">
-                        <img src="../assets/images/icons/femme.jpg" alt="">
-                    </div>
-                    <div class="user-infos">
-                        <div class="user-name">
-                            <h2 id="userName" class="tft-title4 tft-fw-600"> Chargement</h2>
-                            <p id="userRole" class="tft-sm-title1">Patronne</p>
-                        </div>
-                        <div class="tft-icon-carre-moyen tft-bg-black3 tft-transition" onclick="deconnectionModal()">
-                            <i class="fe fe-log-out tft-clr-red"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- partie gauche debut ================SIDEBAR=============-->
+            <?php
+                include("./components/sidebarpatron.php"); 
+            ?>
+        <!-- partie gauche fin ================SIDEBAR=============-->
         <!-- partie centre -->
         <div class="containerCenter">
             <div class="c-center-header">
@@ -119,47 +17,13 @@
                     <div class="tft-icon-carre tft-bdr-gris-1" onclick="showSidebar()">
                         <i class="fas fa-bars"></i>
                     </div>
-                    Les produits</h2>
-                <div class="header-aside">
-                    <div class="tft-search-withIcon">
-                        <input type="search" placeholder="Rechercher" class="tft-clr-white3">
-                        <div class="tft-search-withIcon-icon tft-bg-greensav">
-                            <i class="fas fa-search tft-clr-remain-white tft-fw-600"></i>
-                        </div>
-                    </div>
-                    <!-- <div class="tft-users tft-bdr-gris-1" id="tft-users">
-                        <div class="tft-users-pics"  id="tft-users-pics">
-                            <div class="tft-user-pic tft-bdr-greensav-1">
-                                <img src="../assets/images/icons/femme.png">
-                            </div>
-                            <div class="tft-user-pic tft-bdr-greensav-1">
-                                <img src="../assets/images/icons/femme.png">
-                            </div>
-                            <div class="tft-user-pic tft-bdr-greensav-1">
-                                <img src="../assets/images/icons/femme.png">
-                            </div>
-                            <div class="tft-user-pic tft-bdr-greensav-1">
-                                <img src="../assets/images/icons/femme.png">
-                            </div>
-                            <div class="tft-user-pic tft-bdr-greensav-1">
-                                <p class="tft-clr-white3">+15</p>
-                            </div>
-                        </div>
-                        <h4 class="tft-sm-title1 tft-bg-black1" id="user-desc">Utilisateurs</h4>
-                    </div> -->
-                    <div class="tft-icon-carre-moyen tft-bdr-greensav-1 tft-bg-black3" onclick="showContainerRightNotification()">
-                        <i class="fas fa-bell tft-clr-greensav"></i>
-                    </div>
-                    <div class="tft-icon-carre-moyen tft-bdr-greensav-1 tft-bg-black3"  onclick="showContainerRightParametre()">
-                        <i class="fas fa-cog tft-clr-greensav"></i>
-                    </div>
-                    <div class="tft-icon-carre-moyen tft-bg-orangesav2" id="btn-light-mode" onclick="changeMode()">
-                        <i class="fas fa-moon tft-clr-white"></i>
-                    </div>
-                    <div class="tft-icon-carre-moyen tft-bg-orangesav2 tft-hidden" id="btn-dark-mode" onclick="changeMode()">
-                        <i class="fas fa-moon tft-clr-white"></i>
-                    </div>
-                </div>
+                    Les produits
+                </h2>
+                <!-- le menu header debut -->
+                    <?php
+                        include("./components/menuheaderpatron.php"); 
+                    ?>
+                <!-- le menu header fin -->
             </div>
             <div class="c-center-body">
                 <div class="products-header">
@@ -176,13 +40,18 @@
                 <div class="products-container">
                     <table class="tft-table">
                         <tr class="tft-b-bottom-gris">
-                            <th class="tft-title3">ID</th>
-                            <th class="tft-title3">NOM</th>
-                            <th class="tft-title3">DESCRIPTION</th>
-                            <th class="tft-title3">PRIX UNITAIRE</th>
-                            <th class="tft-title3">STOCK</th>
-                            <th class="tft-title3">STATUS</th>
-                            <th class="tft-title3 ">ACTION</th>
+                            <th class="tft-title3">
+                                <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1" onclick="activeCheckboxAll(this)">
+                                    <i class="fas fa-check tft-clr-transparent "></i>
+                                </div>
+                            </th>
+                            <th class="tft-title3">Id</th>
+                            <th class="tft-title3">Nom</th>
+                            <th class="tft-title3">Description</th>
+                            <th class="tft-title3">Prix unitaire</th>
+                            <th class="tft-title3">Stock</th>
+                            <th class="tft-title3">Status</th>
+                            <th class="tft-title3 ">Action</th>
                         </tr>
                         <tbody id="products-table-body">
                                 <!-- Les produits seront injectés ici -->
@@ -617,9 +486,10 @@ function displayProducts(products) {
         }
 
         row.innerHTML = `
-            <td class="tft-title3 checkbox">
-                <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1 checkbox-icon" onclick="activeCheckbox(this)">
-                    <i class="fas fa-check tft-clr-transparent"></i>
+        
+            <td class="tft-title3 ">
+                <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1 icon-checked" onclick="activeCheckbox(this)">
+                    <i class="fas fa-check tft-clr-transparent "></i>
                 </div>
             </td>
             <td class="tft-title4 tft-clr-white3">${escapeHtml(productId)}</td>
@@ -627,7 +497,12 @@ function displayProducts(products) {
             <td class="tft-title4 tft-clr-white3">${escapeHtml(productDesc)}</td>
             <td class="tft-title4 tft-clr-white3">${formatPrice(price)}</td>
             <td class="tft-title4 tft-clr-white3">${productStock}</td>
-            <td class="${stockClass}"><div class="tft-stock-dot"></div><div class="tft-stock-info"><p>${stockText}</p></div></td>
+            <td class="${stockClass}" id="stock-status">
+                <div class="tft-stock-dot"></div>
+                <div class="tft-stock-info">
+                    <p>${stockText}</p>
+                </div>
+            </td>
             <td class="tft-bdr-l-gris-1">
                 <div class="actions">
                     <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1" onclick="openEditProductModal(${productId})">
@@ -636,6 +511,9 @@ function displayProducts(products) {
                     <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-red-txt-1" onclick="deleteProduct(${productId})">
                         <i class="fe fe-trash delete-icon tft-clr-red"></i>
                     </div>
+                    <!-- <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-gris-1 active-icon-parent" onclick="activeDesactiveElement(this)">
+                        <i class="fas fa-toggle-off active-icon tft-clr-gris1"></i>
+                    </div> -->
                 </div>
             </td>
         `;
@@ -707,7 +585,7 @@ function updatePaginationDisplay(totalItems) {
     container.innerHTML = '';
     for (let i = 1; i <= totalPages; i++) {
         const li = document.createElement('li');
-        li.className = `tft-icon-carre-petit tft-clr-white3 tft-br-none ${i === currentPage ? 'tft-active-page' : ''}`;
+        li.className = `tft-icon-carre-petit tft-clr-white3 tft-br-2 ${i === currentPage ? 'tft-active-page' : ''}`;
         li.textContent = String(i);
         li.style.cursor = 'pointer';
         li.onclick = () => { currentPage = i; displayCurrentPage(); };

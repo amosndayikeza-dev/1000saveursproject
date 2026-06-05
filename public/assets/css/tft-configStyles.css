@@ -496,6 +496,10 @@ i {
 /* ////////////////////////////////////////////////////////////////////////////////// */
 /* =                              CLASSES POUR LES TAILLES                            */
 /* ////////////////////////////////////////////////////////////////////////////////// */
+
+.tft-w-fit {
+  width: fit-content !important;
+}
 .tft-w-10 {
   width: 10% !important;
 }
@@ -838,6 +842,9 @@ position: relative !important;
 }
 .tft-br-5 {
   border-radius: 0.3125rem !important;
+}
+.tft-br-2 {
+  border-radius: 0.125rem !important;
 }
 .tft-br-10 {
   border-radius: 0.625rem !important;
@@ -1483,6 +1490,9 @@ position: relative !important;
 .tft-flex-column{
   flex-direction: column !important;
 }
+.tft-flex-row{
+  flex-direction: row !important;
+}
 .tft-a-center {
   align-items: center !important;
 }
@@ -1497,6 +1507,15 @@ position: relative !important;
 }
 .tft-j-center{
   justify-content: center !important;
+}
+.tft-j-s-b{
+  justify-content: space-between !important;
+}
+.tft-j-s-a{
+  justify-content: space-around !important;
+}
+.tft-j-s-e{
+  justify-content: space-evenly !important;
 }
 .tft-j-start{
   justify-content: start !important;

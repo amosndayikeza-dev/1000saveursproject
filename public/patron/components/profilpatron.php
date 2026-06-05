@@ -4,7 +4,7 @@
     </div>
     <div class="admin-profil">
         <div class="tft-avatar-profil-moyen2 tft-bdr-greensav-2">
-            <img src="../assets/images/user/arashmil.jpg">
+            <img src="../assets/images/icons/femme.jpg">
         </div>
         <h4 class="tft-title4 tft-fw-600">Triphine Iribagiza</h4>
         <p class="tft-sm-title1">Patronne</p>
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="infos-buttons tft-mt-10">
-                <div class="infos-button tft-bg-greensav centre-tout tft-gap-5px">
+                <div class="infos-button tft-bg-greensav centre-tout tft-gap-5px" onclick="ajouterUserInfos()">
                     <i class="fe fe-edit tft-clr-remain-white"></i>
                     <a href="#" class="tft-mt-2 tft-clr-remain-white">Editer</a>
                 </div>

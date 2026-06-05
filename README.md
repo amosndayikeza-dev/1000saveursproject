@@ -1,7 +1,7 @@
 # Reviewa
 # pour se connecter : http://localhost/1000saveursproject/public/login.html
 
-# et puis vous saisissez : emali : salo@gmail.com
+# et puis vous saisissez : emali :   salo@gmail.com
 #                            password : salo123
 
 # manager : manager@1000saveur.com
