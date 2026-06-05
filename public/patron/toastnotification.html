@@ -13,11 +13,10 @@
     .tft-toast{
         min-width: 300px;
         max-width: 400px;
-        height: 120px;
+        height: 130px;
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-        background-color: var(--blue-bg-icons);
         border-radius: var(--br-btn);
         gap: 10px;
         position: fixed;
@@ -69,59 +68,68 @@
         text-align: justify;
     }
     .toast-time-line{
+    width: 0%;
+    height: 3px;
+    border-radius: 0 0 var(--br-btn) var(--br-btn);
+    animation: timeLineCount 3s linear forwards;
+    /* background-color: var(--remain-white-utile-3); */
+    }
+   @keyframes timeLineCount{
+    from{
+        width: 0%;
+    }
+    to{
         width: 100%;
-        height: 5px;
-        background-color: var(--blue-txt-icons);
-        /* background-color: var(--remain-white-utile-3); */
-        border-radius: 0px 0px var(--br-btn) var(--br-btn);
-        animation: timeLineCount 0.3s ease forwards;
     }
-    @keyframes timeLineCount{
-        from{
-            width: 0%;
-            transform: translateX(10px);
-        }
-        to{
-            width: 100%;
-        }
-    }
+}
     .tft-toast-success { 
         background-color: var(--green-bg-icons);
     }
     .tft-toast-success .toast-time-line{
        background-color: var(--green-txt-icons);
     }
-
+    .tft-toast-success .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--green-txt-icons) !important;
+    }
     .tft-toast-error {
        background-color: var(--red-bg-icons);
     }
     .tft-toast-error .toast-time-line{
        background-color: var(--clr-crimson);
     }
+    .tft-toast-error .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--clr-crimson) !important;
+    }
 
     .tft-toast-warning {
         background-color: var(--yellow-bg-icons);
     }
     .tft-toast-warning .toast-time-line{
-       background-color: var(--yellow-bg-icons);
+       background-color: var(--yellow-txt-icons);
+    }
+    .tft-toast-warning .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--yellow-txt-icons) !important;
     }
     .tft-toast-info {
        background-color: var(--blue-bg-icons)
     }
-     .tft-toast-warning .toast-time-line{
+    .tft-toast-info .toast-time-line{
        background-color: var(--blue-txt-icons);
+    }
+    .tft-toast-info .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--blue-txt-icons) !important;
     }
 </style>
 <body class="tft-bg-black2">
-    <div class="tft-toast">
+    <div class="tft-toast tft-toast-success">
         <div class="tft-toast-content">
             <div class="tft-toast-header">
                 <div class="tft-icon-round-petit tft-bdr-white3-1">
-                    <i class="fas fa-check-circle tft-clr-blue-txt"></i>
+                    <i class="fas fa-check-circle"></i>
                 </div>
                 <h1 class="tft-toast-title tft-title3">Information</h1>
             </div>
-            <p class="tft-toast-message tft-title4">loLorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem tempore adipisci eaque </p>
+            <p class="tft-toast-message tft-title4 tft-clr-white3">loLorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem tempore adipisci eaque </p>
         </div>
         <div class="toast-time-line"></div>
         <div class="tft-close-icon tft-p-absolute tft-top-15 tft-right-15 tft-hover-whiteBlur">
@@ -129,4 +137,11 @@
         </div>
     </div>
 </body>
+<script>
+    const toast = document.querySelector(".tft-toast");
+
+    setTimeout(() => {
+        toast.classList.add("tft-toast-hide");
+    }, 3000); // même durée que l'animation
+</script>
 </html>

@@ -390,8 +390,8 @@ async function loadDepartements() {
                             </div>
                         </div>
                         <div class="manager-name">
-                            <h4 class="tft-title4">${escapeHtml(dept.managerName || `${dept.managerFirstName || ''} ${dept.managerLastName || ''}`.trim() || 'Non assigné')}</h4>
-                            <p class="tft-sm-title1">Manager</p>
+                            <h4 class="tft-sm-title1 tft-clr-white">${escapeHtml(dept.managerName || `${dept.managerFirstName || ''} ${dept.managerLastName || ''}`.trim() || 'Non assigné')}</h4>
+                            <p class="tft-sm-title2">Manager</p>
                         </div>
                     </div>
                     <div class="manager-infos">
@@ -401,8 +401,8 @@ async function loadDepartements() {
                             </div>
                         </div>
                         <div class="manager-name">
-                            <h4 class="tft-title4">${escapeHtml(dept.address || 'Adresse non renseignée')}</h4>
-                            <p class="tft-sm-title1">Adresse</p>
+                            <h4 class="tft-sm-title1 tft-clr-white">${escapeHtml(dept.address || 'Adresse non renseignée')}</h4>
+                            <p class="tft-sm-title2">Adresse</p>
                         </div>
                     </div>
                 </div>

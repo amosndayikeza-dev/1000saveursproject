@@ -79,48 +79,195 @@
     }
 }
 
-@keyframes slideOutRight {
-    from {
-        transform: translateX(0);
-        opacity: 1;
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
     }
-    to {
-        transform: translateX(100%);
-        opacity: 0;
+
+    .tft-toast-hide {
+        animation: slideOutRight 0.3s ease forwards;
+    }
+    .tft-toast-content{
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+    }
+    .tft-toast-header{
+        display: flex;
+        padding: 5px;
+        justify-content: start;
+        align-items: center;
+        gap: 10px;
+    }
+    .tft-toast-message{
+        text-align: justify;
+    }
+    .toast-time-line{
+    width: 0%;
+    height: 3px;
+    border-radius: 0 0 var(--br-btn) var(--br-btn);
+    animation: timeLineCount 3s linear forwards;
+    /* background-color: var(--remain-white-utile-3); */
+    }
+   @keyframes timeLineCount{
+    from{
+        width: 0%;
+    }
+    to{
+        width: 100%;
     }
 }
+    .tft-toast-success { 
+        background-color: var(--green-bg-icons);
+    }
+    .tft-toast-success .toast-time-line{
+       background-color: var(--green-txt-icons);
+    }
+    .tft-toast-success .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--green-txt-icons) !important;
+    }
+    .tft-toast-error {
+       background-color: var(--red-bg-icons);
+    }
+    .tft-toast-error .toast-time-line{
+       background-color: var(--clr-crimson);
+    }
+    .tft-toast-error .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--clr-crimson) !important;
+    }
 
-.tft-toast-hide {
-    animation: slideOutRight 0.3s ease forwards;
-}
+    .tft-toast-warning {
+        background-color: var(--yellow-bg-icons);
+    }
+    .tft-toast-warning .toast-time-line{
+       background-color: var(--yellow-txt-icons);
+    }
+    .tft-toast-warning .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--yellow-txt-icons) !important;
+    }
+    .tft-toast-info {
+       background-color: var(--blue-bg-icons)
+    }
+    .tft-toast-info .toast-time-line{
+       background-color: var(--blue-txt-icons);
+    }
+    .tft-toast-info .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--blue-txt-icons) !important;
+    }
 
-/*BOUTON FILTER*/
-/* Style pour le menu filtre */
-.tft-filters {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #1e1e2f;
-    border-radius: 8px;
-    padding: 10px 0;
-    min-width: 220px;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
+    /* .tft-toast{
+        min-width: 300px;
+        max-width: 400px;
+        height: 130px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        border-radius: var(--br-btn);
+        gap: 10px;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        animation: slideInRight alternate 0.5s ease;
+        overflow-y: auto;
+    }
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
 
-.tft-filters p {
-    padding: 10px 20px;
-    margin: 0;
-    cursor: pointer;
-    color: white;
-    transition: background 0.2s;
-}
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
 
-.tft-filters p:hover {
-    background-color: #4CAF50;
+    .tft-toast-hide {
+        animation: slideOutRight 0.3s ease forwards;
+    }
+    .tft-toast-content{
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+    }
+    .tft-toast-header{
+        display: flex;
+        padding: 5px;
+        justify-content: start;
+        align-items: center;
+        gap: 10px;
+    }
+    .tft-toast-message{
+        text-align: justify;
+    }
+    .toast-time-line{
+    width: 0%;
+    height: 3px;
+    border-radius: 0 0 var(--br-btn) var(--br-btn);
+    animation: timeLineCount 3s linear forwards;
+    background-color: var(--remain-white-utile-3); */
+    /* }
+   @keyframes timeLineCount{
+    from{
+        width: 0%;
+    }
+    to{
+        width: 100%;
+    }
 }
+    .tft-toast-success { 
+        background-color: var(--green-bg-icons);
+    }
+    .tft-toast-success .toast-time-line{
+       background-color: var(--green-txt-icons);
+    }
+    .tft-toast-success .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--green-txt-icons) !important;
+    }
+    .tft-toast-error {
+       background-color: var(--red-bg-icons);
+    }
+    .tft-toast-error .toast-time-line{
+       background-color: var(--clr-crimson);
+    }
+    .tft-toast-error .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--clr-crimson) !important;
+    }
 
-.products-header {
-    position: relative;
-}
+    .tft-toast-warning {
+        background-color: var(--yellow-bg-icons);
+    }
+    .tft-toast-warning .toast-time-line{
+       background-color: var(--yellow-txt-icons);
+    }
+    .tft-toast-warning .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--yellow-txt-icons) !important;
+    }
+    .tft-toast-info {
+       background-color: var(--blue-bg-icons)
+    }
+    .tft-toast-info .toast-time-line{
+       background-color: var(--blue-txt-icons);
+    }
+    .tft-toast-info .tft-toast-content .tft-toast-header .tft-icon-round-petit i{
+        color: var(--blue-txt-icons) !important;
+    }  */
