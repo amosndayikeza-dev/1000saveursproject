@@ -26,6 +26,20 @@ function showNotification(message, type = 'info', title = '', duration = 3000) {
             <div class="tft-toast-message">${escapeHtml(message)}</div>
         </div>
         <i class="fas fa-times tft-toast-close"></i>
+
+       <!-- <div class="tft-toast-content">
+            <div class="tft-toast-header">
+                <div class="tft-icon-round-petit tft-bdr-white3-1">
+                    <i class=""${icon}""></i>
+                </div>
+                <h1 class="tft-toast-title tft-title3">${finalTitle}</h1>
+            </div>
+            <p class="tft-toast-message tft-title4 tft-clr-white3">${escapeHtml(message)}</p>
+        </div>
+        <div class="toast-time-line"></div>
+        <div class="tft-close-icon tft-toast-close tft-p-absolute tft-top-15 tft-right-15 tft-hover-whiteBlur">
+            <i class="fas fa-times tft-clr-white3"></i>
+        </div> -->
     `;
     document.body.appendChild(toast);
     const closeBtn = toast.querySelector('.tft-toast-close');
