@@ -667,9 +667,10 @@ function ensureSalesSummaryContainer() {
     container = document.createElement('div');
     container.id = 'sales-summary-cards';
     container.style.display = 'flex';
-    container.style.gap = '12px';
+    container.style.gap = '15px';
     container.style.flexWrap = 'wrap';
     container.style.marginBottom = '12px';
+    container.style.padding='0px 20px 0px 20px';
 
     const productsContainer = document.querySelector('.products-container');
     if (productsContainer && productsContainer.parentNode) {
@@ -690,15 +691,15 @@ function displaySalesSummary(summary) {
     const totalRevenue = summary?.totalRevenue ?? 0;
 
     container.innerHTML = [
-        { label: 'Nombre de ventes', value: salesCount, icon: 'fa-list', color: '#6c757d' },
-        { label: 'Chiffre d\'affaires', value: formatSalesAmount(totalRevenue), icon: 'fa-coins', color: '#007bff' },
+        { label: 'Nombre de ventes', value: salesCount, icon: 'fa-list', color: 'var(--clr-green1)' },
+        { label: 'Chiffre d\'affaires', value: formatSalesAmount(totalRevenue), icon: 'fa-coins', color: 'var(--blue-txt-icons)' },
     ].map(c => `
-        <div style="background:var(--bg-black2,#1e1e2f);border:1px solid ${c.color};border-radius:8px;padding:12px 20px;min-width:220px;flex:1;">
+        <div style="background:var(--black-utile-3);border:1px solid ${c.color};border-radius:8px;padding:12px 20px;min-width:220px;flex:1;">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
                 <i class="fas ${c.icon}" style="color:${c.color};"></i>
-                <span class="tft-sm-title1" style="color:var(--clr-white3,#ccc);">${c.label}</span>
+                <span class="tft-sm-title1" style="color:var(--white-utile-1);">${c.label}</span>
             </div>
-            <strong class="tft-title3" style="color:#fff;">${c.value}</strong>
+            <strong class="tft-title3" style="var(--white)">${c.value}</strong>
         </div>
     `).join('');
 }
