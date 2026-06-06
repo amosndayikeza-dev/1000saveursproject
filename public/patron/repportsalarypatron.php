@@ -26,17 +26,17 @@
                 <!-- le menu header fin -->
             </div>
             <div class="c-center-body">
-                <div class="products-header tft-j-s-b">
+                <div class="products-header tft-j-s-b tft-gap-5px">
                     <form action="#" class="tft-form tft-flex-row tft-w-fit">
-                        <!-- Ajouts: filtres + export du rapport des salaires -->
+                         <!-- Ajouts: filtres + export du rapport des salaires  -->
                         <div class="tft-form-group" style="flex-direction:row;align-items:center;gap:6px;margin:0;">
                             <label for="salary-start-date" class="tft-sm-title1" style="white-space:nowrap;">Du</label>
-                            <input type="date" id="salary-start-date" class="tft-form-control" style="width:140px;">
+                            <input type="date" id="salary-start-date" class="tft-form-control" style="width:120px;">
                         </div>
 
                         <div class="tft-form-group" style="flex-direction:row;align-items:center;gap:6px;margin:0;">
                             <label for="salary-end-date" class="tft-sm-title1" style="white-space:nowrap;">Au</label>
-                            <input type="date" id="salary-end-date" class="tft-form-control" style="width:140px;">
+                            <input type="date" id="salary-end-date" class="tft-form-control" style="width:120px;">
                         </div>
                     </form>
 
@@ -48,11 +48,9 @@
                                 <!-- Options injectées par JS -->
                             </div>
                         </button>
-                    <button class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav" onclick="exportSalesExcel()">
-                        <i class="fas fa-file-excel"></i> Export Excel
-                    </button>
-
-
+                        <button class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav" onclick="exportSalesExcel()">
+                            <i class="fas fa-file-excel"></i> Export Excel
+                        </button>
                         <button class="tft-btn tft-bdr-greensav-1 tft-clr-white3 tft-hover-greensav" onclick="applySalaryFilters()">
                             <i class="fas fa-search"></i> Appliquer
                         </button>

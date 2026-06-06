@@ -41,7 +41,7 @@
                             <label for="debt-end-date" class="tft-sm-title1" style="white-space:nowrap;">Au</label>
                             <input type="date" id="debt-end-date" class="tft-form-control" style="width:140px;">
                         </div>
-                     </form>
+                    </form>
 
                     <div class="tft-flex tft-gap-20px tft-w-fit">
                         <!-- Bouton Filtrer avec menu déroulant départements (existant, enrichi dynamiquement) -->

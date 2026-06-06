@@ -26,17 +26,17 @@
                 <!-- le menu header fin -->
             </div>
             <div class="c-center-body">
-                <div class="products-header tft-j-s-b">
+                <div class="products-header tft-j-s-b tft-gap-5px">
                     <!-- Ajouts: filtres + export du rapport des ventes -->
                      <form action="#" class="tft-form tft-flex-row tft-w-fit">
                         <div class="tft-form-group tft-w-fit" style="flex-direction:row;align-items:center;gap:6px;margin:0;">
                             <label for="sales-start-date" class="tft-sm-title1" style="white-space:nowrap;">Du</label>
-                            <input type="date" id="sales-start-date" class="tft-form-control" style="width:140px;">
+                            <input type="date" id="sales-start-date" class="tft-form-control" style="width:120px;">
                         </div>
 
                         <div class="tft-form-group tft-w-fit" style="flex-direction:row;align-items:center;gap:6px;margin:0;">
                             <label for="sales-end-date" class="tft-sm-title1" style="white-space:nowrap;">Au</label>
-                            <input type="date" id="sales-end-date" class="tft-form-control" style="width:140px;">
+                            <input type="date" id="sales-end-date" class="tft-form-control" style="width:120px;">
                         </div>
                      </form>
                      <div class="tft-flex tft-gap-20px tft-w-fit">
