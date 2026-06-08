@@ -41,7 +41,7 @@
                             <label for="debt-end-date" class="tft-sm-title1" style="white-space:nowrap;">Au</label>
                             <input type="date" id="debt-end-date" class="tft-form-control" style="width:140px;">
                         </div>
-                     </form>
+                    </form>
 
                     <div class="tft-flex tft-gap-20px tft-w-fit">
                         <!-- Bouton Filtrer avec menu déroulant départements (existant, enrichi dynamiquement) -->
@@ -72,7 +72,7 @@
 
                 <!-- ===== CARTES DE RÉSUMÉ (totaux globaux) ===== -->
                 <!-- Injectées dynamiquement par JS dans #debt-summary-cards -->
-                <div id="debt-summary-cards" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;"></div>
+                <div id="debt-summary-cards" style="display:flex;gap:15px;flex-wrap:wrap;margin-bottom:12px; padding:0px 20px 0px 20px;"></div>
 
                 <div class="products-container">
                     <table class="tft-table">
@@ -559,19 +559,19 @@ function displayDebtSummary(summary) {
     if (!container || !summary) return;
 
     const cards = [
-        { label: 'Total dettes',    value: summary.totalDebts,       icon: 'fa-list',         color: '#6c757d' },
-        { label: 'Montant total',   value: formatDebtAmount(summary.totalAmount),      icon: 'fa-coins',        color: '#007bff' },
-        { label: 'Total payé',      value: formatDebtAmount(summary.totalPaid),        icon: 'fa-check-circle', color: '#28a745' },
-        { label: 'Restant dû',      value: formatDebtAmount(summary.totalOutstanding), icon: 'fa-exclamation-circle', color: '#dc3545' },
+        { label: 'Total dettes',    value: summary.totalDebts,       icon: 'fa-list',         color: 'var(--yellow-txt-icons)' },
+        { label: 'Montant total',   value: formatDebtAmount(summary.totalAmount),      icon: 'fa-coins',        color: 'var(--blue-txt-icons)' },
+        { label: 'Total payé',      value: formatDebtAmount(summary.totalPaid),        icon: 'fa-check-circle', color: 'var(--clr-green1)' },
+        { label: 'Restant dû',      value: formatDebtAmount(summary.totalOutstanding), icon: 'fa-exclamation-circle', color: 'var(--clr-crimson)' },
     ];
 
     container.innerHTML = cards.map(c => `
-        <div style="background:var(--bg-black2,#1e1e2f);border:1px solid ${c.color};border-radius:8px;padding:12px 20px;min-width:160px;flex:1;">
+        <div style="background:var(--black-utile-3);border:1px solid ${c.color};border-radius:8px;padding:12px 20px;min-width:160px;flex:1;">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
                 <i class="fas ${c.icon}" style="color:${c.color};"></i>
-                <span class="tft-sm-title1" style="color:var(--clr-white3,#ccc);">${c.label}</span>
+                <span class="tft-sm-title1" style="color:var(--white-utile-1);">${c.label}</span>
             </div>
-            <strong class="tft-title3" style="color:#fff;">${c.value}</strong>
+            <strong class="tft-title3" style="var(--white)">${c.value}</strong>
         </div>`).join('');
 }
 
