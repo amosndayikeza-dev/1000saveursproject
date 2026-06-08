@@ -755,11 +755,12 @@ async function loadSalesTable() {
                 <td class="tft-title4 tft-clr-orangesav">${fmtMoney(sale.line_total)}</div></td>
                 <td class="tft-title4 tft-clr-white3">${fmtDate(sale.sold_at)}</div></td>
                 <td class="tft-title4 tft-clr-white3">${sale.payment_status === 'paid' ? 'Payé' : (sale.payment_status === 'partial' ? 'Partiel' : 'Impayé')}</div></td>
-                <td class="tft-title4 tft-clr-white3">
-                    <button class="tft-btn-sm tft-bg-greensav" onclick="viewInvoice(${sale.sale_id || sale.id})">
-                        <i class="fas fa-file-invoice"></i> Facture
-                    </button>
-                </div>
+                // À l'intérieur du .map()
+<td class="tft-title4 tft-clr-white3">
+    <button class="tft-btn-sm tft-bg-greensav" onclick="viewInvoice(${sale.sale_id || sale.id})">
+        <i class="fas fa-file-invoice"></i> Facture
+    </button>
+</div>
             </tr>
         `).join('');
     } catch (err) {

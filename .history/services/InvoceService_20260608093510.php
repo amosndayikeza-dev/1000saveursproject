@@ -49,7 +49,7 @@ class InvoiceService {
             $totalQuantity += $item['quantity'] ?? 0;
             $totalAmount += $item['lineTotal'];
         }
-        // Supprimez la variable $item de la boucle pour éviter les références persistantes après la boucle foreach (ce qui peut causer des problèmes si $item est utilisé plus tard dans le code).
+        // Supprimez la variable $item de la boucle pour éviter les références persistantes
         unset($item);
 
         $invoice = [

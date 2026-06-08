@@ -312,7 +312,7 @@ class ManagerService {
         $sql = "SELECT s.id AS sale_id, s.sold_at, p.name AS product_name, si.quantity, si.unit_price,
                     (si.quantity * si.unit_price) AS line_total,
                     s.payment_status
-                FROM sales 
+                FROM sales s
                 INNER JOIN sale_items si ON si.sale_id = s.id
                 INNER JOIN products p ON si.product_id = p.id
                 WHERE s.departement_id = ?";
@@ -328,8 +328,8 @@ class ManagerService {
         $sql .= " ORDER BY s.sold_at DESC, s.id DESC";
         return $this->db->fetchAll($sql, $params);
     }
-    // focntion pour creer une vente
-    public function createSale($departementId, $userId, array $data, $paidAmount = 0) {
+    // focntion pour creer y=
+  public function createSale($departementId, $userId, array $data, $paidAmount = 0) {
     $productId = (int)($data['productId'] ?? $data['product_id'] ?? 0);
     $quantity = (int)($data['quantity'] ?? 0);
     $unitPrice = isset($data['unitPrice']) ? floatval($data['unitPrice']) : floatval($data['unit_price'] ?? 0);
