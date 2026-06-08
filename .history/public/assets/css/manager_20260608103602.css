@@ -571,7 +571,7 @@ color: #48505c;
     font-weight: 600;
 }
 
-/*le style du modal pour la facture*/
+/*le style du */
 @media print {
     .mgr-modal-overlay, .mgr-modal, body > *:not(.mgr-modal) {
         visibility: hidden;

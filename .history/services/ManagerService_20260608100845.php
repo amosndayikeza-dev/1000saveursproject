@@ -309,30 +309,30 @@ class ManagerService {
     }
 
     public function getSaleLinesHistory($departementId, $startDate = null, $endDate = null) {
-        $sql = "SELECT 
-                    sales.id AS sale_id,
-                    sales.sold_at,
-                    products.name AS product_name,
-                    sale_items.quantity,
-                    sale_items.unit_price,
-                    (sale_items.quantity * sale_items.unit_price) AS line_total,
-                    sales.payment_status
-                FROM sales
-                INNER JOIN sale_items ON sale_items.sale_id = sales.id
-                INNER JOIN products ON sale_items.product_id = products.id
-                WHERE sales.departement_id = ?";
-        $params = [$departementId];
-        if ($startDate) {
-            $sql .= " AND sales.sold_at >= ?";
-            $params[] = $startDate . ' 00:00:00';
-        }
-        if ($endDate) {
-            $sql .= " AND sales.sold_at <= ?";
-            $params[] = $endDate . ' 23:59:59';
-        }
-        $sql .= " ORDER BY sales.sold_at DESC, sales.id DESC";
-        return $this->db->fetchAll($sql, $params);
+    $sql = "SELECT 
+                sales.id AS sale_id,
+                sales.sold_at,
+                products.name AS product_name,
+                sale_items.quantity,
+                sale_items.unit_price,
+                (sale_items.quantity * sale_items.unit_price) AS line_total,
+                sales.payment_status
+            FROM sales
+            INNER JOIN sale_items ON sale_items.sale_id = sales.id
+            INNER JOIN products ON sale_items.product_id = products.id
+            WHERE sales.departement_id = ?";
+    $params = [$departementId];
+    if ($startDate) {
+        $sql .= " AND sales.sold_at >= ?";
+        $params[] = $startDate . ' 00:00:00';
     }
+    if ($endDate) {
+        $sql .= " AND sales.sold_at <= ?";
+        $params[] = $endDate . ' 23:59:59';
+    }
+    $sql .= " ORDER BY sales.sold_at DESC, sales.id DESC";
+    return $this->db->fetchAll($sql, $params);
+}
     // focntion pour creer une vente
     public function createSale($departementId, $userId, array $data, $paidAmount = 0) {
     $productId = (int)($data['productId'] ?? $data['product_id'] ?? 0);

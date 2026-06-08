@@ -1218,110 +1218,88 @@ async function handleDeleteProduct(event) {
 * ouvrir une fenetre dedier a la facturation pour la table des ventes
 */
 window.viewInvoice = async function(saleId) {
-    const escapeHtml = (str) => !str ? '' : String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
-    const fmtMoney = (n) => (Number(n)||0).toLocaleString('fr-FR') + ' FBU';
-    const fmtDate = (d) => d ? new Date(d).toLocaleDateString('fr-FR').replace(/\//g, '-') : '—';
-    const showMsg = (msg, err) => (typeof showToast === 'function') ? showToast(msg, err) : alert(msg);
+    // Helper local pour échapper HTML
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    function showToast(msg, isError) {
+        if (typeof window.showToast === 'function') {
+            window.showToast(msg, isError);
+        } else {
+            alert(msg);
+        }
+    }
 
     try {
-        const res = await fetch(`/1000saveursproject/api/invoice.php?action=generate&saleId=${saleId}`);
-        const data = await res.json();
-        if (data.status !== 'success') throw new Error(data.message || 'Facture introuvable');
-
+        const response = await fetch(`/1000saveursproject/api/invoice.php?action=generate&saleId=${saleId}`);
+        const data = await response.json();
+        if (data.status !== 'success') {
+            showToast(data.message || 'Impossible de charger la facture', true);
+            return;
+        }
         const inv = data.data;
-        const items = inv.items || [];
-        const totalHT = inv.totalAmount || 0;
-        const tva = inv.taxRate || 0;
-        const taxAmount = inv.taxAmount || 0;
-        const totalTTC = inv.grandTotal || totalHT;
+        const soldAt = new Date(inv.soldAt).toLocaleDateString('fr-FR');
+        const generatedAt = new Date(inv.generatedAt).toLocaleString('fr-FR');
+        const deptName = inv.departement?.name || '—';
+        const creatorName = inv.createdBy ? (inv.createdBy.first_name + ' ' + inv.createdBy.last_name) : '—';
 
         let itemsHtml = '';
-        for (let item of items) {
-            const productName = item.product_name || item.name || item.productName || item.designation || '—';
+        inv.items.forEach(item => {
             itemsHtml += `
-                <tr style="border-bottom:1px solid #e0e0e0;">
-                    <td style="padding:4px 6px;">${escapeHtml(productName)}</div></td>
-                    <td style="padding:4px 6px; text-align:center;">${item.quantity}</div></td>
-                    <td style="padding:4px 6px; text-align:right;">${fmtMoney(item.unit_price)}</div></td>
-                    <td style="padding:4px 6px; text-align:right;">${fmtMoney(item.lineTotal)}</div></td>
+                <tr style="border-bottom:1px solid #eee;">
+                    <td style="padding:8px;">${escapeHtml(item.product_name)}</div>
+                    <td style="padding:8px; text-align:center;">${item.quantity}</div>
+                    <td style="padding:8px; text-align:right;">${Number(item.unit_price).toLocaleString('fr-FR')} FBU</div>
+                    <td style="padding:8px; text-align:right;">${Number(item.lineTotal).toLocaleString('fr-FR')} FBU</div>
                 </tr>
             `;
-        }
-        if (!itemsHtml) itemsHtml = '<tr><td colspan="4" style="padding:20px; text-align:center;">Aucun article</div></tr>';
+        });
 
-        const modalContent = `
-            <div style="background:#ffffff; color:#333333; font-family:'Segoe UI',Arial,sans-serif; padding:15px 20px;">
-                <h2 style="color:#2c7da0; border-bottom:2px solid #2c7da0; margin:0 0 10px 0; font-size:1.4rem;">FACTURE ${escapeHtml(inv.invoiceNumber)}</h2>
-                <div style="margin-bottom:15px;">
-                    <p style="margin:4px 0;"><strong>Date :</strong> ${fmtDate(inv.soldAt)}</p>
-                    <p style="margin:4px 0;"><strong>Département :</strong> ${escapeHtml(inv.departement?.name || '—')}</p>
-                    <p style="margin:4px 0;"><strong>Vendeur :</strong> ${escapeHtml(inv.createdBy ? (inv.createdBy.first_name + ' ' + inv.createdBy.last_name) : '—')}</p>
-                </div>
-                <div style="overflow-x:auto;">
-                    <table style="width:100%; border-collapse:collapse; font-size:14px;">
-                        <thead>
-                            <tr style="background:#f2f2f2;">
-                                <th style="padding:6px 8px; text-align:left;">Désignation</th>
-                                <th style="padding:6px 8px; text-align:center;">Qté</th>
-                                <th style="padding:6px 8px; text-align:right;">Prix unitaire</th>
-                                <th style="padding:6px 8px; text-align:right;">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>${itemsHtml}</tbody>
-                        <tfoot>
-                            <tr style="border-top:2px solid #ccc;">
-                                <td colspan="3" style="text-align:right; padding:6px;"><strong>Total HT :</strong></td>
-                                <td style="text-align:right; padding:6px;">${fmtMoney(totalHT)}</div></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" style="text-align:right; padding:6px;">TVA (${tva}%) :</div></td>
-                                <td style="text-align:right; padding:6px;">${fmtMoney(taxAmount)}</div></td>
-                            </tr>
-                            <tr style="color:#2c7da0;">
-                                <td colspan="3" style="text-align:right; padding:6px;"><strong>Total TTC :</strong></div></td>
-                                <td style="text-align:right; padding:6px;"><strong>${fmtMoney(totalTTC)}</strong></div></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                <div style="margin-top:15px; text-align:center; font-style:italic; color:#4a6a8a;">
-                    Merci de votre confiance et à bientôt chez 1000 Saveurs !
-                </div>
-                <div style="margin-top:10px; font-size:11px; text-align:center; color:#999;">
-                    Facture générée le ${new Date(inv.generatedAt).toLocaleString('fr-FR')}
-                </div>
-                <div style="text-align:center; margin-top:15px;">
-                    <button class="tft-btn" onclick="window.print()" style="background:#2c7da0; color:white; border:none; padding:6px 14px; border-radius:4px; cursor:pointer;">
-                        🖨️ Imprimer
-                    </button>
+        const contentHtml = `
+            <div style="max-width:700px; margin:0 auto; font-family:Arial,sans-serif;">
+                <h2 style="color:#2c3e50; border-bottom:2px solid #27ae60;">FACTURE ${escapeHtml(inv.invoiceNumber)}</h2>
+                <p><strong>Date de vente :</strong> ${soldAt}</p>
+                <p><strong>Département :</strong> ${escapeHtml(deptName)}</p>
+                <p><strong>Vendeur :</strong> ${escapeHtml(creatorName)}</p>
+                <table style="width:100%; border-collapse:collapse; margin:15px 0;">
+                    <thead>
+                        <tr style="background:#f2f2f2;">
+                            <th style="padding:8px; text-align:left;">Désignation</th>
+                            <th style="padding:8px; text-align:center;">Qté</th>
+                            <th style="padding:8px; text-align:right;">Prix unitaire</th>
+                            <th style="padding:8px; text-align:right;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>${itemsHtml}</tbody>
+                    <tfoot>
+                        <tr><td colspan="3" style="text-align:right;"><strong>Total HT :</strong></td><td style="text-align:right;">${Number(inv.totalAmount).toLocaleString('fr-FR')} FBU</td></tr>
+                        <tr><td colspan="3" style="text-align:right;"><strong>TVA (${inv.taxRate}%) :</strong></td><td style="text-align:right;">${Number(inv.taxAmount).toLocaleString('fr-FR')} FBU</td></tr>
+                        <tr style="font-weight:bold; color:#27ae60;"><td colspan="3" style="text-align:right;">Total TTC :</td><td style="text-align:right;">${Number(inv.grandTotal).toLocaleString('fr-FR')} FBU</td></tr>
+                    </tfoot>
+                </table>
+                <p><em>Facture générée le ${generatedAt}</em></p>
+                <div style="text-align:center; margin-top:20px;">
+                    <button onclick="window.print()" class="tft-btn tft-bg-greensav" style="padding:8px 16px;">🖨️ Imprimer</button>
                 </div>
             </div>
         `;
 
         if (typeof showManagerModal === 'function') {
-            showManagerModal('Facture', modalContent, null);
-            // Ajustement immédiat du style de la modale
-            setTimeout(() => {
-                const modal = document.querySelector('.mgr-modal');
-                if (modal) {
-                    modal.style.background = '#ffffff';
-                    modal.style.maxHeight = '85vh';
-                    modal.style.overflowY = 'auto';
-                    modal.style.padding = '0';
-                    
-                    const modalBody = modal.querySelector('.mgr-modal-body');
-                    if (modalBody) modalBody.style.padding = '0';
-                    
-                    // Facultatif : ajuster la largeur pour éviter le scroll horizontal
-                    modal.style.width = 'auto';
-                    modal.style.maxWidth = '700px';
-                }
-            }, 50);
+            showManagerModal('Facture', contentHtml, null);
         } else {
-            alert(modalContent);
+            // Fallback : ouvrir une nouvelle fenêtre
+            const win = window.open();
+            win.document.write(contentHtml);
+            win.document.close();
         }
     } catch (err) {
         console.error(err);
-        showMsg(err.message || 'Erreur réseau', true);
+        showToast('Erreur lors du chargement de la facture', true);
     }
 };

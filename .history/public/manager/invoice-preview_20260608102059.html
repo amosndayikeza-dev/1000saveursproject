@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aperçu facture</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .invoice-container {
+            max-width: 800px; margin: 0 auto; background: white; padding: 20px;
+            border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2c3e50; border-bottom: 2px solid #27ae60; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .total { font-weight: bold; color: #27ae60; }
+        .print-btn { background: #27ae60; color: white; border: none; padding: 10px 20px;
+                     border-radius: 5px; cursor: pointer; margin-top: 20px; }
+        @media print {
+            .print-btn { display: none; }
+            body { background: white; margin: 0; }
+            .invoice-container { box-shadow: none; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container" id="invoice-container">
+        <p>Chargement de la facture...</p>
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const saleId = urlParams.get('saleId');
+        if (!saleId) {
+            document.getElementById('invoice-container').innerHTML = '<p>❌ Aucun identifiant de vente.</p>';
+        } else {
+            fetch(`/1000saveursproject/api/invoice.php?action=generate&saleId=${saleId}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        renderInvoice(data.data);
+                    } else {
+                        document.getElementById('invoice-container').innerHTML =
+                            `<p>❌ Erreur : ${data.message || 'Facture introuvable'}</p>`;
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById('invoice-container').innerHTML = '<p>❌ Erreur réseau.</p>';
+                });
+        }
+
+        function renderInvoice(inv) {
+            const container = document.getElementById('invoice-container');
+            const soldAt = new Date(inv.soldAt).toLocaleDateString('fr-FR');
+            const generatedAt = new Date(inv.generatedAt).toLocaleString('fr-FR');
+            const deptName = inv.departement?.name || '—';
+            const creatorName = inv.createdBy ? (inv.createdBy.first_name + ' ' + inv.createdBy.last_name) : '—';
+
+            const itemsHtml = inv.items.map(item => `
+                <tr>
+                    <td>${escapeHtml(item.product_name)}</td>
+                    <td>${item.quantity}</td>
+                    <td>${Number(item.unit_price).toLocaleString('fr-FR')} FBU</td>
+                    <td>${Number(item.lineTotal).toLocaleString('fr-FR')} FBU</td>
+                </tr>
+            `).join('');
+
+            const html = `
+                <h1>FACTURE ${escapeHtml(inv.invoiceNumber)}</h1>
+                <p><strong>Date de vente :</strong> ${soldAt}</p>
+                <p><strong>Département :</strong> ${escapeHtml(deptName)}</p>
+                <p><strong>Vendeur :</strong> ${escapeHtml(creatorName)}</p>
+                <table>
+                    <thead>
+                        <tr><th>Désignation</th><th>Qté</th><th>Prix unitaire</th><th>Total</th></tr>
+                    </thead>
+                    <tbody>${itemsHtml}</tbody>
+                    <tfoot>
+                        <tr><td colspan="3"><strong>Total HT :</strong></td><td>${Number(inv.totalAmount).toLocaleString('fr-FR')} FBU</td></tr>
+                        <tr><td colspan="3"><strong>TVA (${inv.taxRate}%) :</strong></td><td>${Number(inv.taxAmount).toLocaleString('fr-FR')} FBU</td></tr>
+                        <tr class="total"><td colspan="3"><strong>Total TTC :</strong></td><td>${Number(inv.grandTotal).toLocaleString('fr-FR')} FBU</td></tr>
+                    </tfoot>
+                </table>
+                <p><em>Facture générée le ${generatedAt}</em></p>
+            `;
+            container.innerHTML = html;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+    </script>
+</body>
+</html>
