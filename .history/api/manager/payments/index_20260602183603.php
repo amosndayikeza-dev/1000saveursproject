@@ -1,4 +1,0 @@
-<?php
-try{
-    $ctx = mgrAuthCont
-}
