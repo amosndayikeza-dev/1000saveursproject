@@ -1356,6 +1356,102 @@ position: relative !important;
 .tft-bdr-t-transparent-1{
   border-top: 0.0625rem solid transparent !important;
 }
+.tft-bdr-t-white-2{
+  border-top: 0.125rem solid var(--white) !important;
+}
+.tft-bdr-b-white-2{
+  border-bottom: 0.125rem solid var(--white) !important;
+}
+.tft-bdr-r-white-2{
+  border-right: 0.125rem solid var(--white) !important;
+}
+.tft-bdr-l-white-2{
+  border-left: 0.125rem solid var(--white) !important;
+}
+.tft-bdr-t-white-1{
+  border-top: 0.0625rem solid var(--white) !important;
+}
+.tft-bdr-b-white-1{
+  border-bottom: 0.0625rem solid var(--white) !important;
+}
+.tft-bdr-r-white-1{
+  border-right: 0.0625rem solid var(--white) !important;
+}
+.tft-bdr-l-white-1{
+  border-left: 0.0625rem solid var(--white) !important;
+}
+.tft-bdr-t-white1-1{
+  border-top: 0.0625rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-b-white1-1{
+  border-bottom: 0.0625rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-r-white1-1{
+  border-right: 0.0625rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-l-white1-1{
+  border-left: 0.0625rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-t-white1-2{
+  border-top: 0.125rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-b-white1-2{
+  border-bottom: 0.125rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-r-white1-2{
+  border-right: 0.125rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-l-white1-2{
+  border-left: 0.125rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-t-white2-1{
+  border-top: 0.0625rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-b-white2-1{
+  border-bottom: 0.0625rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-r-white2-1{
+  border-right: 0.0625rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-l-white2-1{
+  border-left: 0.0625rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-t-white2-2{
+  border-top: 0.125rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-b-white2-2{
+  border-bottom: 0.125rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-r-white2-2{
+  border-right: 0.125rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-l-white2-2{
+  border-left: 0.125rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-t-white3-1{
+  border-top: 0.0625rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-b-white3-1{
+  border-bottom: 0.0625rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-r-white3-1{
+  border-right: 0.0625rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-l-white3-1{
+  border-left: 0.0625rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-t-white3-2{
+  border-top: 0.125rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-b-white3-2{
+  border-bottom: 0.125rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-r-white3-2{
+  border-right: 0.125rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-l-white3-2{
+  border-left: 0.125rem solid var(--white-utile-3) !important;
+}
 /* ////////////////////////////////////////////////////////////////////////////////// */
 /* =                              CLASSES POUR LES GAP                                */
 /* ////////////////////////////////////////////////////////////////////////////////// */
@@ -1385,24 +1481,24 @@ position: relative !important;
 /* =                  CLASSES POUR LES TITRES ET TEXTES                               */
 /* ////////////////////////////////////////////////////////////////////////////////// */
 .tft-title1{
-  font-size: 1.25rem;
+  font-size: 1.25rem !important;
   font-weight: 500;
   color: var( --white-utile-1);
 }
 .tft-title2{
-  font-size: 1.0625rem;
+  font-size: 1.0625rem !important;
   font-weight: 500;
   color: var( --white-utile-1);
 }
 .tft-title3{
   font-size: 0.9375rem;
   font-weight: 500;
-  color: var( --white-utile-1);
+  color: var( --white-utile-1) !important;
 }
 .tft-title4{
   font-size: 0.8125rem;
   font-weight: 400;
-  color: var( --white-utile-1);
+  color: var(--white-utile-1) !important;
 }
 .tft-sm-title1{
   font-size: 0.75rem;
@@ -1947,7 +2043,6 @@ form{
   height: 1.875rem;
   aspect-ratio: 1/1;
   border-radius: 0.3125rem;
-  transition: all 0.5s;
   display: flex;
   align-items: center;
   justify-content: center;

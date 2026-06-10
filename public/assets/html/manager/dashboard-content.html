@@ -1,24 +1,97 @@
-<div class="mgr-dashboard">
+
     <div class="mgr-kpi-row">
-        <div class="mgr-kpi">
-            <div class="mgr-kpi-label">Ventes aujourd'hui</div>
-            <div class="mgr-kpi-value" id="mgr-kpi-sales-day">0 FBU</div>
+        <div class="mgr-kpi tft-bg-yellow-bg">
+            <div class="card-info-mgr">
+                <div class="tft-icon-carre-moyen tft-bg-black2">
+                    <div class="tft-icon-carre-petit tft-bg-yellow-bg tft-bdr-yellow-txt-1">
+                        <i class="fas fa-users tft-clr-yellow-txt"></i>
+                    </div>
+                </div>
+                <h2 class="mgr-kpi-label tft-title4">Ventes aujourd'hui</h2>
+            </div>
+            <p class="mgr-kpi-value tft-title2 tft-fw-700 tft-clr-white" id="mgr-kpi-sales-day">0 FBU</p>
         </div>
-        <div class="mgr-kpi">
-            <div class="mgr-kpi-label">Produits</div>
-            <div class="mgr-kpi-value" id="mgr-kpi-products">0</div>
+        <div class="mgr-kpi tft-bg-green-bg">
+            <div class="card-info-mgr">
+                <div class="tft-icon-carre-moyen tft-bg-black2">
+                    <div class="tft-icon-carre-petit tft-bg-green-bg tft-bdr-green-txt-1">
+                        <i class="fas fa-users tft-clr-green-txt"></i>
+                    </div>
+                </div>
+                <h2 class="mgr-kpi-label tft-title4">Produits</h2>
+            </div>
+            <p class="mgr-kpi-value tft-title2 tft-fw-700 tft-clr-white" id="mgr-kpi-products">0</p>
         </div>
-        <div class="mgr-kpi">
-            <div class="mgr-kpi-label">Employés</div>
-            <div class="mgr-kpi-value" id="mgr-kpi-employees">0</div>
+        <div class="mgr-kpi tft-bg-blue-bg">
+            <div class="card-info-mgr">
+                <div class="tft-icon-carre-moyen tft-bg-black2">
+                    <div class="tft-icon-carre-petit tft-bg-blue-bg tft-bdr-blue-txt-1">
+                        <i class="fas fa-users tft-clr-blue-txt"></i>
+                    </div>
+                </div>
+                <h2 class="mgr-kpi-label tft-title4">Employés</h2>
+            </div>
+            <p class="mgr-kpi-value tft-title2 tft-fw-700 tft-clr-white" id="mgr-kpi-employees">0</p>
         </div>
-        <div class="mgr-kpi">
-            <div class="mgr-kpi-label">Dettes impayées</div>
-            <div class="mgr-kpi-value" id="mgr-kpi-debts">0 FBU</div>
+        <div class="mgr-kpi tft-bg-red-bg">
+            <div class="card-info-mgr">
+                <div class="tft-icon-carre-moyen tft-bg-black2">
+                    <div class="tft-icon-carre-petit tft-bg-red-bg tft-bdr-red-txt-1">
+                        <i class="fas fa-users tft-clr-red-txt"></i>
+                    </div>
+                </div>
+                <h2 class="mgr-kpi-label tft-title4">Dettes impayées</h2>
+            </div>
+            <p class="mgr-kpi-value tft-title2 tft-fw-700 tft-clr-white" id="mgr-kpi-debts">0 FBU</p>
         </div>
     </div>
 
-    <div class="mgr-recovery-banner">
+    <div class="overview-container">
+        <div class="recent-actions">
+            <div class="single-action tft-bdr-gris-2">
+                <div class="tft-icon-round-moyen tft-bg-greensav tft-bdr-remain-white-1">
+                    <i class="fas fa-user tft-clr-remain-white"></i>
+                </div>
+                <div class="actions-details">
+                    <div class="action-info">
+                        <h3 class="tft-title3"> Stock alerte </h3>
+                        <p id="mgr-stock-alert" class="tft-sm-title1">...</p>
+                    </div>
+                    <!-- <p class="tft-title4 tft-clr-orangesav"></p> -->
+                </div>
+            </div>
+            <div class="single-action tft-bdr-gris-2">
+                <div class="tft-icon-round-moyen tft-bg-greensav tft-bdr-remain-white-1">
+                    <i class="fas fa-chart-bar tft-clr-remain-white"></i>
+                </div>
+                <div class="actions-details">
+                    <div class="action-info">
+                        <h3 class="tft-title3">Recouvrement mensuel</h3>
+                        <p id="mgr-recovery-month" class="tft-sm-title1"> ... </p>
+                    </div>
+                    <!-- <p class="tft-title4 tft-clr-orangesav"></p> -->
+                </div>
+            </div>
+            <div class="single-action tft-bdr-gris-2">
+                <div class="tft-icon-round-moyen tft-bg-greensav tft-bdr-remain-white-1">
+                    <i class="fas fa-sitemap tft-clr-remain-white"></i>
+                </div>
+                <div class="actions-details">
+                    <div class="action-info">
+                        <h3 class="tft-title3">Dernière vente</h3>
+                        <p id="mgr-last-sale" class="tft-sm-title1">...</p>
+                    </div>
+                    <p  id="mgr-last-sale-date" class="tft-title4 tft-clr-orangesav"></p>
+                </div>
+            </div>
+        </div>
+        <div class="recent-intro-mgr tft-bg-greensav" id="recent-intro">
+            <div class="departement-name tft-title3">
+                <p class="departement-name-inside tft-clr-white">Feel Welcome</p>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="mgr-recovery-banner">
         <div class="mgr-recovery-item">
             Stock alerte <strong id="mgr-stock-alert">0</strong>
         </div>
@@ -33,5 +106,5 @@
         </div>
         <div id="mgr-last-sale">—</div>
         <div id="mgr-last-sale-date"></div>
-    </div>
-</div>
+    </div> -->
+
