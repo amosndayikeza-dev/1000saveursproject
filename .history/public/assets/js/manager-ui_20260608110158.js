@@ -1235,63 +1235,47 @@ window.viewInvoice = async function(saleId) {
         const taxAmount = inv.taxAmount || 0;
         const totalTTC = inv.grandTotal || totalHT;
 
-        let itemsHtml = '';
-        for (let item of items) {
-            const productName = item.product_name || item.name || item.productName || item.designation || '—';
-            itemsHtml += `
-                <tr style="border-bottom:1px solid #e0e0e0;">
-                    <td style="padding:4px 6px;">${escapeHtml(productName)}</div></td>
-                    <td style="padding:4px 6px; text-align:center;">${item.quantity}</div></td>
-                    <td style="padding:4px 6px; text-align:right;">${fmtMoney(item.unit_price)}</div></td>
-                    <td style="padding:4px 6px; text-align:right;">${fmtMoney(item.lineTotal)}</div></td>
-                </tr>
-            `;
-        }
-        if (!itemsHtml) itemsHtml = '<tr><td colspan="4" style="padding:20px; text-align:center;">Aucun article</div></tr>';
+        const itemsHtml = items.map(item => `
+            <tr style="border-bottom:1px solid #e0e0e0;">
+                <td style="padding:6px;">${escapeHtml(item.product_name)}</td>
+                <td style="padding:6px; text-align:center;">${item.quantity}</td>
+                <td style="padding:6px; text-align:right;">${fmtMoney(item.unit_price)}</td>
+                <td style="padding:6px; text-align:right;">${fmtMoney(item.lineTotal)}</td>
+            </tr>
+        `).join('') || '<tr><td colspan="4" style="text-align:center;">Aucun article</td></tr>';
 
         const modalContent = `
-            <div style="background:#ffffff; color:#333333; font-family:'Segoe UI',Arial,sans-serif; padding:15px 20px;">
-                <h2 style="color:#2c7da0; border-bottom:2px solid #2c7da0; margin:0 0 10px 0; font-size:1.4rem;">FACTURE ${escapeHtml(inv.invoiceNumber)}</h2>
-                <div style="margin-bottom:15px;">
-                    <p style="margin:4px 0;"><strong>Date :</strong> ${fmtDate(inv.soldAt)}</p>
-                    <p style="margin:4px 0;"><strong>Département :</strong> ${escapeHtml(inv.departement?.name || '—')}</p>
-                    <p style="margin:4px 0;"><strong>Vendeur :</strong> ${escapeHtml(inv.createdBy ? (inv.createdBy.first_name + ' ' + inv.createdBy.last_name) : '—')}</p>
+            <div style="background:#ffffff; color:#333333; font-family:'Segoe UI',Arial,sans-serif; max-width:700px; margin:0 auto; padding:20px;">
+                <h2 style="color:#2c7da0; border-bottom:2px solid #2c7da0; margin:0 0 15px 0;">FACTURE ${escapeHtml(inv.invoiceNumber)}</h2>
+                <div style="margin-bottom:20px;">
+                    <p><strong>Date :</strong> ${fmtDate(inv.soldAt)}</p>
+                    <p><strong>Département :</strong> ${escapeHtml(inv.departement?.name || '—')}</p>
+                    <p><strong>Vendeur :</strong> ${escapeHtml(inv.createdBy ? (inv.createdBy.first_name + ' ' + inv.createdBy.last_name) : '—')}</p>
                 </div>
-                <div style="overflow-x:auto;">
-                    <table style="width:100%; border-collapse:collapse; font-size:14px;">
-                        <thead>
-                            <tr style="background:#f2f2f2;">
-                                <th style="padding:6px 8px; text-align:left;">Désignation</th>
-                                <th style="padding:6px 8px; text-align:center;">Qté</th>
-                                <th style="padding:6px 8px; text-align:right;">Prix unitaire</th>
-                                <th style="padding:6px 8px; text-align:right;">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>${itemsHtml}</tbody>
-                        <tfoot>
-                            <tr style="border-top:2px solid #ccc;">
-                                <td colspan="3" style="text-align:right; padding:6px;"><strong>Total HT :</strong></td>
-                                <td style="text-align:right; padding:6px;">${fmtMoney(totalHT)}</div></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" style="text-align:right; padding:6px;">TVA (${tva}%) :</div></td>
-                                <td style="text-align:right; padding:6px;">${fmtMoney(taxAmount)}</div></td>
-                            </tr>
-                            <tr style="color:#2c7da0;">
-                                <td colspan="3" style="text-align:right; padding:6px;"><strong>Total TTC :</strong></div></td>
-                                <td style="text-align:right; padding:6px;"><strong>${fmtMoney(totalTTC)}</strong></div></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                <div style="margin-top:15px; text-align:center; font-style:italic; color:#4a6a8a;">
+                <table style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr style="background:#f2f2f2;">
+                            <th style="padding:8px; text-align:left;">Désignation</th>
+                            <th style="padding:8px; text-align:center;">Qté</th>
+                            <th style="padding:8px; text-align:right;">Prix unitaire</th>
+                            <th style="padding:8px; text-align:right;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>${itemsHtml}</tbody>
+                    <tfoot>
+                        <tr><td colspan="3" style="text-align:right;"><strong>Total HT :</strong></td><td style="text-align:right;">${fmtMoney(totalHT)}</td></tr>
+                        <tr><td colspan="3" style="text-align:right;">TVA (${tva}%) :</td><td style="text-align:right;">${fmtMoney(taxAmount)}</td></tr>
+                        <tr style="color:#2c7da0; font-size:1.1em;"><td colspan="3" style="text-align:right;"><strong>Total TTC :</strong></td><td style="text-align:right;"><strong>${fmtMoney(totalTTC)}</strong></td></tr>
+                    </tfoot>
+                </table>
+                <div style="margin-top:25px; text-align:center; font-style:italic; color:#4a6a8a;">
                     Merci de votre confiance et à bientôt chez 1000 Saveurs !
                 </div>
-                <div style="margin-top:10px; font-size:11px; text-align:center; color:#999;">
+                <div style="margin-top:15px; font-size:12px; text-align:center; color:#999;">
                     Facture générée le ${new Date(inv.generatedAt).toLocaleString('fr-FR')}
                 </div>
-                <div style="text-align:center; margin-top:15px;">
-                    <button class="tft-btn" onclick="window.print()" style="background:#2c7da0; color:white; border:none; padding:6px 14px; border-radius:4px; cursor:pointer;">
+                <div style="text-align:center; margin-top:20px;">
+                    <button class="tft-btn tft-bg-greensav" onclick="window.print()" style="background:#2c7da0; color:white; border:none; padding:8px 16px; border-radius:4px;">
                         🖨️ Imprimer
                     </button>
                 </div>
@@ -1300,23 +1284,6 @@ window.viewInvoice = async function(saleId) {
 
         if (typeof showManagerModal === 'function') {
             showManagerModal('Facture', modalContent, null);
-            // Ajustement immédiat du style de la modale
-            setTimeout(() => {
-                const modal = document.querySelector('.mgr-modal');
-                if (modal) {
-                    modal.style.background = '#ffffff';
-                    modal.style.maxHeight = '85vh';
-                    modal.style.overflowY = 'auto';
-                    modal.style.padding = '0';
-                    
-                    const modalBody = modal.querySelector('.mgr-modal-body');
-                    if (modalBody) modalBody.style.padding = '0';
-                    
-                    // Facultatif : ajuster la largeur pour éviter le scroll horizontal
-                    modal.style.width = 'auto';
-                    modal.style.maxWidth = '700px';
-                }
-            }, 50);
         } else {
             alert(modalContent);
         }

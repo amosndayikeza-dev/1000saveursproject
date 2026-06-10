@@ -309,32 +309,26 @@ class ManagerService {
     }
 
     public function getSaleLinesHistory($departementId, $startDate = null, $endDate = null) {
-        $sql = "SELECT 
-                    sales.id AS sale_id,
-                    sales.sold_at,
-                    products.name AS product_name,
-                    sale_items.quantity,
-                    sale_items.unit_price,
-                    (sale_items.quantity * sale_items.unit_price) AS line_total,
-                    sales.payment_status
-                FROM sales
-                INNER JOIN sale_items ON sale_items.sale_id = sales.id
-                INNER JOIN products ON sale_items.product_id = products.id
-                WHERE sales.departement_id = ?";
+        $sql = "SELECT s.id AS sale_id, s.sold_at, p.name AS product_name, si.quantity, si.unit_price,
+                    (si.quantity * si.unit_price) AS line_total,
+                    s.payment_status
+                FROM sales s
+                INNER JOIN sale_items si ON si.sale_id = s.id
+                INNER JOIN products p ON si.product_id = p.id
+                WHERE s.departement_id = ?";
         $params = [$departementId];
         if ($startDate) {
-            $sql .= " AND sales.sold_at >= ?";
+            $sql .= " AND s.sold_at >= ?";
             $params[] = $startDate . ' 00:00:00';
         }
         if ($endDate) {
-            $sql .= " AND sales.sold_at <= ?";
+            $sql .= " AND s.sold_at <= ?";
             $params[] = $endDate . ' 23:59:59';
         }
-        $sql .= " ORDER BY sales.sold_at DESC, sales.id DESC";
+        $sql .= " ORDER BY s.sold_at DESC, s.id DESC";
         return $this->db->fetchAll($sql, $params);
     }
-    // focntion pour creer une vente
-    public function createSale($departementId, $userId, array $data, $paidAmount = 0) {
+  public function createSale($departementId, $userId, array $data, $paidAmount = 0) {
     $productId = (int)($data['productId'] ?? $data['product_id'] ?? 0);
     $quantity = (int)($data['quantity'] ?? 0);
     $unitPrice = isset($data['unitPrice']) ? floatval($data['unitPrice']) : floatval($data['unit_price'] ?? 0);
@@ -405,7 +399,7 @@ class ManagerService {
                 'paid_amount'     => $paidAmount,          // ← acompte versé
                 'remaining_amount'=> $remaining             // ← reste à payer
             ]);
-
+            
         }
 
         // 5. Ajuster le stock
