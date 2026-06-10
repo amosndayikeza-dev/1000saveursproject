@@ -359,57 +359,53 @@
 /*==style pour les employees du departement*/
 /* ========== TABLEAU DES EMPLOYÉS ========== */
 
-.employees-container h2{
-color: #48505c;
+.employees-container{
+    height: 90%;
+    padding: 2px 15px;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
-#employees-table {
+
+/*#employees-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
     font-size: 14px;
-    color: #e2e8f0; /* texte clair */
-    background: transparent;
+    color: #e2e8f0; 
+    border-spacing: 0;
+    border-radius: 5px;
+    background-color: var(--black-utile-3);
 }
 
-#employees-table thead tr {
-    background-color: #1f2937; /* fond d'en-tête plus soutenu */
-    border-bottom: 2px solid #22c55e;
-}
+.tft-table thead>tr {
+    background-color: brown; fond d'en-tête plus soutenu 
+    border-bottom: 2px solid yellow;
+}*/
 
-#employees-table th {
-    padding: 12px 10px;
-    text-align: left;
-    font-weight: 600;
-    background-color: #374151;
-    color: #f3f4f6;
-
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-#employees-table tbody tr {
-    border-bottom: 1px solid #2d3748;
+/* soulignage de salaire
+.tft-table tbody tr {
+    border-bottom: 1px solid yellow;
     transition: background 0.2s;
+}*/
+
+tbody tr:hover {
+    background-color: rgb(215, 210, 210) !important;
 }
 
-#employees-table tbody tr:hover {
-    background-color: rgba(34, 197, 94, 0.08); /* léger surlignage vert */
-}
-
-#employees-table td {
+.tft-table td {
     padding: 10px;
     vertical-align: middle;
 }
 
 /* Cellule des postes (optionnel) */
-#employees-table td:nth-child(5) {
+.tft-table td:nth-child(5) {
     font-weight: 500;
     color: #facc15; /* jaune pour le poste */
 }
 
 /* Cellule des salaires */
-#employees-table td:last-child {
+tbody td:last-child {
     color: #22c55e;
     font-weight: 600;
 }
@@ -422,20 +418,12 @@ color: #48505c;
     font-style: italic;
 }
 
-.tft-clr-red {
-    color: #f87171;
-}
-
 /* Responsive : overflow horizontal si nécessaire */
 .table-responsive {
     overflow-x: auto;
 }
 
 /* STYLE POUR UN TABLEAU DES VENTES*/
-.tft-table {
-    width: 100%;
-    border-collapse: collapse;
-}
 .tft-table th, .tft-table td {
     padding: 10px;
     text-align: left;
