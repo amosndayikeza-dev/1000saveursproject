@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1000saveurs</title>
-    <link rel="icon" href="../assets/images/icons/abonnes.png">
+    <link rel="icon" href="../assets/images/icons/1000SLogo.png">
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/tft-configStyles.css">
     <link rel="stylesheet" href="../assets/css/responsiveStyles.css">
@@ -26,7 +26,7 @@
             <div class="c-left-header">
                 <a href="./dashboardmanager.html">
                     <div class="tft-logo-avatar tft-bdr-greensav-1">
-                        <img src="../assets/images/icons/abonnes.png" alt="">
+                        <img src="../assets/images/icons/1000SLogo.png" alt="">
                     </div>
                 </a>
                 <div class="app-title">
