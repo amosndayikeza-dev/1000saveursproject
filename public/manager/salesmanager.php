@@ -1,4 +1,3 @@
-
 <!-- head debut -->
 <?php
     include("./components/headmanager.php");
@@ -18,7 +17,8 @@
                     <div class="tft-icon-carre tft-bdr-gris-1" onclick="showSidebar()">
                         <i class="fas fa-bars"></i>
                     </div>
-                    Dashboard</h2>
+                    Gestion des ventes
+                </h2>
                 <div class="header-aside">
                     <div class="tft-search-withIcon">
                         <input type="search" placeholder="Rechercher" class="tft-clr-white3">
@@ -40,8 +40,8 @@
                     </div>
                 </div>
             </div>
-            <div class="c-center-body " id="manager-page-root" data-manager-page="dashboard">
-                <!-- les infos du dashboard s'affichent ici -->
+            <div class="c-center-body" id="manager-page-root" data-manager-page="sales">
+                <!-- les ventes vont s'afficher ici -->
             </div>
         </div>
         <!-- partie droite ajoute la classe active pour montrer debut ===========PROFIL-->
@@ -70,8 +70,7 @@
 </body>
 
 <script src="../assets/js/manager-api.js"></script>
-<script src="../assets/js/manager-ui.js"> </script>
-<script src="../assets/js/scripts.js"> </script>
-<script src="../assets/js/pagination.js"></script>
+<script src="../assets/js/manager-ui.js"></script>
+<script src="../assets/js/scripts.js"></script>
 
 </html>

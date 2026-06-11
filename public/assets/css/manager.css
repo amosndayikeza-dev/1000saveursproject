@@ -26,10 +26,6 @@
     gap: 8px;
 }
 
-.mgr-tab:hover {
-    color: var(--tft-greensav, #22c55e);
-    border-color: rgba(34, 197, 94, 0.35);
-}
 
 .mgr-tab.mgr-tab-active {
     background: rgba(169, 231, 192, 0.12);
@@ -292,11 +288,6 @@
     color: #94a3b8;
 }
 
-/* Tableaux : ligne au survol */
-.tft-table tbody tr:hover td {
-    background: rgba(34, 197, 94, 0.08);
-}
-
 /* Badges pour les statuts (dettes, etc.) déjà présents */
 .mgr-badge-unpaid {
     background: rgba(239, 68, 68, 0.2);
@@ -368,30 +359,6 @@
     gap:10px;
 }
 
-/*#employees-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-    color: #e2e8f0; 
-    border-spacing: 0;
-    border-radius: 5px;
-    background-color: var(--black-utile-3);
-}
-
-.tft-table thead>tr {
-    background-color: brown; fond d'en-tête plus soutenu 
-    border-bottom: 2px solid yellow;
-}*/
-
-/* soulignage de salaire
-.tft-table tbody tr {
-    border-bottom: 1px solid yellow;
-    transition: background 0.2s;
-}*/
-
-tbody tr:hover {
-    background-color: rgb(215, 210, 210) !important;
-}
 
 .tft-table td {
     padding: 10px;
@@ -417,45 +384,6 @@ tbody td:last-child {
     color: #9ca3af;
     font-style: italic;
 }
-
-/* Responsive : overflow horizontal si nécessaire */
-.table-responsive {
-    overflow-x: auto;
-}
-
-/* STYLE POUR UN TABLEAU DES VENTES*/
-.tft-table th, .tft-table td {
-    padding: 10px;
-    text-align: left;
-}
-.tft-b-bottom-gris {
-    border-bottom: 1px solid #2d3748;
-}
-.tft-title3 {
-    font-size: 14px;
-    font-weight: 600;
-    color: #4d5263;
-}
-.tft-title4 {
-    font-size: 13px;
-    color: #e2e8f0;
-}
-.tft-clr-white3 {
-    color: #e2e8f0;
-}
-.tft-clr-orangesav {
-    color: #f97316;
-}
-.mgr-empty-hint {
-    text-align: center;
-    padding: 30px;
-    color: #9ca3af;
-}
-.tft-clr-red {
-    color: #f87171;
-}
-
-/*gestion des dettes*/
 
 .mgr-badge-paid {
     background: rgba(34, 197, 94, 0.15);
@@ -520,11 +448,6 @@ tbody td:last-child {
     border-bottom: 1px solid #2d3748;
 }
 
-/* Survol des lignes */
-.debts-container .tft-table tbody tr:hover,
-.stock-container .tft-table tbody tr:hover {
-    background-color: rgba(34, 197, 94, 0.08);
-}
 
 /* Messages vides */
 .mgr-empty-hint {
