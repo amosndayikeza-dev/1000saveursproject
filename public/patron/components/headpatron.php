@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1000saveurs</title>
+
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/icons/1000SLogo.png">
+
+    <link rel="icon" href="../assets/images/icons/abonnes.png">
+    <link rel="stylesheet" href="../assets/css/big.css">
+
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/tft-configStyles.css">
     <link rel="stylesheet" href="../assets/css/responsiveStyles.css">

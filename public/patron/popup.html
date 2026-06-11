@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/big.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/tft-configStyles.css">
+    <link rel="stylesheet" href="../assets/font-awesome/css/all.min.css">
+</head>
+<body>
+    <!-- =========================Popup pour supprimer un employe=========== -->
+        <div class="tft-popup-modal tft-a-center tft-hidden" id="popup-modal-deleteElement">
+            <div class="tft-popup-container-smal tft-bg-black3 tft-p-relative">
+                <div class="tft-close-icon tft-hover-red tft-p-absolute tft-top-5 tft-right-10" onclick="closeModal()">
+                    <i class="fas fa-times tft-clr-white3"></i>
+                </div>
+                <div class="suppression-actions">
+                    <div class="question-sentence tft-flex tft-gap-10px">
+                        <i class="fas fa-trash-alt tft-fs-14 tft-clr-white3"></i>
+                        <h3 class="tft-title3">Voulez-vous vraiment supprimer cet employé ?</h3>
+                    </div>
+                    <div class="suppression-options">
+                        <a class="tft-btn tft-btn-supprimer tft-bdr-red-txt-1 tft-clr-red" href="#">Oui</a>
+                        <btn class="tft-btn tft-btn-annuler tft-bdr-greensav-1 tft-clr-greensav" onclick="closeModal()">Non</btn>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- =========================Popup pour supprimer un employe=========== -->
+
+    <!-- =========================Popup pour supprimer un produit=========== -->
+        <div class="tft-popup-modal tft-a-center tft-hidden" id="popup-modal-deleteElement">
+            <div class="tft-popup-container-smal tft-bg-black3 tft-p-relative">
+                <div class="tft-close-icon tft-hover-red tft-p-absolute tft-top-5 tft-right-10" onclick="closeModal()">
+                    <i class="fas fa-times tft-clr-white3"></i>
+                </div>
+                <div class="suppression-actions">
+                    <div class="question-sentence tft-flex tft-gap-15px">
+                        <i class="fas fa-trash tft-fs-15 tft-clr-red"></i>
+                        <h3 class="tft-title3">Supprimer définitivement ce produit ?</h3>
+                    </div>
+                    <div class="suppression-options">
+                        <a class="tft-btn tft-btn-supprimer tft-bdr-red-txt-1 tft-clr-red">Supprimer</a>
+                        <btn class="tft-btn tft-btn-annuler tft-bdr-greensav-1 tft-clr-greensav" onclick="closeModal()">Annuler</btn>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- =========================Popup pour supprimer un produit=========== -->
+    <script src="../assets/js/scripts.js"></script>
+</body>
+</html>

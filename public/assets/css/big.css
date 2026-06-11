@@ -407,3 +407,48 @@ input[type="checkbox"] {
     border: 1.5px solid var(--clr-green1);
     transition: background 0.7s;
 }
+
+/*================ popup de suppression =======================*/
+.tft-popup-container-smal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:0.800rem;
+    padding: 2rem 0.70rem;
+    width:37%;
+    max-height: 100%;
+    border-radius: 0.3125rem;
+    overflow: auto;
+    box-shadow: var(--boxshadowPopup);
+    transition: all ease 0.5s;
+}
+
+.suppression-actions{
+    display: flex;
+    flex-direction: column;
+    gap:1.875rem;
+    padding: 0.625rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.suppression-options{
+    display: flex;
+    gap:3.125rem;
+}
+.suppression-options .tft-btn{
+    padding: 0.375rem 0.9375rem !important;
+}
+
+.tft-btn-supprimer:hover{
+    background-color: var(--clr-crimson) !important;
+    color: var(--remain-white) !important;
+    transition: background 0.7s;
+}
+
+.tft-btn-annuler:hover{
+    background-color: var(--clr-green1) !important;
+    color: var(--remain-white) !important;
+    transition: background 0.7s;
+}
