@@ -18,7 +18,6 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    /*transition: background 0.1s, color 0.2s, border-color 0.2s;*/
     display: inline-flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.05);  /* léger éclaircissement */

@@ -5,7 +5,7 @@
 :root,[data-mode="light"]{
 
   /* white and black shades */
-  --white:#fff;
+  --white:var(--white);
   --white-utile-1:rgba(191, 192, 196);
   --white-utile-2:#d0d4e4;
   --white-utile-3:#d3d4d6af;
@@ -28,13 +28,13 @@
   --blackBlur:rgba(0,0,0,0.5);
 
   /* bd and clr combos */
-  --orange-bg:#fff8e1;
+  --orange-bg:var(--white)8e1;
   --orange-text:#ff9800;
   --green-bg:#e8f5e9;
   --green-text:#4caf50;
   --blue-bg:#e3f2fd;
   --blue-text:#2196f3;
-  --yellow-bg:#fff3cd;
+  --yellow-bg:var(--white)3cd;
   --yellow-text:#ffc107;
   --red-bg:#f8d7da;
 	--red-text:#dc3545;
@@ -84,7 +84,7 @@
   --mobilViewPortHeight:-webkit-fill-available;
   --colorImage: invert(100%) brightness(1000%);
   --colorImageInverse: brightness(0%) contrast(100%) saturate(0%);
-  --color-messageBg: linear-gradient(135deg, #f9f3d9, #f1efeb, #FFFFFF);
+  --color-messageBg: linear-gradient(135deg, #f9f3d9, #f1efeb, var(--white)FFF);
   --color-linear-white: linear-gradient(90deg, var(--white-utile-1) 25%, var(--color-blanche-2) 50%, var(--white-utile-1) 75%);
 
   /* boxshadow */
@@ -1705,7 +1705,7 @@ textarea {
     opacity: 0.7;
 }
 .tft-form-label span{
-    color: crimson;
+    color: var(--clr-crimson);
     font-size: 0.9375rem;
 }
 .tft-form-control{
@@ -1871,7 +1871,7 @@ form{
 
 .tft-conteneurPopScrollcontent .wrapper section {
   width: 31.25rem;
-  background: #fff;
+  background: var(--white);
 }
 
 .tft-conteneurPopScrollcontent img {
@@ -2204,7 +2204,7 @@ form{
     padding: 0.25rem 0.5rem;
     border-radius:62.4375rem;
     background-color: var(--clr-crimson);
-    color: #fff;
+    color: var(--white);
     width: fit-content;
     font-size: 0.6875rem;
 }
@@ -2212,7 +2212,7 @@ form{
     padding: 0.25rem 0.5rem;
     border-radius:62.4375rem;
     background-color: var(--clr-yellow);
-    color: #fff;
+    color: var(--white);
     width: fit-content;
     font-size: 0.6875rem;
 }
@@ -2221,7 +2221,7 @@ form{
     padding: 0.25rem 0.5rem;
     border-radius:62.4375rem;
     background-color: var(--blue-txt-icons);
-    color: #fff;
+    color: var(--white);
     width: fit-content;
     font-size: 0.6875rem;
 }

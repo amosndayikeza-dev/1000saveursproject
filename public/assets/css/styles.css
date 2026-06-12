@@ -21,6 +21,7 @@
   --black-utile-3-2nd:rgba(25, 28, 34);
   --black-utile-3-3rd:rgba(25, 28, 34);
   --remain-black-utile-3:rgba(25, 28, 34);
+  --greenLogin:rgba(117, 174, 169);
 
   /* text colors */
   --icons-white:#8a8d93;
@@ -77,6 +78,7 @@
   --black-utile-3-2nd:white;
   --black-utile-3-3rd:whitesmoke;
   --remain-black-utile-3:rgba(25, 28, 34);
+  --greenLogin:rgba(117, 174, 169);
   
 
   /* text colors */
@@ -805,7 +807,7 @@
     height:100vh;
     overflow:hidden;
     display: flex;
-    background-color: rgb(117, 174, 169) ;
+    background-color:  var(--greenLogin);
     display: flex;
     gap:10px;
     justify-content: center;
@@ -1083,6 +1085,6 @@
 /*Style for pagination*/
 .tft-active-page {
     background-color: var(--clr-green1);
-    color: white !important;
+    color: var(--white) !important;
     border-radius: 5px;
 }

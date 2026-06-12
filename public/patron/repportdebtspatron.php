@@ -103,7 +103,7 @@
                     </table>
                     <div class="tft-pagination">
                         <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav">
-                            <i class="fas fa-arrow-left tft-color-white"></i>
+                            <i class="fas fa-arrow-left tft-clr-white"></i>
                         </div>
                         <ul class="tft-page-numbers">
                             <li class="tft-icon-carre-petit tft-clr-white3 tft-br-none">1</li>
@@ -111,7 +111,7 @@
                             <li class="tft-icon-carre-petit tft-clr-white3 tft-br-none">3</li>
                         </ul>
                         <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav">
-                            <i class="fas fa-arrow-right tft-color-white"></i>
+                            <i class="fas fa-arrow-right tft-clr-white"></i>
                         </div>
                     </div>
                 </div>
@@ -381,13 +381,13 @@ function formatDebtDate(dateStr) {
 /** Badge coloré selon le statut */
 function debtStatusBadge(status) {
     const map = {
-        paid:    { label: 'Payée',    color: '#28a745' },
-        unpaid:  { label: 'Non payée',color: '#dc3545' },
-        overdue: { label: 'En retard',color: '#fd7e14' },
+        paid:    { label: 'Payée',    color: 'var(--clr-green1)' },
+        unpaid:  { label: 'Non payée',color: 'var(--red-bg-icons)' },
+        overdue: { label: 'En retard',color: 'var(--yellow-bg-icons)' },
     };
     const s = (status || '').toLowerCase();
-    const info = map[s] || { label: escapeDebtHtml(status) || '—', color: '#6c757d' };
-    return `<span style="background:${info.color};color:#fff;padding:2px 8px;border-radius:12px;font-size:0.78em;">${info.label}</span>`;
+    const info = map[s] || { label: escapeDebtHtml(status) || '—', color: 'var(--text-light)' };
+    return `<span style="background:${info.color};color:var(--remain-white);padding:2px 8px;border-radius:12px;font-size:0.78em;">${info.label}</span>`;
 }
 
 /* -----------------------------------------------------------------------
@@ -579,7 +579,7 @@ function displayDebtSummary(summary) {
 function displayDebtError(msg) {
     const tbody = document.getElementById('debts-table-body');
     if (tbody) {
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;color:#dc3545;padding:20px;"><i class="fas fa-exclamation-triangle"></i> ${escapeDebtHtml(msg)}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;color:var(--white-utile-1);padding:20px;"><i class="fas fa-exclamation-triangle"></i> ${escapeDebtHtml(msg)}</td></tr>`;
     }
 }
 

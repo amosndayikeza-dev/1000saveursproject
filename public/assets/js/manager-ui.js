@@ -735,36 +735,89 @@
     }
 
     /** tableaux des ventes */
+    function paymentBadge(status) {
+    switch (status)
+        {
+            case 'paid':
+                return `<span class="mgr-badge mgr-badge-paid">Payé</span>`;
+            case 'partial':
+                return `<span class="mgr-badge mgr-badge-partial">Partiel</span>`;
+            default:
+                return `<span class="mgr-badge mgr-badge-unpaid">Impayé</span>`;
+        }
+    }
 async function loadSalesTable() {
     const tbody = document.getElementById('sales-table-body');
     if (!tbody) return;
-    tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Chargement…</div></td>';
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="8" class="mgr-empty-hint">Chargement…</td>
+        </tr>
+    `;
+
     try {
         const res = await ManagerAPI.sales.list();
         const sales = res.data || [];
+
         if (!sales.length) {
-            tbody.innerHTML = '<td><td colspan="7" class="mgr-empty-hint">Aucune vente trouvée</div></td>';
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="mgr-empty-hint">Aucune vente trouvée</td>
+                </tr>
+            `;
             return;
         }
+
         tbody.innerHTML = sales.map(sale => `
             <tr class="tft-b-bottom-gris">
-                <td class="tft-title4 tft-clr-white3">${sale.sale_id || sale.id || '—'}</div></td>
-                <td class="tft-title4 tft-clr-white3">${escapeHtml(sale.product_name)}</div></td>
-                <td class="tft-title4 tft-clr-white3">${sale.quantity}</div></td>
-                <td class="tft-title4 tft-clr-white3">${fmtMoney(sale.unit_price)}</div></td>
-                <td class="tft-title4 tft-clr-orangesav">${fmtMoney(sale.line_total)}</div></td>
-                <td class="tft-title4 tft-clr-white3">${fmtDate(sale.sold_at)}</div></td>
-                <td class="tft-title4 tft-clr-white3">${sale.payment_status === 'paid' ? 'Payé' : (sale.payment_status === 'partial' ? 'Partiel' : 'Impayé')}</div></td>
                 <td class="tft-title4 tft-clr-white3">
-                <button class="tft-btn-sm tft-bg-greensav" onclick="viewInvoice(${sale.sale_id || sale.id})">
-                    <i class="fas fa-file-invoice"></i> Facture
-                </button>
-            </div>
+                    ${sale.sale_id || sale.id || '—'}
+                </td>
+
+                <td class="tft-title4 tft-clr-white3">
+                    ${escapeHtml(sale.product_name)}
+                </td>
+
+                <td class="tft-title4 tft-clr-white3">
+                    ${sale.quantity}
+                </td>
+
+                <td class="tft-title4 tft-clr-white3">
+                    ${fmtMoney(sale.unit_price)}
+                </td>
+
+                <td class="tft-title4 tft-clr-orangesav">
+                    ${fmtMoney(sale.line_total)}
+                </td>
+
+                <td class="tft-title4 tft-clr-white3">
+                    ${fmtDate(sale.sold_at)}
+                </td>
+
+                <td class="tft-title4">
+                    ${paymentBadge(sale.payment_status)}
+                </td>
+
+                <td class="tft-title4 tft-clr-white3">
+                    <button class="tft-btn-sm tft-bg-greensav"
+                        onclick="viewInvoice(${sale.sale_id || sale.id})">
+                        <i class="fas fa-file-invoice"></i> Facture
+                    </button>
+                </td>
             </tr>
         `).join('');
+
     } catch (err) {
         console.error(err);
-        tbody.innerHTML = `<tr><td colspan="7" class="mgr-empty-hint tft-clr-red">Erreur : ${escapeHtml(err.message)}</div></td>`;
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="mgr-empty-hint tft-clr-red">
+                    Erreur : ${escapeHtml(err.message)}
+                </td>
+            </tr>
+        `;
     }
 }
 
