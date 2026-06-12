@@ -1,6 +1,6 @@
 /* Interfaces Manager — styles spécifiques (header/sidebar inchangés) */
 
-.mgr-tabs {
+.manager-tabs {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -9,7 +9,7 @@
     border-bottom: 1px solid var(--tft-gris2, rgba(200, 240, 240, 0.05));
 }
 
-.mgr-tab {
+.manager-tab {
     padding: 10px 18px;
     border-radius: 8px;
     border: 1px solid transparent;
@@ -26,34 +26,34 @@
 }
 
 
-.mgr-tab.mgr-tab-active {
+.manager-tab.manager-tab-active {
     background: rgba(169, 231, 192, 0.12);
     border-color: var(--tft-greensav, #22c55e);
     color: var(--tft-greensav, #22c55e);
 }
 
-.mgr-panel {
+.manager-panel {
     display: none;
 }
 
-.mgr-panel.mgr-panel-active {
+.manager-panel.manager-panel-active {
     display: block;
 }
 
-.mgr-grid-2 {
+.manager-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
 }
 
 @media (max-width: 992px) {
-    .mgr-grid-2 {
+    .manager-grid-2 {
         grid-template-columns: 1fr;
     }
 }
 
 
-.mgr-card-title {
+.manager-card-title {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 16px;
@@ -61,14 +61,14 @@
     align-items: center;
     gap: 10px;
 }
-.mgr-kpi-row {
+.manager-kpi-row {
     display: flex;
     gap: 50px;
     padding: 10px 30px;
     flex-wrap: wrap;
 }
 
-.mgr-kpi {
+.manager-kpi {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -81,13 +81,13 @@
     position: relative;
 
 }
-.mgr-kpi .tft-icon-carre-moyen{
+.manager-kpi .tft-icon-carre-moyen{
     position: absolute;
     top:0;
     left: 0;
     border-radius: var(--br-btn) 0px 12px 0px  !important;
 }
-.mgr-kpi .tft-icon-carre-moyen .tft-icon-carre-petit{
+.manager-kpi .tft-icon-carre-moyen .tft-icon-carre-petit{
     border-radius: var(--br-btn) 0px 12px 0px  !important;
     width: 30px;
     height: 30px;
@@ -95,7 +95,7 @@
     left:0;
     top: 0;
 }
-.card-info-mgr{
+.card-info-manager{
     display: flex;
     justify-content: start;
     align-items: start;
@@ -104,10 +104,12 @@
     width: fit-content;
     margin-left: 10px;
 }
-.mgr-kpi-label {
+.manager-kpi-label {
     opacity: 0.75;
+    margin-left: 5px !important;
+
 }
-.recent-intro-mgr{
+.recent-intro-manager{
     width: 40%;
     height: 12.5rem;
     border-radius: var(--br-btn);
@@ -149,18 +151,18 @@
     background-color: var(--clr-orange1);
     opacity: 0.8;
 }
-.mgr-form-row {
+.manager-form-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 14px;
     margin-bottom: 14px;
 }
 
-.mgr-form-row .tft-form-group {
+.manager-form-row .tft-form-group {
     margin: 0;
 }
 
-.mgr-total-line {
+.manager-total-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -171,12 +173,12 @@
     font-weight: 600;
 }
 
-.mgr-total-line span:last-child {
+.manager-total-line span:last-child {
     color: var(--tft-orangesav, #f97316);
 }
 
 
-.mgr-badge {
+.manager-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -186,22 +188,22 @@
     font-weight: 600;
 }
 
-.mgr-badge-unpaid {
-    background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
+.manager-badge-unpaid {
+    background: var(--red-bg-icons);
+    color: var(--red-txt-icons);
 }
 
-.mgr-badge-partial {
-    background: rgba(234, 179, 8, 0.15);
-    color: #facc15;
+.manager-badge-partial {
+    background: var(--yellow-bg-icons);
+    color: var(--yellow-txt-icons);
 }
 
-.mgr-badge-paid {
-    background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
+.manager-badge-paid {
+    background: var(--green-bg-icons);
+    color: var(--green-txt-icons);
 }
 
-.mgr-recovery-banner {
+.manager-recovery-banner {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
@@ -209,58 +211,58 @@
 }
 
 
-.mgr-quick-actions {
+.manager-quick-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 20px;
 }
 
-.mgr-quick-actions a {
+.manager-quick-actions a {
     text-decoration: none;
 }
 
-.mgr-empty-hint {
+.manager-empty-hint {
     text-align: center;
     padding: 32px;
     opacity: 0.6;
     font-size: 14px;
 }
 
-.mgr-movement-in {
+.manager-movement-in {
     color: #4ade80;
 }
 
-.mgr-movement-out {
+.manager-movement-out {
     color: #f87171;
 }
 
-.mgr-readonly-input {
+.manager-readonly-input {
     opacity: 0.85;
     cursor: not-allowed;
 }
 
-.mgr-stock-low td:nth-child(4) {
+.manager-stock-low td:nth-child(4) {
     color: #f87171;
     font-weight: 600;
 }
 
 /* Bandeau récapitulatif : dégradés colorés */
-.mgr-recovery-item:first-child {
+.manager-recovery-item:first-child {
     background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(59,130,246,0.02));
     border-left: 3px solid #3b82f6;
 }
-.mgr-recovery-item:last-child {
+.manager-recovery-item:last-child {
     background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(34,197,94,0.02));
     border-left: 3px solid #22c55e;
 }
 
 /* Titre de carte avec petite barre colorée */
-.mgr-card-title {
+.manager-card-title {
     position: relative;
     padding-left: 0;
 }
-.mgr-card-title::before {
+.manager-card-title::before {
     content: '';
     display: inline-block;
     width: 4px;
@@ -287,41 +289,30 @@
     color: #94a3b8;
 }
 
-/* Badges pour les statuts (dettes, etc.) déjà présents */
-.mgr-badge-unpaid {
-    background: rgba(239, 68, 68, 0.2);
-}
-.mgr-badge-partial {
-    background: rgba(234, 179, 8, 0.2);
-}
-.mgr-badge-paid {
-    background: rgba(34, 197, 94, 0.2);
-}
-
 /*======= style for sales*/
-.mgr-sale-item {
+.manager-sale-item {
     margin-bottom: 12px;
     background: #ffffff !important;
     border: 1px solid #e2e8f0;
 }
-.mgr-sale-details {
+.manager-sale-details {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
     margin-top: 8px;
     color: #334155;
 }
-.mgr-sale-details div {
+.manager-sale-details div {
     font-size: 14px;
 }
-.mgr-sale-details .mgr-kpi-label {
+.manager-sale-details .manager-kpi-label {
     opacity: 0.75;
     margin-right: 6px;
 }
-.mgr-sale-details strong {
+.manager-sale-details strong {
     color: #f97316;
 }
-.mgr-sale-item .mgr-card-title {
+.manager-sale-item .manager-card-title {
     color: #1e293b;
 }
 
@@ -377,28 +368,11 @@ tbody td:last-child {
 }
 
 /* Message d’état (chargement / vide / erreur) */
-.mgr-empty-hint {
+.manager-empty-hint {
     text-align: center;
     padding: 30px;
     color: #9ca3af;
     font-style: italic;
-}
-
-.mgr-badge-paid {
-    background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-}
-.mgr-badge-unpaid {
-    background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
 }
 /* Uniformisation du conteneur des dettes (comme stock) */
 .debts-container,
@@ -408,8 +382,8 @@ tbody td:last-child {
 }
 
 /* Carte contenant le tableau – sans bordure extérieure noire */
-.debts-container .mgr-card,
-.stock-container .mgr-card {
+.debts-container .manager-card,
+.stock-container .manager-card {
     background: transparent;
     border: none;
     box-shadow: none;
@@ -449,36 +423,19 @@ tbody td:last-child {
 
 
 /* Messages vides */
-.mgr-empty-hint {
+.manager-empty-hint {
     text-align: center;
     padding: 30px;
     color: #9ca3af;
 }
 
-/* Badges (déjà présents) */
-.mgr-badge-paid {
-    background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-}
-.mgr-badge-unpaid {
-    background: rgba(239, 68, 68, 0.15);
-    color: #f87171;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-}
 
 /*le style du modal pour la facture*/
 @media print {
-    .mgr-modal-overlay, .mgr-modal, body > *:not(.mgr-modal) {
+    .manager-modal-overlay, .manager-modal, body > *:not(.manager-modal) {
         visibility: hidden;
     }
-    .mgr-modal {
+    .manager-modal {
         visibility: visible;
         position: absolute;
         top: 0;

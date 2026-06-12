@@ -1,28 +1,27 @@
-<div class="products-container">
-    <div class="mgr-toolbar">
-        <div class="tft-form-group">
-            <input type="text" id="product-search" placeholder="Rechercher..." class="tft-form-control">
-        </div>
-        <button class="tft-btn tft-bg-greensav" id="add-product-btn">+ Ajouter un produit</button>
-    </div>
 
+<div class="products-header">
+    <button class="tft-btn tft-bdr-greensav-1 tft-clr-white3 tft-hover-greensav"  id="add-product-btn">
+        <i class="fas fa-add"></i>Ajouter un produit
+    </button>
+</div>
+<div class="products-container">
     <table class="tft-table">
         <thead>
             <tr class="tft-b-bottom-gris">
-                <th class="tft-title3">ID</th>
-                <th class="tft-title3">NOM</th>
-                <th class="tft-title3">DESCRIPTION</th>
-                <th class="tft-title3">PRIX UNITAIRE</th>
-                <th class="tft-title3">STOCK</th>
-                <th class="tft-title3">STATUS</th>
-                <th class="tft-title3">ACTION</th>
+                <th class="tft-title3">№</th>
+                <th class="tft-title3">Nom</th>
+                <th class="tft-title3">Description</th>
+                <th class="tft-title3">Prix unitaire</th>
+                <th class="tft-title3">Stock</th>
+                <th class="tft-title3">Status</th>
+                <th class="tft-title3">Action</th>
             </tr>
         </thead>
         <tbody id="products-table-body">
-            <tr><td colspan="7" class="mgr-empty-hint">Chargement…</td></tr>
+            <tr><td colspan="7" class="manager-empty-hint">Chargement…</td></tr>
         </tbody>
-    </table>
 
+    </table>
     <div class="tft-pagination" id="products-pagination">
         <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav" id="prev-page-btn">
             <i class="fas fa-arrow-left tft-color-white"></i>
@@ -33,7 +32,3 @@
         </div>
     </div>
 </div>
-
-<script>
-
-</script>
