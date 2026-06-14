@@ -51,6 +51,7 @@
 
   /* other colors */
   --clr-crimson: crimson;
+  --clr-remain-crimson:crimson;
   --clr-yellow: rgb(255, 210, 121);
   --clr-yellow1:rgba(230, 170, 68);
   --clr-yellow2:rgba(235, 198, 36);
@@ -340,6 +341,12 @@ optgroup {
 }
 .tft-bg-orangesav2{
   background-color: var(--clr-orange2) !important;
+}
+.tft-clr-red{
+  color: var(--clr-crimson) !important;
+}
+.tft-clr-remain-red{
+  color: var(--clr-remain-crimson) !important;
 }
 .tft-clr-red-bg{
   color: var(--red-bg-icons) !important;

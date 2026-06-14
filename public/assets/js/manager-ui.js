@@ -179,7 +179,7 @@
     function stockBadgeText(status) {
         if (status === 'rupture') return 'Stock en rupture';
         if (status === 'low') return 'Stock bas';
-        return 'Stock en cours';
+        return 'Stock disponible';
     }
 
     function debtBadge(status, remaining) {
@@ -500,54 +500,143 @@
     }
 
      async function loadDebts() {
-        const tbody = document.getElementById('debts-table-body');
-        if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="7" class="manager-empty-hint">Chargement…</td></tr>';
+        const container = document.getElementById('container-debts');
+        if (!container) return;
+
+            container.innerHTML = '<p class="manager-empty-hint">Chargement...</p>';
         try {
             const statusFilter = document.getElementById('debt-status-filter')?.value;
             const apiStatus = (statusFilter === 'all' || !statusFilter) ? undefined : statusFilter;
             const res = await ManagerAPI.debts.list(apiStatus);
             const debts = res.data || [];
             if (!debts.length) {
-                tbody.innerHTML = '<tr><td colspan="7" class="manager-empty-hint">Aucune dette</td></td>';
+                container.innerHTML = '<p class="manager-empty-hint">Aucune dette</p>';
                 return;
-            }
-            tbody.innerHTML = debts.map(d => {
+             }
+            container.innerHTML = debts.map(d => {
                 const remaining = d.remaining_amount ?? (d.amount - (d.paid_amount || 0));
                 const status = d.status || (remaining <= 0 ? 'paid' : 'pending');
-                let statusBadge = '';
-                if (status === 'paid') {
-                    statusBadge = '<span class="manager-badge manager-badge-paid">Soldée</span>';
-                } else if (remaining <= 0) {
-                    statusBadge = '<span class="manager-badge manager-badge-paid">Soldée</span>';
-                } else {
-                    statusBadge = '<span class="manager-badge manager-badge-unpaid">Impayée</span>';
-                }
-                return `
-                    <tr class="tft-b-bottom-gris">
-                        <td class="tft-title4 tft-clr-white3">${escapeHtml(d.debtor_name || '—')}</td>
-                        <td class="tft-title4 tft-clr-white3">${escapeHtml(d.product_name || '—')}</td>
-                        <td class="tft-title4 tft-clr-white3">${fmtMoney(d.amount)}</td>
-                        <td class="tft-title4 tft-clr-white3">${fmtMoney(d.paid_amount || 0)}</td>
-                        <td class="tft-title4 tft-clr-orangesav">${fmtMoney(remaining)}</td>
-                        <td class="tft-title4 tft-clr-white3">${statusBadge}</td>
-                        <td class="tft-bdr-l-gris-1">
-                            ${remaining > 0 ? `<button class="tft-btn-sm tft-bg-greensav pay-debt" data-id="${d.id}" data-remaining="${remaining}">Payer</button>` : '—'}
-                        </td>
-                    </tr>
-                `;
-            }).join('');
 
-            // Attacher événements
-            document.querySelectorAll('.pay-debt').forEach(btn => {
-                btn.removeEventListener('click', handlePayDebt);
-                btn.addEventListener('click', handlePayDebt);
-            });
-        } catch (err) {
-            console.error(err);
-            tbody.innerHTML = `<tr><td colspan="7" class="manager-empty-hint tft-clr-red">Erreur : ${escapeHtml(err.message)}</td></tr>`;
-        }
+                const badgeStatus = status === 'paid'
+                ? 'tft-bg-greensav'
+                : 'tft-bg-red-bg';
+
+                const statusText = status === 'paid'
+                ? 'Soldée'
+                : 'Impayée';
+                return`
+                <div class="debt">
+                    <p class="tft-sm-title2 tft-bg-black2" id="debt-date">
+                        ${d.created_at || '---'}
+                    </p>
+
+                    <div class="debt-infos">
+
+                        <!-- Client -->
+                        <div class="debt-info">
+                            <div class="each-info">
+                                <div class="tft-icon-carre-petit tft-bdr-gris-1 tft-bg-black3 tft-a-self-center">
+                                    <i class="fe fe-user tft-clr-greensav"></i>
+                                </div>
+                                <div class="contact-debiteur">
+                                    <h3 class="tft-sm-title1">
+                                        ${escapeHtml(d.debtor_name || 'Client')}
+                                    </h3>
+                                    <p class="tft-title4">num de tel</p>
+                                </div>
+                            </div>
+                            <div class="badge tft-bg-greensav tft-clr-remain-white">
+                                Debiteur
+                            </div>
+                        </div>
+
+                        <!-- Produit -->
+                        <div class="debt-info">
+                            <div class="each-info">
+                                <div class="tft-icon-carre-petit tft-bdr-gris-1 tft-bg-black3 tft-a-self-center">
+                                    <i class="fe fe-shopping-cart tft-clr-blue-bg"></i>
+                                </div>
+                                <div class="contact-debiteur">
+                                    <h3 class="tft-sm-title1">
+                                        ${escapeHtml(d.product_name || 'Produit')}
+                                    </h3>
+                                    <p class="tft-title4">Quantite</p>
+                                </div>
+                            </div>
+                            <div class="badge tft-bg-blue-bg tft-clr-remain-white">
+                                Produit
+                            </div>
+                        </div>
+
+                        <!-- Montant total -->
+                        <div class="debt-info">
+                            <div class="each-info">
+                                <div class="tft-icon-carre-petit tft-bdr-gris-1 tft-bg-black3 tft-a-self-center">
+                                    <i class="fe fe-dollar-sign tft-clr-orangesav"></i>
+                                </div>
+                                <div class="contact-debiteur tft-w-fit">
+                                    <h3 class="tft-sm-title1">
+                                        Unitaire :
+                                    </h3>
+                                    <h3 class="tft-sm-title1">
+                                        Total : ${fmtMoney(d.amount)}
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="badge tft-bg-orangesav2 tft-clr-remain-white">
+                                Prix
+                            </div>
+                        </div>
+
+                        <!-- Paiement -->
+                        <div class="debt-info">
+                            <div class="each-info">
+                                <div class="tft-icon-carre-petit tft-bdr-gris-1 tft-bg-black3 tft-a-self-center">
+                                    <i class="fe fe-credit-card tft-clr-remain-red"></i>
+                                </div>
+                                <div class="contact-debiteur tft-w-fit">
+                                    <h3 class="tft-sm-title1">
+                                        Payé : ${fmtMoney(d.paid_amount || 0)}
+                                    </h3>
+                                    <p class="tft-title4 reste">
+                                        Reste : ${fmtMoney(remaining)}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="badge ${badgeStatus} tft-clr-remain-white">
+                                ${statusText}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    ${
+                        remaining > 0
+                        ? `<button class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav tft-a-self-center tft-mt-3 pay-debt"
+                                data-id="${d.id}"
+                                data-remaining="${remaining}">
+                                Payer le reste
+                           </button>`
+                        : ''
+                    }
+                </div>
+            `;
+        }).join('');
+
+        document.querySelectorAll('.pay-debt').forEach(btn => {
+            btn.removeEventListener('click', handlePayDebt);
+            btn.addEventListener('click', handlePayDebt);
+        });
+
+    } catch (err) {
+        console.error(err);
+        container.innerHTML = `
+            <p class="manager-empty-hint tft-clr-red">
+                Erreur : ${escapeHtml(err.message)}
+            </p>
+        `;
     }
+}
 
    async function handlePayDebt(event) {
     const btn = event.currentTarget;
@@ -1006,7 +1095,7 @@ async function loadProducts(page = 1) {
         tbody.innerHTML = products.map(p => {
             const stock = p.current_stock;
             const threshold = p.low_stock_threshold || 5;
-            let statusClass = 'tft-stock-badge-green1', statusText = 'Stock en cours';
+            let statusClass = 'tft-stock-badge-green1', statusText = 'Stock disponible';
             if (stock <= 0) { statusClass = 'tft-stock-badge-red1'; statusText = 'Stock en rupture'; }
             else if (stock <= threshold) { statusClass = 'tft-stock-badge-yellow1'; statusText = 'Stock bas'; }
 

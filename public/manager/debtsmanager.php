@@ -39,7 +39,9 @@
                     </div>
                 </div>
             </div>
-            <div class="c-center-body" id="manager-page-root" data-manager-page="debts"></div>
+            <div class="c-center-body tft-gap-10px" id="manager-page-root" data-manager-page="debts">
+                <!-- les infos sur les dettes seront affichees ic -->
+            </div>
         </div>
         <!-- partie droite ajoute la classe active pour montrer debut ===========PROFIL-->
             <?php
