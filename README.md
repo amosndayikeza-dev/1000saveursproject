@@ -6,3 +6,7 @@
 
 # manager : manager@1000saveur.com
 # pwd : manager123
+
+
+# admin : admin@1000saveur.com
+# pwd : admin123
