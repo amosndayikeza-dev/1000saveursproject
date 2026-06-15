@@ -8,5 +8,5 @@
 # pwd : manager123
 
 
-# admin : admin@1000saveur.com
+# admin : admin2@1000saveurs.com
 # pwd : admin123
