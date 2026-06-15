@@ -18,7 +18,7 @@
                     <div class="tft-icon-carre tft-bdr-gris-1" onclick="showSidebar()">
                         <i class="fas fa-bars"></i>
                     </div>
-                    Dashboard</h2>
+                    Employés du département</h2>
                 <div class="header-aside">
                     <div class="tft-search-withIcon">
                         <input type="search" placeholder="Rechercher" class="tft-clr-white3">
@@ -40,9 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="c-center-body " id="manager-page-root" data-manager-page="dashboard">
-                <!-- les infos du dashboard s'affichent ici -->
-            </div>
+            <div class="c-center-body" id="manager-page-root" data-manager-page="employees"></div>
         </div>
         <!-- partie droite ajoute la classe active pour montrer debut ===========PROFIL-->
             <?php
@@ -50,6 +48,20 @@
             ?>
         <!-- partie droite ajoute la classe active pour montrer fin ===========PROFIL-->
         <div id="manager-modals-root"></div>
+        <div class="tft-popup-modal tft-a-center" id="popup-modal-deleteElement">
+            <div class="tft-popup-container-small tft-bg-black3 tft-p-relative">
+                <div class="tft-close-icon tft-hover-red tft-p-absolute tft-top-5 tft-right-10" onclick="closeModal()">
+                    <i class="fas fa-times tft-clr-white3"></i>
+                </div>
+                <div class="deconnection-actions">
+                    <h3 class="tft-title2">Voulez-vous supprimer cet employé ?</h3>
+                    <div class="deconnection-options">
+                        <a class="tft-btn tft-bg-red tft-clr-white" href="#">Oui</a>
+                        <btn class="tft-btn tft-bg-greensav tft-clr-white" onclick="closeModal()">Non</btn>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- popup de deconnexion -->
         <div class="tft-popup-modal tft-a-center" id="deconnection-modal">
             <div class="tft-popup-container-small tft-bg-black3 tft-p-relative">
@@ -70,8 +82,7 @@
 </body>
 
 <script src="../assets/js/manager-api.js"></script>
-<script src="../assets/js/manager-ui.js"> </script>
-<script src="../assets/js/scripts.js"> </script>
-<script src="../assets/js/pagination.js"></script>
+<script src="../assets/js/manager-ui.js"></script>
+<script src="../assets/js/scripts.js"></script>
 
 </html>

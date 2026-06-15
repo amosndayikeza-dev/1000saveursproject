@@ -21,6 +21,7 @@
   --black-utile-3-2nd:rgba(25, 28, 34);
   --black-utile-3-3rd:rgba(25, 28, 34);
   --remain-black-utile-3:rgba(25, 28, 34);
+  --greenLogin:rgba(117, 174, 169);
 
   /* text colors */
   --icons-white:#8a8d93;
@@ -54,7 +55,7 @@
   --clr-green2:#2d9785;
   --clr-green3:#098b71;
   --clr-green4: #0d876f;
-  --clr-orange1:rgba(253, 140, 92);
+  --clr-orange1: #fd8c5c;
   --clr-orange2:rgba(253, 140, 92, 0.345);
   --boxshadowPopup: 0rem 0.625rem 0.9375rem rgba(20, 20, 20, 0.155), 0rem 0rem 0.125rem rgba(16, 16, 16, 0.05), 0.625rem 0.625rem 0.9375rem rgba(16, 16, 16, 0.05), 0rem 0rem 0.125rem rgba(16, 16, 16, 0.05);
 
@@ -77,6 +78,7 @@
   --black-utile-3-2nd:white;
   --black-utile-3-3rd:whitesmoke;
   --remain-black-utile-3:rgba(25, 28, 34);
+  --greenLogin:rgba(117, 174, 169);
   
 
   /* text colors */
@@ -805,7 +807,7 @@
     height:100vh;
     overflow:hidden;
     display: flex;
-    background-color: rgb(117, 174, 169) ;
+    background-color:  var(--greenLogin);
     display: flex;
     gap:10px;
     justify-content: center;
@@ -1083,6 +1085,6 @@
 /*Style for pagination*/
 .tft-active-page {
     background-color: var(--clr-green1);
-    color: white !important;
+    color: var(--white) !important;
     border-radius: 5px;
 }

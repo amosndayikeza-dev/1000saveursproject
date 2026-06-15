@@ -6,7 +6,7 @@ let currentEditId = null;
 async function loadUsers() {
     const tbody = document.getElementById('users-table-body');
     if (!tbody) return;
-    tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Chargement...</div></td>';
+    tbody.innerHTML = '<tr><td colspan="7" class="manager-empty-hint">Chargement...</div></td>';
     const role = document.getElementById('filter-role').value;
     const active = document.getElementById('filter-active').value;
     const params = {};
@@ -16,7 +16,7 @@ async function loadUsers() {
         const res = await AdminAPI.users.list(params);
         const users = res.data || [];
         if (users.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Aucun utilisateur</div></td>';
+            tbody.innerHTML = '<tr><td colspan="7" class="manager-empty-hint">Aucun utilisateur</div></td>';
             return;
         }
         tbody.innerHTML = users.map(u => `
@@ -38,7 +38,7 @@ async function loadUsers() {
         `).join('');
     } catch (err) {
         console.error(err);
-        tbody.innerHTML = `<td><td colspan="7" class="mgr-empty-hint tft-clr-red">Erreur : ${escapeHtml(err.message)}</div></tr>`;
+        tbody.innerHTML = `<td><td colspan="7" class="manager-empty-hint tft-clr-red">Erreur : ${escapeHtml(err.message)}</div></tr>`;
     }
 }
 

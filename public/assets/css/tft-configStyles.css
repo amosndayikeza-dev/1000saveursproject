@@ -28,13 +28,13 @@
   --blackBlur:rgba(0,0,0,0.5);
 
   /* bd and clr combos */
-  --orange-bg:#fff8e1;
+  --orange-bg:var(--white)8e1;
   --orange-text:#ff9800;
   --green-bg:#e8f5e9;
   --green-text:#4caf50;
   --blue-bg:#e3f2fd;
   --blue-text:#2196f3;
-  --yellow-bg:#fff3cd;
+  --yellow-bg:var(--white)3cd;
   --yellow-text:#ffc107;
   --red-bg:#f8d7da;
 	--red-text:#dc3545;
@@ -51,6 +51,7 @@
 
   /* other colors */
   --clr-crimson: crimson;
+  --clr-remain-crimson:crimson;
   --clr-yellow: rgb(255, 210, 121);
   --clr-yellow1:rgba(230, 170, 68);
   --clr-yellow2:rgba(235, 198, 36);
@@ -84,7 +85,7 @@
   --mobilViewPortHeight:-webkit-fill-available;
   --colorImage: invert(100%) brightness(1000%);
   --colorImageInverse: brightness(0%) contrast(100%) saturate(0%);
-  --color-messageBg: linear-gradient(135deg, #f9f3d9, #f1efeb, #FFFFFF);
+  --color-messageBg: linear-gradient(135deg, #f9f3d9, #f1efeb, var(--white)FFF);
   --color-linear-white: linear-gradient(90deg, var(--white-utile-1) 25%, var(--color-blanche-2) 50%, var(--white-utile-1) 75%);
 
   /* boxshadow */
@@ -340,6 +341,12 @@ optgroup {
 }
 .tft-bg-orangesav2{
   background-color: var(--clr-orange2) !important;
+}
+.tft-clr-red{
+  color: var(--clr-crimson) !important;
+}
+.tft-clr-remain-red{
+  color: var(--clr-remain-crimson) !important;
 }
 .tft-clr-red-bg{
   color: var(--red-bg-icons) !important;
@@ -1356,6 +1363,102 @@ position: relative !important;
 .tft-bdr-t-transparent-1{
   border-top: 0.0625rem solid transparent !important;
 }
+.tft-bdr-t-white-2{
+  border-top: 0.125rem solid var(--white) !important;
+}
+.tft-bdr-b-white-2{
+  border-bottom: 0.125rem solid var(--white) !important;
+}
+.tft-bdr-r-white-2{
+  border-right: 0.125rem solid var(--white) !important;
+}
+.tft-bdr-l-white-2{
+  border-left: 0.125rem solid var(--white) !important;
+}
+.tft-bdr-t-white-1{
+  border-top: 0.0625rem solid var(--white) !important;
+}
+.tft-bdr-b-white-1{
+  border-bottom: 0.0625rem solid var(--white) !important;
+}
+.tft-bdr-r-white-1{
+  border-right: 0.0625rem solid var(--white) !important;
+}
+.tft-bdr-l-white-1{
+  border-left: 0.0625rem solid var(--white) !important;
+}
+.tft-bdr-t-white1-1{
+  border-top: 0.0625rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-b-white1-1{
+  border-bottom: 0.0625rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-r-white1-1{
+  border-right: 0.0625rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-l-white1-1{
+  border-left: 0.0625rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-t-white1-2{
+  border-top: 0.125rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-b-white1-2{
+  border-bottom: 0.125rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-r-white1-2{
+  border-right: 0.125rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-l-white1-2{
+  border-left: 0.125rem solid var(--white-utile-1) !important;
+}
+.tft-bdr-t-white2-1{
+  border-top: 0.0625rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-b-white2-1{
+  border-bottom: 0.0625rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-r-white2-1{
+  border-right: 0.0625rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-l-white2-1{
+  border-left: 0.0625rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-t-white2-2{
+  border-top: 0.125rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-b-white2-2{
+  border-bottom: 0.125rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-r-white2-2{
+  border-right: 0.125rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-l-white2-2{
+  border-left: 0.125rem solid var(--white-utile-2) !important;
+}
+.tft-bdr-t-white3-1{
+  border-top: 0.0625rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-b-white3-1{
+  border-bottom: 0.0625rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-r-white3-1{
+  border-right: 0.0625rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-l-white3-1{
+  border-left: 0.0625rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-t-white3-2{
+  border-top: 0.125rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-b-white3-2{
+  border-bottom: 0.125rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-r-white3-2{
+  border-right: 0.125rem solid var(--white-utile-3) !important;
+}
+.tft-bdr-l-white3-2{
+  border-left: 0.125rem solid var(--white-utile-3) !important;
+}
 /* ////////////////////////////////////////////////////////////////////////////////// */
 /* =                              CLASSES POUR LES GAP                                */
 /* ////////////////////////////////////////////////////////////////////////////////// */
@@ -1385,24 +1488,24 @@ position: relative !important;
 /* =                  CLASSES POUR LES TITRES ET TEXTES                               */
 /* ////////////////////////////////////////////////////////////////////////////////// */
 .tft-title1{
-  font-size: 1.25rem;
+  font-size: 1.25rem !important;
   font-weight: 500;
   color: var( --white-utile-1);
 }
 .tft-title2{
-  font-size: 1.0625rem;
+  font-size: 1.0625rem !important;
   font-weight: 500;
   color: var( --white-utile-1);
 }
 .tft-title3{
   font-size: 0.9375rem;
   font-weight: 500;
-  color: var( --white-utile-1);
+  color: var( --white-utile-1) !important;
 }
 .tft-title4{
   font-size: 0.8125rem;
   font-weight: 400;
-  color: var( --white-utile-1);
+  color: var(--white-utile-1) !important;
 }
 .tft-sm-title1{
   font-size: 0.75rem;
@@ -1609,7 +1712,7 @@ textarea {
     opacity: 0.7;
 }
 .tft-form-label span{
-    color: crimson;
+    color: var(--clr-crimson);
     font-size: 0.9375rem;
 }
 .tft-form-control{
@@ -1775,7 +1878,7 @@ form{
 
 .tft-conteneurPopScrollcontent .wrapper section {
   width: 31.25rem;
-  background: #fff;
+  background: var(--white);
 }
 
 .tft-conteneurPopScrollcontent img {
@@ -1947,7 +2050,6 @@ form{
   height: 1.875rem;
   aspect-ratio: 1/1;
   border-radius: 0.3125rem;
-  transition: all 0.5s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2109,7 +2211,7 @@ form{
     padding: 0.25rem 0.5rem;
     border-radius:62.4375rem;
     background-color: var(--clr-crimson);
-    color: #fff;
+    color: var(--white);
     width: fit-content;
     font-size: 0.6875rem;
 }
@@ -2117,7 +2219,7 @@ form{
     padding: 0.25rem 0.5rem;
     border-radius:62.4375rem;
     background-color: var(--clr-yellow);
-    color: #fff;
+    color: var(--white);
     width: fit-content;
     font-size: 0.6875rem;
 }
@@ -2126,7 +2228,7 @@ form{
     padding: 0.25rem 0.5rem;
     border-radius:62.4375rem;
     background-color: var(--blue-txt-icons);
-    color: #fff;
+    color: var(--white);
     width: fit-content;
     font-size: 0.6875rem;
 }

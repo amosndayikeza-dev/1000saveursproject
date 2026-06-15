@@ -53,7 +53,7 @@
                 <label>Date de vente</label>
                 <input type="date" id="modal-sale-date" class="tft-form-control" value="${new Date().toISOString().slice(0,10)}" required>
             </div>
-            <div class="mgr-total-line" style="margin-top: 15px;">
+            <div class="manager-total-line" style="margin-top: 15px;">
                 <span>Total :</span>
                 <span id="modal-sale-total">0 FBU</span>
             </div>
@@ -177,15 +177,15 @@
     }
 
     function stockBadgeText(status) {
-        if (status === 'rupture') return 'Rupture';
+        if (status === 'rupture') return 'Stock en rupture';
         if (status === 'low') return 'Stock bas';
-        return 'OK';
+        return 'Stock disponible';
     }
 
     function debtBadge(status, remaining) {
-        if (status === 'paid' || remaining <= 0) return '<span class="mgr-badge mgr-badge-paid">Soldée</span>';
-        if (status === 'partial') return '<span class="mgr-badge mgr-badge-partial">Partiel</span>';
-        return '<span class="mgr-badge mgr-badge-unpaid">En cours</span>';
+        if (status === 'paid' || remaining <= 0) return '<span class="manager-badge manager-badge-paid">Soldée</span>';
+        if (status === 'partial') return '<span class="manager-badge manager-badge-partial">Partiel</span>';
+        return '<span class="manager-badge manager-badge-unpaid">En cours</span>';
     }
 
     async function loadUserAndDept() {
@@ -214,15 +214,15 @@
 
     function initTabs(root) {
         if (!root) return;
-        const tabs = root.querySelectorAll('[data-mgr-tab]');
-        const panels = root.querySelectorAll('[data-mgr-panel]');
+        const tabs = root.querySelectorAll('[data-manager-tab]');
+        const panels = root.querySelectorAll('[data-manager-panel]');
         tabs.forEach((tab) => {
             tab.addEventListener('click', () => {
-                const name = tab.getAttribute('data-mgr-tab');
-                tabs.forEach((t) => t.classList.remove('mgr-tab-active'));
-                tab.classList.add('mgr-tab-active');
+                const name = tab.getAttribute('data-manager-tab');
+                tabs.forEach((t) => t.classList.remove('manager-tab-active'));
+                tab.classList.add('manager-tab-active');
                 panels.forEach((p) => {
-                    p.classList.toggle('mgr-panel-active', p.getAttribute('data-mgr-panel') === name);
+                    p.classList.toggle('manager-panel-active', p.getAttribute('data-manager-panel') === name);
                 });
                 if (name === 'history') loadSalesHistory();
                 if (name === 'movements') loadStockMovements();
@@ -230,14 +230,14 @@
         });
         const urlTab = new URLSearchParams(window.location.search).get('tab');
         if (urlTab) {
-            const target = root.querySelector(`[data-mgr-tab="${urlTab}"]`);
+            const target = root.querySelector(`[data-manager-tab="${urlTab}"]`);
             if (target) target.click();
         }
     }
 
     function fillProductSelects(products) {
         productsCache = products || [];
-        document.querySelectorAll('[data-mgr-product-select]').forEach((select) => {
+        document.querySelectorAll('[data-manager-product-select]').forEach((select) => {
             const current = select.value;
             select.innerHTML = '<option value="">— Choisir un produit —</option>';
             productsCache.forEach((p) => {
@@ -277,14 +277,14 @@
             const el = document.getElementById(id);
             if (el) el.textContent = val;
         };
-        set('mgr-kpi-sales-day', fmtMoney(ui.salesDay));
-        set('mgr-kpi-products', String(ui.productsCount ?? 0));
-        set('mgr-kpi-debts', fmtMoney(ui.pendingDebts));
-        set('mgr-kpi-employees', String(ui.employeesCount ?? 0));
-        set('mgr-last-sale', ui.lastSaleLabel || '—');
-        set('mgr-last-sale-date', fmtDate(ui.lastSaleDate));
-        set('mgr-stock-alert', ui.stockAlert || '—');
-        set('mgr-recovery-month', fmtMoney(ui.recoveryMonth));
+        set('manager-kpi-sales-day', fmtMoney(ui.salesDay));
+        set('manager-kpi-products', String(ui.productsCount ?? 0));
+        set('manager-kpi-debts', fmtMoney(ui.pendingDebts));
+        set('manager-kpi-employees', String(ui.employeesCount ?? 0));
+        set('manager-last-sale', ui.lastSaleLabel || '—');
+        set('manager-last-sale-date', fmtDate(ui.lastSaleDate));
+        set('manager-stock-alert', ui.stockAlert || '—');
+        set('manager-recovery-month', fmtMoney(ui.recoveryMonth));
     }
 
     async function loadProductsForSelects() {
@@ -295,18 +295,18 @@
     async function renderStockState() {
         const tbody = document.getElementById('stock-state-body');
         if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="6" class="mgr-empty-hint">Chargement…</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="manager-empty-hint">Chargement…</td></tr>';
         const res = await ManagerAPI.products.list();
         const products = res.data || [];
         fillProductSelects(products);
         if (!products.length) {
-            tbody.innerHTML = '<tr><td colspan="6" class="mgr-empty-hint">Aucun produit</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" class="manager-empty-hint">Aucun produit</td></tr>';
             return;
         }
         tbody.innerHTML = products
             .map((p) => {
                 const st = p.stock_status || 'ok';
-                const rowClass = st !== 'ok' ? 'mgr-stock-low' : '';
+                const rowClass = st !== 'ok' ? 'manager-stock-low' : '';
                 return `<tr class="tft-b-bottom-gris ${rowClass}">
                     <td class="tft-title4 tft-clr-white3">${escapeHtml(p.name)}</td>
                     <td class="tft-title4 tft-clr-white3">${escapeHtml(p.description || '')}</td>
@@ -315,10 +315,9 @@
                     <td><span class="${stockBadgeClass(st)}"><span class="tft-stock-dot"></span><span class="tft-stock-info"><p>${stockBadgeText(st)}</p></span></span></td>
                     <td class="tft-bdr-l-gris-1">
                         <div class="actions">
-                            <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1 adjust-stock-btn" data-product-id="${p.id}">
-                                <i class="fas fa-edit tft-clr-greensav"></i>
+                            <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-blue-bg-1 adjust-stock-btn" data-product-id="${p.id}">
+                                <i class="fe fe-edit tft-clr-blue-txt"></i>
                             </div>
-                            
                         </div>
                     </td>
                 </tr>`;    
@@ -406,13 +405,13 @@
     async function loadSalesList() {
         const container = document.getElementById('sales-list');
         if (!container) return;
-        container.innerHTML = '<div class="mgr-empty-hint">Chargement des ventes...</div>';
+        container.innerHTML = '<div class="manager-empty-hint">Chargement des ventes...</div>';
         try {
             const response = await ManagerAPI.sales.list();
             if (response && response.success) {
                 const sales = response.data || [];
                 if (sales.length === 0) {
-                    container.innerHTML = '<div class="mgr-empty-hint">Aucune vente trouvée</div>';
+                    container.innerHTML = '<div class="manager-empty-hint">Aucune vente trouvée</div>';
                     return;
                 }
                 // Mêmes helpers que ceux déjà présents dans le fichier
@@ -423,22 +422,22 @@
                     return isNaN(dt.getTime()) ? d : dt.toLocaleDateString('fr-FR');
                 };
                 container.innerHTML = sales.map(sale => `
-                    <div class="mgr-card mgr-sale-item" style="margin-bottom: 12px;">
-                        <div class="mgr-card-title">${escapeHtml(sale.product_name)}</div>
-                        <div class="mgr-sale-details" style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px;">
-                            <div><span class="mgr-kpi-label">Quantité :</span> ${sale.quantity}</div>
-                            <div><span class="mgr-kpi-label">Prix unitaire :</span> ${fmtMoney(sale.unit_price)}</div>
-                            <div><span class="mgr-kpi-label">Total :</span> <strong>${fmtMoney(sale.line_total)}</strong></div>
-                            <div><span class="mgr-kpi-label">Date :</span> ${fmtDate(sale.sold_at)}</div>
+                    <div class="manager-card manager-sale-item" style="margin-bottom: 12px;">
+                        <div class="manager-card-title">${escapeHtml(sale.product_name)}</div>
+                        <div class="manager-sale-details" style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px;">
+                            <div><span class="manager-kpi-label">Quantité :</span> ${sale.quantity}</div>
+                            <div><span class="manager-kpi-label">Prix unitaire :</span> ${fmtMoney(sale.unit_price)}</div>
+                            <div><span class="manager-kpi-label">Total :</span> <strong>${fmtMoney(sale.line_total)}</strong></div>
+                            <div><span class="manager-kpi-label">Date :</span> ${fmtDate(sale.sold_at)}</div>
                         </div>
                     </div>
                 `).join('');
             } else {
-                container.innerHTML = '<div class="mgr-empty-hint tft-clr-red">Erreur de chargement des ventes</div>';
+                container.innerHTML = '<div class="manager-empty-hint tft-clr-red">Erreur de chargement des ventes</div>';
             }
         } catch (error) {
             console.error(error);
-            container.innerHTML = '<div class="mgr-empty-hint tft-clr-red">Impossible de charger les ventes</div>';
+            container.innerHTML = '<div class="manager-empty-hint tft-clr-red">Impossible de charger les ventes</div>';
         }
     }
     async function loadSalesHistory() {
@@ -446,12 +445,12 @@
         if (!tbody) return;
         const start = document.getElementById('sales-filter-start')?.value;
         const end = document.getElementById('sales-filter-end')?.value;
-        tbody.innerHTML = '<tr><td colspan="5" class="mgr-empty-hint">Chargement…</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" class="manager-empty-hint">Chargement…</td></tr>';
         try {
             const res = await ManagerAPI.sales.list({ startDate: start, endDate: end });
             const lines = res.data || [];
             if (!lines.length) {
-                tbody.innerHTML = '<tr><td colspan="5" class="mgr-empty-hint">Aucune vente</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" class="manager-empty-hint">Aucune vente</td></tr>';
                 return;
             }
             tbody.innerHTML = lines
@@ -466,25 +465,25 @@
                 )
                 .join('');
         } catch (e) {
-            tbody.innerHTML = `<tr><td colspan="5" class="mgr-empty-hint tft-clr-red">${escapeHtml(e.message)}</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="manager-empty-hint tft-clr-red">${escapeHtml(e.message)}</td></tr>`;
         }
     }
 
     async function loadStockMovements() {
-        const tbody = document.querySelector('[data-mgr-panel="movements"] tbody');
+        const tbody = document.querySelector('[data-manager-panel="movements"] tbody');
         if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="5" class="mgr-empty-hint">Chargement…</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" class="manager-empty-hint">Chargement…</td></tr>';
         try {
             const res = await ManagerAPI.stock.movements();
             const rows = res.data || [];
             if (!rows.length) {
-                tbody.innerHTML = '<tr><td colspan="5" class="mgr-empty-hint">Aucun mouvement</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" class="manager-empty-hint">Aucun mouvement</td></tr>';
                 return;
             }
             tbody.innerHTML = rows
                 .map((m) => {
                     const isIn = (m.type || '').toUpperCase() === 'IN';
-                    const cls = isIn ? 'mgr-movement-in' : 'mgr-movement-out';
+                    const cls = isIn ? 'manager-movement-in' : 'manager-movement-out';
                     const sign = isIn ? '+' : '-';
                     return `<tr class="tft-b-bottom-gris">
                         <td class="tft-title4 tft-clr-white3">${fmtDate(m.created_at || m.createdAt)}</td>
@@ -496,59 +495,148 @@
                 })
                 .join('');
         } catch (e) {
-            tbody.innerHTML = `<tr><td colspan="5" class="mgr-empty-hint">${escapeHtml(e.message)}</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="manager-empty-hint">${escapeHtml(e.message)}</td></tr>`;
         }
     }
 
      async function loadDebts() {
-        const tbody = document.getElementById('debts-table-body');
-        if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Chargement…</td></tr>';
+        const container = document.getElementById('container-debts');
+        if (!container) return;
+
+            container.innerHTML = '<p class="manager-empty-hint">Chargement...</p>';
         try {
             const statusFilter = document.getElementById('debt-status-filter')?.value;
             const apiStatus = (statusFilter === 'all' || !statusFilter) ? undefined : statusFilter;
             const res = await ManagerAPI.debts.list(apiStatus);
             const debts = res.data || [];
             if (!debts.length) {
-                tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Aucune dette</td></td>';
+                container.innerHTML = '<p class="manager-empty-hint">Aucune dette</p>';
                 return;
-            }
-            tbody.innerHTML = debts.map(d => {
+             }
+            container.innerHTML = debts.map(d => {
                 const remaining = d.remaining_amount ?? (d.amount - (d.paid_amount || 0));
                 const status = d.status || (remaining <= 0 ? 'paid' : 'pending');
-                let statusBadge = '';
-                if (status === 'paid') {
-                    statusBadge = '<span class="mgr-badge mgr-badge-paid">Soldée</span>';
-                } else if (remaining <= 0) {
-                    statusBadge = '<span class="mgr-badge mgr-badge-paid">Soldée</span>';
-                } else {
-                    statusBadge = '<span class="mgr-badge mgr-badge-unpaid">Impayée</span>';
-                }
-                return `
-                    <tr class="tft-b-bottom-gris">
-                        <td class="tft-title4 tft-clr-white3">${escapeHtml(d.debtor_name || '—')}</td>
-                        <td class="tft-title4 tft-clr-white3">${escapeHtml(d.product_name || '—')}</td>
-                        <td class="tft-title4 tft-clr-white3">${fmtMoney(d.amount)}</td>
-                        <td class="tft-title4 tft-clr-white3">${fmtMoney(d.paid_amount || 0)}</td>
-                        <td class="tft-title4 tft-clr-orangesav">${fmtMoney(remaining)}</td>
-                        <td class="tft-title4 tft-clr-white3">${statusBadge}</td>
-                        <td class="tft-bdr-l-gris-1">
-                            ${remaining > 0 ? `<button class="tft-btn-sm tft-bg-greensav pay-debt" data-id="${d.id}" data-remaining="${remaining}">Payer</button>` : '—'}
-                        </td>
-                    </tr>
-                `;
-            }).join('');
 
-            // Attacher événements
-            document.querySelectorAll('.pay-debt').forEach(btn => {
-                btn.removeEventListener('click', handlePayDebt);
-                btn.addEventListener('click', handlePayDebt);
-            });
-        } catch (err) {
-            console.error(err);
-            tbody.innerHTML = `<tr><td colspan="7" class="mgr-empty-hint tft-clr-red">Erreur : ${escapeHtml(err.message)}</td></tr>`;
-        }
+                const badgeStatus = status === 'paid'
+                ? 'tft-bg-greensav'
+                : 'tft-bg-red-bg';
+
+                const statusText = status === 'paid'
+                ? 'Soldée'
+                : 'Impayée';
+                return`
+                <div class="debt">
+                    <p class="tft-sm-title2 tft-bg-black2" id="debt-date">
+                        ${d.created_at || '---'}
+                    </p>
+
+                    <div class="debt-infos">
+
+                        <!-- Client -->
+                        <div class="debt-info">
+                            <div class="each-info">
+                                <div class="tft-icon-carre-petit tft-bdr-gris-1 tft-bg-black3 tft-a-self-center">
+                                    <i class="fe fe-user tft-clr-greensav"></i>
+                                </div>
+                                <div class="contact-debiteur">
+                                    <h3 class="tft-sm-title1">
+                                        ${escapeHtml(d.debtor_name || 'Client')}
+                                    </h3>
+                                    <p class="tft-title4">num de tel</p>
+                                </div>
+                            </div>
+                            <div class="badge tft-bg-greensav tft-clr-remain-white">
+                                Debiteur
+                            </div>
+                        </div>
+
+                        <!-- Produit -->
+                        <div class="debt-info">
+                            <div class="each-info">
+                                <div class="tft-icon-carre-petit tft-bdr-gris-1 tft-bg-black3 tft-a-self-center">
+                                    <i class="fe fe-shopping-cart tft-clr-blue-bg"></i>
+                                </div>
+                                <div class="contact-debiteur">
+                                    <h3 class="tft-sm-title1">
+                                        ${escapeHtml(d.product_name || 'Produit')}
+                                    </h3>
+                                    <p class="tft-title4">Quantite</p>
+                                </div>
+                            </div>
+                            <div class="badge tft-bg-blue-bg tft-clr-remain-white">
+                                Produit
+                            </div>
+                        </div>
+
+                        <!-- Montant total -->
+                        <div class="debt-info">
+                            <div class="each-info">
+                                <div class="tft-icon-carre-petit tft-bdr-gris-1 tft-bg-black3 tft-a-self-center">
+                                    <i class="fe fe-dollar-sign tft-clr-orangesav"></i>
+                                </div>
+                                <div class="contact-debiteur tft-w-fit">
+                                    <h3 class="tft-sm-title1">
+                                        Unitaire :
+                                    </h3>
+                                    <h3 class="tft-sm-title1">
+                                        Total : ${fmtMoney(d.amount)}
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="badge tft-bg-orangesav2 tft-clr-remain-white">
+                                Prix
+                            </div>
+                        </div>
+
+                        <!-- Paiement -->
+                        <div class="debt-info">
+                            <div class="each-info">
+                                <div class="tft-icon-carre-petit tft-bdr-gris-1 tft-bg-black3 tft-a-self-center">
+                                    <i class="fe fe-credit-card tft-clr-remain-red"></i>
+                                </div>
+                                <div class="contact-debiteur tft-w-fit">
+                                    <h3 class="tft-sm-title1">
+                                        Payé : ${fmtMoney(d.paid_amount || 0)}
+                                    </h3>
+                                    <p class="tft-title4 reste">
+                                        Reste : ${fmtMoney(remaining)}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="badge ${badgeStatus} tft-clr-remain-white">
+                                ${statusText}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    ${
+                        remaining > 0
+                        ? `<button class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav tft-a-self-center tft-mt-3 pay-debt"
+                                data-id="${d.id}"
+                                data-remaining="${remaining}">
+                                Payer le reste
+                           </button>`
+                        : ''
+                    }
+                </div>
+            `;
+        }).join('');
+
+        document.querySelectorAll('.pay-debt').forEach(btn => {
+            btn.removeEventListener('click', handlePayDebt);
+            btn.addEventListener('click', handlePayDebt);
+        });
+
+    } catch (err) {
+        console.error(err);
+        container.innerHTML = `
+            <p class="manager-empty-hint tft-clr-red">
+                Erreur : ${escapeHtml(err.message)}
+            </p>
+        `;
     }
+}
 
    async function handlePayDebt(event) {
     const btn = event.currentTarget;
@@ -603,12 +691,12 @@
     async function loadEmployees(position) {
         const container = document.getElementById('employees-list');
         if (!container) return;
-        container.innerHTML = '<p class="mgr-empty-hint">Chargement des employés...</p>';
+        container.innerHTML = '<p class="manager-empty-hint">Chargement des employés...</p>';
         try {
             const res = await ManagerAPI.employees.list(position);
             const list = res.data || [];
             if (!list.length) {
-                container.innerHTML = '<p class="mgr-empty-hint">Aucun employé trouvé</p>';
+                container.innerHTML = '<p class="manager-empty-hint">Aucun employé trouvé</p>';
                 return;
             }
             container.innerHTML = list.map(e => `
@@ -639,7 +727,7 @@
             };
         } catch (err) {
             console.error(err);
-            container.innerHTML = '<p class="mgr-empty-hint tft-clr-red">Erreur de chargement</p>';
+            container.innerHTML = '<p class="manager-empty-hint tft-clr-red">Erreur de chargement</p>';
         }
     }
 
@@ -648,11 +736,11 @@
         const periodInput = document.querySelector('input[type="month"]');
         const period = periodInput?.value || '';
         if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="4" class="mgr-empty-hint">Chargement…</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" class="manager-empty-hint">Chargement…</td></tr>';
         const res = await ManagerAPI.salary.list(period);
         const rows = res.data || [];
         if (!rows.length) {
-            tbody.innerHTML = '<tr><td colspan="4" class="mgr-empty-hint">Aucune donnée</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="4" class="manager-empty-hint">Aucune donnée</td></tr>';
             return;
         }
         tbody.innerHTML = rows
@@ -662,7 +750,7 @@
                     <td class="tft-title4 tft-clr-white3">${escapeHtml(name)}</td>
                     <td class="tft-title4 tft-clr-white3">${escapeHtml(r.position || '—')}</td>
                     <td class="tft-title4 tft-clr-white3">${fmtMoney(r.salary || r.total_salary)}</td>
-                    <td><span class="mgr-badge mgr-badge-paid">${escapeHtml(r.status || '—')}</span></td>
+                    <td><span class="manager-badge manager-badge-paid">${escapeHtml(r.status || '—')}</span></td>
                 </tr>`;
             })
             .join('');
@@ -684,13 +772,13 @@
     }
 
     window.showManagerModal = function(title, contentHtml, onConfirm) {
-        const modalId = 'mgr-modal-' + Date.now();
+        const modalId = 'manager-modal-' + Date.now();
         const modalHtml = `
-            <div class="mgr-modal-overlay" id="${modalId}">
-                <div class="mgr-modal" style="background: var(--tft-black2, #1a1d24); border-radius: 12px; max-width: 500px; width: 90%; padding: 20px;">
-                    <div class="mgr-modal-header" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${escapeHtml(title)}</div>
-                    <div class="mgr-modal-body">${contentHtml}</div>
-                    <div class="mgr-modal-footer" style="margin-top: 20px; text-align: right; display: flex; gap: 10px; justify-content: flex-end;">
+            <div class="manager-modal-overlay" id="${modalId}">
+                <div class="manager-modal" style="background: var(--tft-black2, #1a1d24); border-radius: 12px; max-width: 500px; width: 90%; padding: 20px;">
+                    <div class="manager-modal-header" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${escapeHtml(title)}</div>
+                    <div class="manager-modal-body">${contentHtml}</div>
+                    <div class="manager-modal-footer" style="margin-top: 20px; text-align: right; display: flex; gap: 10px; justify-content: flex-end;">
                         <button class="tft-btn tft-bg-gris" onclick="closeManagerModal('${modalId}')">Annuler</button>
                         <button class="tft-btn tft-bg-greensav" id="confirm-modal-btn">Confirmer</button>
                     </div>
@@ -714,16 +802,16 @@
     };
 
     // Ajouter le style si nécessaire
-    if (!document.querySelector('#mgr-modal-style')) {
+    if (!document.querySelector('#manager-modal-style')) {
         const style = document.createElement('style');
-        style.id = 'mgr-modal-style';
+        style.id = 'manager-modal-style';
         style.textContent = `
-            .mgr-modal-overlay {
+            .manager-modal-overlay {
                 position: fixed; top: 0; left: 0; width: 100%; height: 100%;
                 background: rgba(0,0,0,0.7); display: flex; align-items: center;
                 justify-content: center; z-index: 10000;
             }
-            .mgr-modal {
+            .manager-modal {
                 background: var(--tft-black2, #1a1d24);
                 border-radius: 12px;
                 max-width: 500px;
@@ -735,36 +823,98 @@
     }
 
     /** tableaux des ventes */
+    function paymentBadge(status) {
+    switch (status)
+        {
+            case 'paid':
+                return `<span class="manager-badge manager-badge-paid">Payé</span>`;
+            case 'partial':
+                return `<span class="manager-badge manager-badge-partial">Partiel</span>`;
+            default:
+                return `<span class="manager-badge manager-badge-unpaid">Impayé</span>`;
+        }
+    }
 async function loadSalesTable() {
     const tbody = document.getElementById('sales-table-body');
     if (!tbody) return;
-    tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Chargement…</div></td>';
+
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="8" class="manager-empty-hint">Chargement…</td>
+        </tr>
+    `;
+
     try {
         const res = await ManagerAPI.sales.list();
         const sales = res.data || [];
+
         if (!sales.length) {
-            tbody.innerHTML = '<td><td colspan="7" class="mgr-empty-hint">Aucune vente trouvée</div></td>';
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="manager-empty-hint">Aucune vente trouvée</td>
+                </tr>
+            `;
             return;
         }
+
         tbody.innerHTML = sales.map(sale => `
             <tr class="tft-b-bottom-gris">
-                <td class="tft-title4 tft-clr-white3">${sale.sale_id || sale.id || '—'}</div></td>
-                <td class="tft-title4 tft-clr-white3">${escapeHtml(sale.product_name)}</div></td>
-                <td class="tft-title4 tft-clr-white3">${sale.quantity}</div></td>
-                <td class="tft-title4 tft-clr-white3">${fmtMoney(sale.unit_price)}</div></td>
-                <td class="tft-title4 tft-clr-orangesav">${fmtMoney(sale.line_total)}</div></td>
-                <td class="tft-title4 tft-clr-white3">${fmtDate(sale.sold_at)}</div></td>
-                <td class="tft-title4 tft-clr-white3">${sale.payment_status === 'paid' ? 'Payé' : (sale.payment_status === 'partial' ? 'Partiel' : 'Impayé')}</div></td>
                 <td class="tft-title4 tft-clr-white3">
-                <button class="tft-btn-sm tft-bg-greensav" onclick="viewInvoice(${sale.sale_id || sale.id})">
-                    <i class="fas fa-file-invoice"></i> Facture
-                </button>
-            </div>
+                    ${sale.sale_id || sale.id || '—'}
+                </td>
+
+                <td class="tft-title4 tft-clr-white3">
+                    ${escapeHtml(sale.product_name)}
+                </td>
+
+                <td class="tft-title4 tft-clr-white3">
+                    ${sale.quantity}
+                </td>
+
+                <td class="tft-title4 tft-clr-white3">
+                    ${fmtMoney(sale.unit_price)}
+                </td>
+
+                <td class="tft-title4 tft-clr-orangesav">
+                    ${fmtMoney(sale.line_total)}
+                </td>
+
+                <td class="tft-title4 tft-clr-white3">
+                    ${fmtDate(sale.sold_at)}
+                </td>
+
+                <td class="tft-title4">
+                    ${paymentBadge(sale.payment_status)}
+                </td>
+
+                <td class="tft-title4 tft-clr-white3">
+                    <div class="actions">
+                        <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-blue-bg-1">
+                            <i class="fe fe-edit tft-clr-blue-txt"></i>
+                        </div>
+                        <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-red-bg-1">
+                            <i class="fe fe-trash tft-clr-red"></i>
+                        </div>
+                        <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-green-bg-1" onclick="viewInvoice(${sale.sale_id || sale.id})">
+                            <i class="fa fa-file-invoice tft-clr-greensav"></i>
+                        </div>
+                    </div>
+                    
+                    
+                </td>
             </tr>
         `).join('');
+
     } catch (err) {
         console.error(err);
-        tbody.innerHTML = `<tr><td colspan="7" class="mgr-empty-hint tft-clr-red">Erreur : ${escapeHtml(err.message)}</div></td>`;
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="manager-empty-hint tft-clr-red">
+                    Erreur : ${escapeHtml(err.message)}
+                </td>
+            </tr>
+        `;
     }
 }
 
@@ -807,12 +957,12 @@ async function loadSalesTable() {
     async function loadEmployees() {
         const tbody = document.getElementById('employees-table-body');
         if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Chargement…</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="manager-empty-hint">Chargement…</td></tr>';
         try {
             const res = await ManagerAPI.employees.list();
             const list = res.data || [];
             if (!list.length) {
-                tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Aucun employé trouvé</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" class="manager-empty-hint">Aucun employé trouvé</td></tr>';
                 return;
             }
             tbody.innerHTML = list.map(e => `
@@ -828,12 +978,12 @@ async function loadSalesTable() {
             `).join('');
         } catch (err) {
             console.error(err);
-            tbody.innerHTML = `<tr><td colspan="7" class="mgr-empty-hint tft-clr-red">Erreur : ${escapeHtml(err.message)}</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7" class="manager-empty-hint tft-clr-red">Erreur : ${escapeHtml(err.message)}</td></tr>`;
         }
     }
 
     function bindStockForms() {
-        const productForm = document.getElementById('mgr-product-form');
+        const productForm = document.getElementById('manager-product-form');
         if (productForm) {
             productForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -852,7 +1002,7 @@ async function loadSalesTable() {
                 }
             });
         }
-        const adjustForm = document.getElementById('mgr-adjust-form');
+        const adjustForm = document.getElementById('manager-adjust-form');
         if (adjustForm) {
             adjustForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -875,7 +1025,7 @@ async function loadSalesTable() {
     }
 
     function bindDebtPayment() {
-        const form = document.getElementById('mgr-payment-form');
+        const form = document.getElementById('manager-payment-form');
         if (form) {
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -883,7 +1033,7 @@ async function loadSalesTable() {
                 try {
                     await ManagerAPI.debts.pay(currentPaymentDebtId, document.getElementById('payment-amount').value);
                     showToast('Paiement enregistré');
-                    closeManagerModal('mgr-modal-payment');
+                    closeManagerModal('manager-modal-payment');
                     form.reset();
                     loadDebts();
                 } catch (err) {
@@ -895,7 +1045,7 @@ async function loadSalesTable() {
     }
 
     function bindEmployeeForm() {
-        const form = document.getElementById('mgr-employee-form');
+        const form = document.getElementById('manager-employee-form');
         if (form) {
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -908,7 +1058,7 @@ async function loadSalesTable() {
                         poste: document.getElementById('emp-poste').value,
                     });
                     showToast('Employé enregistré');
-                    closeManagerModal('mgr-modal-employee');
+                    closeManagerModal('manager-modal-employee');
                     form.reset();
                     loadEmployees();
                 } catch (err) {
@@ -928,7 +1078,7 @@ let totalProductPages = 1;
 async function loadProducts(page = 1) {
     const tbody = document.getElementById('products-table-body');
     if (!tbody) return;
-    tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Chargement…</div></td>';
+    tbody.innerHTML = '<tr><td colspan="7" class="manager-empty-hint">Chargement…</div></td>';
     try {
         const res = await ManagerAPI.products.list({ page: page, limit: PRODUCTS_PER_PAGE });
         const products = res.data || [];
@@ -937,7 +1087,7 @@ async function loadProducts(page = 1) {
         totalProductPages = pagination.totalPages || 1;
 
         if (!products.length) {
-            tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Aucun produit</div></td>';
+            tbody.innerHTML = '<tr><td colspan="7" class="manager-empty-hint">Aucun produit</div></td>';
             updateProductPagination();
             return;
         }
@@ -945,8 +1095,8 @@ async function loadProducts(page = 1) {
         tbody.innerHTML = products.map(p => {
             const stock = p.current_stock;
             const threshold = p.low_stock_threshold || 5;
-            let statusClass = 'tft-stock-badge-green1', statusText = 'OK';
-            if (stock <= 0) { statusClass = 'tft-stock-badge-red1'; statusText = 'Rupture'; }
+            let statusClass = 'tft-stock-badge-green1', statusText = 'Stock disponible';
+            if (stock <= 0) { statusClass = 'tft-stock-badge-red1'; statusText = 'Stock en rupture'; }
             else if (stock <= threshold) { statusClass = 'tft-stock-badge-yellow1'; statusText = 'Stock bas'; }
 
             return `
@@ -956,11 +1106,11 @@ async function loadProducts(page = 1) {
                     <td class="tft-title4 tft-clr-white3">${escapeHtml(p.description || '—')}</div></td>
                     <td class="tft-title4 tft-clr-white3">${fmtMoney(p.unit_price)}</div></td>
                     <td class="tft-title4 tft-clr-white3">${p.current_stock}</div></td>
-                    <td class="${statusClass}"><div class="tft-stock-dot"></div><div class="tft-stock-info"><p>${statusText}</p></div></div></td>
+                    <td class="${statusClass}" id="stock-status"><div class="tft-stock-dot"></div><div class="tft-stock-info"><p>${statusText}</p></div></div></td>
                     <td class="tft-bdr-l-gris-1">
                         <div class="actions">
-                            <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1 edit-product-btn" data-id="${p.id}">
-                                <i class="fe fe-edit tft-clr-greensav"></i>
+                            <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-blue-bg-1 edit-product-btn" data-id="${p.id}">
+                                <i class="fe fe-edit tft-clr-blue-txt"></i>
                             </div>
                             <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-red-txt-1 delete-product-btn" data-id="${p.id}">
                                 <i class="fe fe-trash delete-icon tft-clr-red"></i>
@@ -983,7 +1133,7 @@ async function loadProducts(page = 1) {
         updateProductPagination();
     } catch (err) {
         console.error(err);
-        tbody.innerHTML = `</table><td colspan="7" class="mgr-empty-hint tft-clr-red">Erreur : ${escapeHtml(err.message)}</div></tr>`;
+        tbody.innerHTML = `</table><td colspan="7" class="manager-empty-hint tft-clr-red">Erreur : ${escapeHtml(err.message)}</div></tr>`;
     }
 }
 
@@ -1106,7 +1256,7 @@ async function handleDeleteProduct(event) {
         });
     }
 
-    window.mgrOpenPayment = function (debtorName, remaining, debtId) {
+    window.managerOpenPayment = function (debtorName, remaining, debtId) {
         currentPaymentDebtId = debtId;
         const nameEl = document.getElementById('payment-debtor-name');
         const remainEl = document.getElementById('payment-remaining');
@@ -1117,10 +1267,10 @@ async function handleDeleteProduct(event) {
             amountInput.max = remaining;
             amountInput.value = '';
         }
-        openManagerModal('mgr-modal-payment');
+        openManagerModal('manager-modal-payment');
     };
 
-    window.mgrPayFull = function () {
+    window.managerPayFull = function () {
         const remainEl = document.getElementById('payment-remaining');
         const amountInput = document.getElementById('payment-amount');
         if (!remainEl || !amountInput) return;
@@ -1196,7 +1346,7 @@ async function handleDeleteProduct(event) {
             }
         } catch (err) {
             console.error(err);
-            root.innerHTML = `<p class="mgr-empty-hint">${escapeHtml(err.message)}</p>`;
+            root.innerHTML = `<p class="manager-empty-hint">${escapeHtml(err.message)}</p>`;
         }
     }
 
@@ -1302,14 +1452,14 @@ window.viewInvoice = async function(saleId) {
             showManagerModal('Facture', modalContent, null);
             // Ajustement immédiat du style de la modale
             setTimeout(() => {
-                const modal = document.querySelector('.mgr-modal');
+                const modal = document.querySelector('.manager-modal');
                 if (modal) {
                     modal.style.background = '#ffffff';
                     modal.style.maxHeight = '85vh';
                     modal.style.overflowY = 'auto';
                     modal.style.padding = '0';
                     
-                    const modalBody = modal.querySelector('.mgr-modal-body');
+                    const modalBody = modal.querySelector('.manager-modal-body');
                     if (modalBody) modalBody.style.padding = '0';
                     
                     // Facultatif : ajuster la largeur pour éviter le scroll horizontal

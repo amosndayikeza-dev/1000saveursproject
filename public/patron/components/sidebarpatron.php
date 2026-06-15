@@ -5,7 +5,7 @@
     <div class="c-left-header">
         <a href="./dashboardpatron.php">
             <div class="tft-logo-avatar tft-bdr-greensav-1">
-                <img src="../assets/images/icons/abonnes.png" alt="">
+                <img src="../assets/images/icons/1000SLogo.png" alt="">
             </div>
         </a>
         <div class="app-title">

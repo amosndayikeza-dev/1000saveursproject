@@ -1,4 +1,3 @@
-
 <!-- head debut -->
 <?php
     include("./components/headmanager.php");
@@ -18,7 +17,7 @@
                     <div class="tft-icon-carre tft-bdr-gris-1" onclick="showSidebar()">
                         <i class="fas fa-bars"></i>
                     </div>
-                    Dashboard</h2>
+                    Gestion des dettes</h2>
                 <div class="header-aside">
                     <div class="tft-search-withIcon">
                         <input type="search" placeholder="Rechercher" class="tft-clr-white3">
@@ -40,8 +39,8 @@
                     </div>
                 </div>
             </div>
-            <div class="c-center-body " id="manager-page-root" data-manager-page="dashboard">
-                <!-- les infos du dashboard s'affichent ici -->
+            <div class="c-center-body tft-gap-10px" id="manager-page-root" data-manager-page="debts">
+                <!-- les infos sur les dettes seront affichees ic -->
             </div>
         </div>
         <!-- partie droite ajoute la classe active pour montrer debut ===========PROFIL-->

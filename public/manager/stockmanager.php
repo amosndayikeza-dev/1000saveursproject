@@ -18,7 +18,7 @@
                     <div class="tft-icon-carre tft-bdr-gris-1" onclick="showSidebar()">
                         <i class="fas fa-bars"></i>
                     </div>
-                    Dashboard</h2>
+                    Gestion du stock</h2>
                 <div class="header-aside">
                     <div class="tft-search-withIcon">
                         <input type="search" placeholder="Rechercher" class="tft-clr-white3">
@@ -40,9 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="c-center-body " id="manager-page-root" data-manager-page="dashboard">
-                <!-- les infos du dashboard s'affichent ici -->
-            </div>
+            <div class="c-center-body" id="manager-page-root" data-manager-page="stock"></div>
         </div>
         <!-- partie droite ajoute la classe active pour montrer debut ===========PROFIL-->
             <?php
@@ -70,8 +68,7 @@
 </body>
 
 <script src="../assets/js/manager-api.js"></script>
-<script src="../assets/js/manager-ui.js"> </script>
-<script src="../assets/js/scripts.js"> </script>
-<script src="../assets/js/pagination.js"></script>
+<script src="../assets/js/manager-ui.js"></script>
+<script src="../assets/js/scripts.js"></script>
 
 </html>

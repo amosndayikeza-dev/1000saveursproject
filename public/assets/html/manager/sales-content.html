@@ -1,14 +1,14 @@
-<div class="sales-container">
-    <div class="mgr-toolbar">
-        <div class="tft-form-group">
-            <input type="text" id="sales-search" placeholder="Rechercher une vente..." class="tft-form-control">
-        </div>
-        <button class="tft-btn tft-bg-greensav" id="add-sale-btn" onclick="showAddSaleModal()">+ Nouvelle vente</button>
-    </div>
+
+<div class="products-header">
+    <button class="tft-btn tft-bdr-greensav-1 tft-clr-white3 tft-hover-greensav"  onclick="showAddSaleModal()">
+        <i class="fas fa-add"></i>Nouvelle vente
+    </button>
+</div>
+<div class="products-container">
     <table class="tft-table">
         <thead>
             <tr class="tft-b-bottom-gris">
-                <th class="tft-title3">ID</th>
+                <th class="tft-title3">№</th>
                 <th class="tft-title3">Produit</th>
                 <th class="tft-title3">Quantité</th>
                 <th class="tft-title3">Prix unitaire</th>
@@ -19,8 +19,18 @@
             </tr>
         </thead>
         <tbody id="sales-table-body">
-            <tr><td colspan="7" class="mgr-empty-hint">Chargement des ventes…</div></td>
+            <tr><td colspan="7" class="manager-empty-hint">Chargement des ventes…</div></td>
+                
         </tbody>
+
     </table>
-    <div class="tft-pagination" id="sales-pagination"></div>
+     <div class="tft-pagination" id="sales-pagination">
+        <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav" id="prev-page-btn">
+            <i class="fas fa-arrow-left tft-color-white"></i>
+        </div>
+        <ul class="tft-page-numbers" id="page-numbers-list"></ul>
+        <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav" id="next-page-btn">
+            <i class="fas fa-arrow-right tft-color-white"></i>
+        </div>
+    </div>
 </div>
