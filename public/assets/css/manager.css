@@ -479,3 +479,8 @@
     top:0;
     color: var(--text-light) !important;
 }
+.manager-modal-body{
+    width:100%;
+    height:fit-content !important;
+    overflow: hidden;
+}

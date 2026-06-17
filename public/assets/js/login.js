@@ -13,12 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = passwordInput.value;
 
         if (!email || !password) {
-            // errorDiv.textContent = Veuillez remplir tous les champs.';
             errorDiv.innerHTML = `
             <div class="tft-icon-carre-moyen tft-bg-red">
                 <i class="fas fa-exclamation-triangle tft-clr-remain-white"></i>
             </div>
-            <p class="tft-title1">Veuillez remplir tous les champs</p>`;
+            <p>Veuillez remplir tous les champs</p>`;
             return;
         }
 
@@ -52,18 +51,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 // errorDiv.textContent = data.message || 'Email ou mot de passe incorrect.';
                 errorDiv.innerHTML = `
                 <div class="tft-icon-carre-moyen tft-bg-red">
-                    <i class="fas fa-warning tft-clr-remain-white"></i>
+                    <i class="fas fa-exclamation-triangle tft-clr-remain-white"></i>
                 </div>
-                <p class="tft-title1">${data.message || 'Email ou mot de passe incorrect'}</p>`;
+                <p>${data.message || 'Email ou mot de passe incorrect'}</p>`;
             }
         } catch (error) {
             console.error('Erreur de connexion :', error);
             // errorDiv.textContent ='Erreur de connexion au serveur. Veuillez réessayer.';
             errorDiv.innerHTML = `
             <div class="tft-icon-carre-moyen tft-bg-red">
-                <i class="fas fa-warning tft-clr-remain-white"></i>
+                <i class="fas fa-exclamation-triangle tft-clr-remain-white"></i>
             </div>
-            <p class="tft-title1">Erreur de connexion au serveur. Veuillez réessayer</p>`;
+            <p>Erreur de connexion au serveur. Veuillez réessayer</p>`;
         }
     });
 });

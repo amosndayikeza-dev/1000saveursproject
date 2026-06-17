@@ -507,6 +507,9 @@ i {
 .tft-w-fit {
   width: fit-content !important;
 }
+.tft-h-fit {
+  height: fit-content !important;
+}
 .tft-w-10 {
   width: 10% !important;
 }
@@ -676,6 +679,12 @@ i {
 
 .tft-mt-M15{
   margin-top: -15px !important;
+}
+.tft-mt-M10{
+  margin-top: -10px !important;
+}
+.tft-mt-M30{
+  margin-top: -30px !important;
 }
 .tft-mt-0{
   margin-top: 0 !important;
@@ -2356,8 +2365,20 @@ form{
   background-color: var(--whiteBlur) !important;
   transition: all ease 0.5s;
 }
+.tft-hover-crimson:hover{
+  background-color: var(--clr-remain-crimson) !important;
+  transition: all ease 0.5s;
+  border: none !important;
+  color: var(--remain-white) !important;
+}
 .tft-hover-red:hover{
   background-color: var(--red-bg-icons) !important;
+  transition: all ease 0.5s;
+  border: none !important;
+}
+.tft-hover-gris1:hover{
+  background-color: var(--icons-white) !important;
+  color: var(--clr-remain-crimson) !important;
   transition: all ease 0.5s;
 }
 .tft-hover-greensav:hover{
@@ -2408,6 +2429,7 @@ form{
     overflow: auto;
     box-shadow: var(--boxshadowPopup);
     transition: all ease 0.5s;
+    overflow: auto;
 }
 .tft-search{
     border:0.0625rem solid rgba(37, 38, 44);

@@ -31,31 +31,35 @@
 
         const formHtml = `
             <div class="tft-form-group">
-                <label>Produit</label>
+                <label class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">Produit</label>
                 <select id="modal-sale-product" class="tft-form-control" required>
                     <option value="">-- Sélectionner --</option>
                     ${productOptions}
                 </select>
             </div>
-            <div class="tft-form-group">
-                <label>Quantité</label>
-                <input type="number" id="modal-sale-quantity" class="tft-form-control" min="1" required>
+            <div class="tft-form-line">
+                <div class="tft-form-group">
+                    <label class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">Quantité</label>
+                    <input type="number" id="modal-sale-quantity" class="tft-form-control" min="1" required>
+                </div>
+                <div class="tft-form-group">
+                    <label class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">Prix unitaire (FBU)</label>
+                    <input type="number" id="modal-sale-unit-price" class="tft-form-control" step="any" disabled>
+                </div>
             </div>
-            <div class="tft-form-group">
-                <label>Prix unitaire (FBU)</label>
-                <input type="number" id="modal-sale-unit-price" class="tft-form-control" step="any" required>
+            <div class="tft-form-line">
+                <div class="tft-form-group">
+                    <label class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">Montant paye</label>
+                    <input type = "number" id="modal-sale-paid-amount" class="tft-form-control" step="any" value="0">
+                </div>
+                <div class="tft-form-group">
+                    <label class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">Date de vente</label>
+                    <input type="date" id="modal-sale-date" class="tft-form-control" value="${new Date().toISOString().slice(0,10)}" required>
+                </div>
             </div>
-            <div class="tft-form-group">
-                <label>Montant paye</label>
-                <input type = "number" id="modal-sale-paid-amount" class="tft-form-control" step="any" value="0">
-            </div>
-            <div class="tft-form-group">
-                <label>Date de vente</label>
-                <input type="date" id="modal-sale-date" class="tft-form-control" value="${new Date().toISOString().slice(0,10)}" required>
-            </div>
-            <div class="manager-total-line" style="margin-top: 15px;">
-                <span>Total :</span>
-                <span id="modal-sale-total">0 FBU</span>
+            <div class="manager-total-line tft-p-10">
+                <span class="tft-title4">Total :</span>
+                <span id="modal-sale-total" class="tft-title3" style="color:var(--clr-orange1) !important;">0 FBU</span>
             </div>
         `;
 
@@ -774,13 +778,13 @@
     window.showManagerModal = function(title, contentHtml, onConfirm) {
         const modalId = 'manager-modal-' + Date.now();
         const modalHtml = `
-            <div class="manager-modal-overlay" id="${modalId}">
-                <div class="manager-modal" style="background: var(--tft-black2, #1a1d24); border-radius: 12px; max-width: 500px; width: 90%; padding: 20px;">
-                    <div class="manager-modal-header" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${escapeHtml(title)}</div>
-                    <div class="manager-modal-body">${contentHtml}</div>
-                    <div class="manager-modal-footer" style="margin-top: 20px; text-align: right; display: flex; gap: 10px; justify-content: flex-end;">
-                        <button class="tft-btn tft-bg-gris" onclick="closeManagerModal('${modalId}')">Annuler</button>
-                        <button class="tft-btn tft-bg-greensav" id="confirm-modal-btn">Confirmer</button>
+            <div class="tft-popup-modal tft-a-center manager-modal-overlay" id="${modalId}">
+                <div class="tft-popup-container-small tft-bg-remain-black3 tft-p-relative">
+                    <h1 class="tft-title1 tft-mt-10 tft-clr-remain-white manager-modal-header">${escapeHtml(title)}</h1>
+                    <div class="manager-modal-body tft-form-container">${contentHtml}</div>
+                    <div class="manager-modal-footer" style="text-align: right; display: flex; gap: 20px; justify-content: flex-end;">
+                        <button class="tft-btn tft-bdr-gris1-1 tft-clr-gris1 tft-hover-crimson" onclick="closeManagerModal('${modalId}')">Annuler</button>
+                        <button class="tft-btn tft-bg-greensav tft-clr-remain-white" id="confirm-modal-btn">Confirmer</button>
                     </div>
                 </div>
             </div>
@@ -801,26 +805,6 @@
         if (el) el.remove();
     };
 
-    // Ajouter le style si nécessaire
-    if (!document.querySelector('#manager-modal-style')) {
-        const style = document.createElement('style');
-        style.id = 'manager-modal-style';
-        style.textContent = `
-            .manager-modal-overlay {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background: rgba(0,0,0,0.7); display: flex; align-items: center;
-                justify-content: center; z-index: 10000;
-            }
-            .manager-modal {
-                background: var(--tft-black2, #1a1d24);
-                border-radius: 12px;
-                max-width: 500px;
-                width: 90%;
-                padding: 20px;
-            }
-        `;
-        document.head.appendChild(style);
-    }
 
     /** tableaux des ventes */
     function paymentBadge(status) {
@@ -1459,8 +1443,6 @@ window.viewInvoice = async function(saleId) {
                     modal.style.overflowY = 'auto';
                     modal.style.padding = '0';
                     
-                    const modalBody = modal.querySelector('.manager-modal-body');
-                    if (modalBody) modalBody.style.padding = '0';
                     
                     // Facultatif : ajuster la largeur pour éviter le scroll horizontal
                     modal.style.width = 'auto';
