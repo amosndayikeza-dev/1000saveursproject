@@ -40,14 +40,16 @@
                     </div>
                 </div>
             </div>
-            <div class="c-center-body" id="manager-page-root" data-manager-page="employees"></div>
+            <!--<div class="c-center-body" id="manager-page-root" data-manager-page="employees">
+                les employes vont s'affiches ici
+            </div>-->
         </div>
         <!-- partie droite ajoute la classe active pour montrer debut ===========PROFIL-->
             <?php
                 include("./components/profilmanager.php");
             ?>
         <!-- partie droite ajoute la classe active pour montrer fin ===========PROFIL-->
-        <div id="manager-modals-root"></div>
+        <!--<div id="manager-modals-root"></div>-->
         <div class="tft-popup-modal tft-a-center" id="popup-modal-deleteElement">
             <div class="tft-popup-container-small tft-bg-black3 tft-p-relative">
                 <div class="tft-close-icon tft-hover-red tft-p-absolute tft-top-5 tft-right-10" onclick="closeModal()">

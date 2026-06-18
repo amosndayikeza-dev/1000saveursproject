@@ -692,6 +692,7 @@
         });
     }
 
+    /*pour les employes*/
     async function loadEmployees(position) {
         const container = document.getElementById('employees-list');
         if (!container) return;
